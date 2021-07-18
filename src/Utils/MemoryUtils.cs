@@ -14,9 +14,9 @@ namespace CpuFeaturesDotNet.Utils
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Compare(void* buffer1, void* buffer2, uint size)
         {
-            return __memcmp((IntPtr) buffer1, (IntPtr) buffer2, size);
+            return __memcmp((IntPtr)buffer1, (IntPtr)buffer2, size);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int Compare(IntPtr buffer1, IntPtr buffer2, uint size)
         {

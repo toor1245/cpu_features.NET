@@ -14,8 +14,8 @@ namespace CpuFeaturesDotNet.Utils
         internal static uint ExtractBitRange(uint register, uint msb, uint lsb)
         {
             var bits = msb - lsb + 1UL;
-            var mask = (1UL << (int) bits) - 1UL;
-            return (uint) ((register >> (int) lsb) & mask);
+            var mask = (1UL << (int)bits) - 1UL;
+            return (uint)((register >> (int)lsb) & mask);
         }
     }
 }

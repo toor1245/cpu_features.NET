@@ -11,7 +11,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Arrange
             const uint register = 0b00001100;
             const uint expected = 0b00000100;
-            
+
             // Act
             var actual = BitUtils.ExtractBitRange(register, 2, 0);
 
