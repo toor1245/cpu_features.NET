@@ -53,8 +53,6 @@ endmacro()
 #
 # library : cpu_features_dotnet
 #
-set (CPU_FEATURES_DOTNET_HDRS)
-set (CPU_FEATURES_DOTNET_SRCS src/cpuid_x86.c)
 add_cpu_features_headers_and_sources(CPU_FEATURES_DOTNET_HDRS CPU_FEATURES_DOTNET_SRCS)
 add_library(cpu_features_dotnet SHARED ${CPU_FEATURES_DOTNET_HDRS} ${CPU_FEATURES_DOTNET_SRCS})
 set_target_properties(cpu_features_dotnet PROPERTIES PUBLIC_HEADER "${CPU_FEATURES_DOTNET_HDRS}")
