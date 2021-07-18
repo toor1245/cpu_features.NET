@@ -40,6 +40,10 @@
       <EmbeddedResource Include="Imports\cpu_features_dotnet.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Imports\cpu_features_dotnet.so" />
+      <EmbeddedResource Include="Imports\cpu_features_dotnet.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
     
 </Project>
