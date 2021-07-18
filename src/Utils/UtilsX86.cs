@@ -4,7 +4,7 @@ using CpuFeaturesDotNet.X86;
 
 namespace CpuFeaturesDotNet.Utils
 {
-    internal static unsafe class UtilsX86
+    internal static class UtilsX86
     {
         [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern CpuMicroarchitectureX86 __uarch(Leaf leaf, int family, int model, int stepping);
