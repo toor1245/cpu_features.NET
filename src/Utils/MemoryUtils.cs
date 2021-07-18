@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using CpuFeaturesDotNet.Imports;
 
+[assembly: InternalsVisibleTo("CpuFeaturesDotNet.UnitTesting")]
 namespace CpuFeaturesDotNet.Utils
 {
     internal static unsafe class MemoryUtils
@@ -11,7 +12,7 @@ namespace CpuFeaturesDotNet.Utils
         private static extern int __memcmp(IntPtr buffer1, IntPtr buffer2, uint size);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int Compare(void* buffer1, void* buffer2, uint size)
+        public static int Compare(void* buffer1, void* buffer2, uint size)
         {
             return __memcmp((IntPtr) buffer1, (IntPtr) buffer2, size);
         }

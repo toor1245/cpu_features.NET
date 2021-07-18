@@ -1,7 +1,9 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using CpuFeaturesDotNet.Imports;
 using CpuFeaturesDotNet.X86;
 
+[assembly: InternalsVisibleTo("CpuFeaturesDotNet.UnitTesting")]
 namespace CpuFeaturesDotNet.Utils
 {
     internal static class UtilsX86
