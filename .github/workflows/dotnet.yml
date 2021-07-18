@@ -41,7 +41,7 @@ jobs:
         run: dotnet build "src" -c Release --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests/CpuFeaturesDotNet.UnitTesting" -c Release
+        run: dotnet test "tests" -c Release
 
   lint:
     runs-on: ubuntu-latest
@@ -56,5 +56,8 @@ jobs:
       - name: Setup dotnet-format tool
         run: dotnet tool install --global dotnet-format --version 4.1.131201
 
-      - name: Check MatrixDotNet
+      - name: Check CpuFeaturesDotNet
         run: dotnet format "src/CpuFeaturesDotNet.csproj" --check --verbosity diagnostic
+        
+      - name: Check CpuFeaturesDotNet.UnitTesting
+        run: dotnet format "tests/CpuFeaturesDotNet.UnitTesting.csproj" --check --verbosity diagnostic
