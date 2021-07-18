@@ -14,13 +14,34 @@ env:
 
 jobs:
   test:
-    runs-on: ${{ cpu.config.os }}
+    runs-on: ${{ matrix.config.os }}
     strategy:
       matrix:
         config:
           - os: windows-latest
           - os: ubuntu-latest
           - os: macos-latest
+          
+    name: Run unit tests
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core 3.1 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Setup .NET 5.0 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Create build
+        run: dotnet build "src" -c Release --force
+
+      - name: Run Unit Tests
+        run: dotnet test "tests/CpuFeaturesDotNet.UnitTesting" -c Release
 
   lint:
     runs-on: ubuntu-latest
