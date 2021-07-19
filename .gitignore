@@ -400,3 +400,5 @@ Desktop.ini
 
 .idea/
 cmake-build*/
+
+!src/X86/

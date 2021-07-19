@@ -1,3 +1,4 @@
+using System;
 using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 
