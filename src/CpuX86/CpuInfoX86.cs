@@ -10,7 +10,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CpuFeaturesDotNet.X86
 {
-    public static unsafe class CpuInfoX86
+    public static unsafe partial class CpuInfoX86
     {
         public static int Family { get; }
         public static int Model { get; }

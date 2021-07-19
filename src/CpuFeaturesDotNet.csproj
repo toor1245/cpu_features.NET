@@ -6,7 +6,7 @@
         <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
         <LangVersion>8</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <TargetFrameworks>net5.0;netcoreapp3.1;netstandard1.3</TargetFrameworks>
+        <TargetFrameworks>net5.0;netstandard1.3</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(OS_WINDOWS)'=='true'">
@@ -32,9 +32,6 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="Imports\cpu_features_dotnet_debug.dll" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Imports\cpu_features_dotnet.dll">
