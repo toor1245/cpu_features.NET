@@ -10,12 +10,12 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CpuFeaturesDotNet.X86
 {
-    public static unsafe partial class CpuInfoX86
+    public static unsafe class CpuInfoX86
     {
         public static int Family { get; }
         public static int Model { get; }
         public static int Stepping { get; }
-        public static CpuMicroarchitectureX86 Microarchitecture { get; }
+        public static MicroarchitectureX86 Microarchitecture { get; }
 
         static CpuInfoX86()
         {

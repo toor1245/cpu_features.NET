@@ -10,7 +10,7 @@ namespace CpuFeaturesDotNet.Utils
     internal static class UtilsX86
     {
         [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern CpuMicroarchitectureX86 __uarch(Leaf leaf, int family, int model, int stepping);
+        internal static extern MicroarchitectureX86 __uarch(Leaf leaf, int family, int model, int stepping);
 
         [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Leaf cpuid(uint leafId, int ecx = 0);
@@ -132,7 +132,7 @@ namespace CpuFeaturesDotNet.Utils
             };
         }
 
-        private static CacheLevelInfoX86 CreateCacheInfo(int level, CacheTypeX86 type, int size, int ways,
+        internal static CacheLevelInfoX86 CreateCacheInfo(int level, CacheTypeX86 type, int size, int ways,
             int lineSize, int tlbEntries, int partitioning)
         {
             return new CacheLevelInfoX86

@@ -1,6 +1,6 @@
 namespace CpuFeaturesDotNet.X86
 {
-    public enum CpuMicroarchitectureX86
+    public enum MicroarchitectureX86
     {
         X86_UNKNOWN,            // X86 UNKNOWN
         INTEL_CORE,             // CORE

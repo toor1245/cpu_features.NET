@@ -8,15 +8,16 @@ namespace CpuFeaturesDotNet.X86
     {
         internal const string GENUINE_INTEL = "GenuineIntel";
         internal const string AUTHENTIC_AMD = "AuthenticAMD";
+        internal const string HYGON_GENUINE = "HygonGenuine";
 
-        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "__is_vendor")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static extern bool __is_vendor(Leaf leaf, string name);
+        internal static extern bool IsVendor(Leaf leaf, string name);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool IsVendor(Leaf leaf, string vendor)
+        internal static bool IsAMDMicroarchitecture(Leaf leaf)
         {
-            return __is_vendor(leaf, vendor);
+            return IsVendor(leaf, AUTHENTIC_AMD) || 
+                   IsVendor(leaf, HYGON_GENUINE);
         }
     }
 }
