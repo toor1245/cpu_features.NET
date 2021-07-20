@@ -18,25 +18,6 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// Architectures
-////////////////////////////////////////////////////////////////////////////////
-
-#if (defined(_M_IX86) || defined(__i386__)) && \
-    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
-#define CPU_FEATURES_DOTNET_ARCH_X86_32 1
-#endif
-
-#if (defined(_M_X64) || defined(__x86_64__)) && \
-    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
-#define CPU_FEATURES_DOTNET_ARCH_X86_64 1
-#endif
-
-#if defined(CPU_FEATURES_DOTNET_ARCH_X86_32) || \
-    defined(CPU_FEATURES_DOTNET_ARCH_X86_64)
-#define CPU_FEATURES_DOTNET_ARCH_X86 1
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
 // Os
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -99,6 +80,31 @@
 #endif
 #else
 #define CPU_FEATURES_DOTNET_DLL_EXPORT
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+// Architectures
+////////////////////////////////////////////////////////////////////////////////
+
+#if (defined(_M_IX86) || defined(__i386__)) && \
+    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
+#define CPU_FEATURES_DOTNET_ARCH_X86_32 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_X86_32 0
+#endif
+
+#if (defined(_M_X64) || defined(__x86_64__)) && \
+    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
+#define CPU_FEATURES_DOTNET_ARCH_X86_64 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_X86_64 0
+#endif
+
+#if defined(CPU_FEATURES_DOTNET_ARCH_X86_32) || \
+    defined(CPU_FEATURES_DOTNET_ARCH_X86_64)
+#define CPU_FEATURES_DOTNET_ARCH_X86 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_X86 0
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////

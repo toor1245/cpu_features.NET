@@ -1,21 +1,21 @@
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using CpuFeaturesDotNet.Imports;
+using CpuFeaturesDotNet.Libs;
 using CpuFeaturesDotNet.X86;
-
-[assembly: InternalsVisibleTo("CpuFeaturesDotNet.UnitTesting")]
 
 namespace CpuFeaturesDotNet.Utils
 {
     internal static class UtilsX86
     {
-        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern MicroarchitectureX86 __uarch(Leaf leaf, int family, int model, int stepping);
+        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__uarch")]
+        public static extern MicroarchitectureX86 GetMicroarchitectureX86(Leaf leaf, int family, int model, int stepping);
 
-        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Leaf cpuid(uint leafId, int ecx = 0);
+        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
+        public static extern Leaf CpuId(uint leafId, int ecx = 0);
+        
+        [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__is_vendor")]
+        public static extern bool IsVendor(Leaf leaf, string name);
 
-        internal static CacheLevelInfoX86 GetCacheLevelInfo(uint reg)
+        public static CacheInfoX86.CacheLevelInfoX86 GetCacheLevelInfo(uint reg)
         {
             const int UNDEF = -1;
             const int KiB = 1024;
@@ -128,23 +128,14 @@ namespace CpuFeaturesDotNet.Utils
                 0xF0 => CreateCacheInfo(UNDEF, CacheTypeX86.PREFETCH, 64 * KiB, UNDEF, UNDEF, UNDEF, 0),
                 0xF1 => CreateCacheInfo(UNDEF, CacheTypeX86.PREFETCH, 128 * KiB, UNDEF, UNDEF, UNDEF, 0),
                 0xFF => CreateCacheInfo(UNDEF, CacheTypeX86.NULL, UNDEF, UNDEF, UNDEF, UNDEF, 0),
-                _ => new CacheLevelInfoX86()
+                _ => new CacheInfoX86.CacheLevelInfoX86()
             };
         }
-
-        internal static CacheLevelInfoX86 CreateCacheInfo(int level, CacheTypeX86 type, int size, int ways,
+        
+        public static CacheInfoX86.CacheLevelInfoX86 CreateCacheInfo(int level, CacheTypeX86 type, int size, int ways,
             int lineSize, int tlbEntries, int partitioning)
         {
-            return new CacheLevelInfoX86
-            {
-                level = level,
-                cache_type = type,
-                cache_size = size,
-                ways = ways,
-                line_size = lineSize,
-                tlb_entries = tlbEntries,
-                partitioning = partitioning
-            };
+            return new CacheInfoX86.CacheLevelInfoX86(level, type, size, ways, lineSize, tlbEntries, partitioning);
         }
     }
 }

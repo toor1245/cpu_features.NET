@@ -6,13 +6,13 @@ namespace CpuFeaturesDotNet.Utils
     internal static unsafe class BitUtils
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool IsBitSet(uint register, int bit)
+        public static bool IsBitSet(uint register, int bit)
         {
             return ((register >> bit) & 0x1) != 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static uint ExtractBitRange(uint register, uint msb, uint lsb)
+        public static uint ExtractBitRange(uint register, uint msb, uint lsb)
         {
             var bits = msb - lsb + 1UL;
             var mask = (1UL << (int)bits) - 1UL;
@@ -20,7 +20,7 @@ namespace CpuFeaturesDotNet.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void GetByteArrayFromRegister(uint* byteArray, uint register)
+        public static void GetByteArrayFromRegister(uint* byteArray, uint register)
         {
             for (var i = 0; i < 4; ++i)
             {

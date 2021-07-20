@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "macros_x86.h"
+#include "macros.h"
 
 CPU_FEATURES_DOTNET_START_CPP_NAMESPACE
 

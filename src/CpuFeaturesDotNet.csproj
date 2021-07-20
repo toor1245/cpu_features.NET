@@ -35,12 +35,12 @@
     </ItemGroup>
     <ItemGroup>
       <None Remove="Imports\cpu_features_dotnet.so" />
-      <EmbeddedResource Include="Imports\cpu_features_dotnet.so">
+      <EmbeddedResource Include="Libs\cpu_features_dotnet.so">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="Imports\cpu_features_dotnet.dll">
+      <EmbeddedResource Include="Libs\cpu_features_dotnet.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
