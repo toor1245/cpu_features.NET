@@ -12,6 +12,7 @@ namespace CpuFeaturesDotNet.X86
         public static int Family { get; }
         public static int Model { get; }
         public static int Stepping { get; }
+        public static string BrandString { get; }
         public static MicroarchitectureX86 Microarchitecture { get; }
 
         static CpuInfoX86()
@@ -33,24 +34,23 @@ namespace CpuFeaturesDotNet.X86
             Model = (int)((extendedModel << 4) + model);
             Stepping = (int)ExtractBitRange(leaf1.eax, 3, 0);
             Microarchitecture = GetMicroarchitectureX86(leaf, Family, Model, Stepping);
+            BrandString = GetBrandString();
         }
 
-        public static string BrandString
+        private static string GetBrandString()
         {
-            get
-            {
-                var brand_string = stackalloc byte[49];
-                var leaf_ext_0 = CpuId(0x80000000);
-                var max_cpuid_leaf_ext = leaf_ext_0.eax;
+            var brand_string = stackalloc byte[49];
+            var leaf_ext_0 = CpuId(0x80000000);
+            var max_cpuid_leaf_ext = leaf_ext_0.eax;
 
-                SetString(max_cpuid_leaf_ext, 0x80000002, brand_string);
-                SetString(max_cpuid_leaf_ext, 0x80000003, brand_string + 16);
-                SetString(max_cpuid_leaf_ext, 0x80000004, brand_string + 32);
-                brand_string[48] = (byte)'\0';
-                return Encoding.ASCII.GetString(brand_string, 49);
-            }
+            SetString(max_cpuid_leaf_ext, 0x80000002, brand_string);
+            SetString(max_cpuid_leaf_ext, 0x80000003, brand_string + 16);
+            SetString(max_cpuid_leaf_ext, 0x80000004, brand_string + 32);
+            brand_string[48] = (byte)'\0';
+            return Encoding.ASCII.GetString(brand_string, 49);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void SetString(uint max_cpuid_ext_leaf, uint leaf_id, byte* buffer)
         {
             var leaf = Leaf.SafeCpuId(max_cpuid_ext_leaf, leaf_id);

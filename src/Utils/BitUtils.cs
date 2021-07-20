@@ -27,5 +27,11 @@ namespace CpuFeaturesDotNet.Utils
                 byteArray[i] = ExtractBitRange(register, (uint)((i + 1) * 8), (uint)(i * 8));
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ContainsValidInfo(uint register)
+        {
+            return (register & (1U << 31)) == 0;
+        }
     }
 }

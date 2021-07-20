@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using CpuFeaturesDotNet.Libs;
+using CpuFeaturesDotNet.Native;
 
 namespace CpuFeaturesDotNet.Utils
 {

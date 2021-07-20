@@ -1,6 +1,7 @@
-using System.Runtime.InteropServices;
-using CpuFeaturesDotNet.Libs;
 using CpuFeaturesDotNet.X86;
+using CpuFeaturesDotNet.Native;
+using System.Runtime.InteropServices;
+using static CpuFeaturesDotNet.Utils.BitUtils;
 
 namespace CpuFeaturesDotNet.Utils
 {
@@ -11,7 +12,7 @@ namespace CpuFeaturesDotNet.Utils
 
         [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
         public static extern Leaf CpuId(uint leafId, int ecx = 0);
-        
+
         [DllImport(DllPath.CPU_FEATURES_DOTNET_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__is_vendor")]
         public static extern bool IsVendor(Leaf leaf, string name);
 
@@ -131,11 +132,19 @@ namespace CpuFeaturesDotNet.Utils
                 _ => new CacheInfoX86.CacheLevelInfoX86()
             };
         }
-        
+
         public static CacheInfoX86.CacheLevelInfoX86 CreateCacheInfo(int level, CacheTypeX86 type, int size, int ways,
             int lineSize, int tlbEntries, int partitioning)
         {
             return new CacheInfoX86.CacheLevelInfoX86(level, type, size, ways, lineSize, tlbEntries, partitioning);
+        }
+
+        // If CPUID Fn8000_0001_ECX[bit]==0 then CPUID Fn8000_00XX_E[D,C,B,A]X is
+        // reserved. https://www.amd.com/system/files/TechDocs/25481.pdf
+        public static bool IsReservedAMD(uint maxExtended, int bit)
+        {
+            var cpuidExt = Leaf.SafeCpuId(maxExtended, 0x80000001).ecx;
+            return !IsBitSet(cpuidExt, bit);
         }
     }
 }

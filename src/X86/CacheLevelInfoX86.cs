@@ -1,6 +1,6 @@
 namespace CpuFeaturesDotNet.X86
 {
-    public struct CacheInfoX86 
+    public struct CacheInfoX86
     {
         public readonly struct CacheLevelInfoX86
         {

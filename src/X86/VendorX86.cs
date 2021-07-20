@@ -12,7 +12,7 @@ namespace CpuFeaturesDotNet.X86
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsAMDMicroarchitecture(Leaf leaf)
         {
-            return UtilsX86.IsVendor(leaf, AUTHENTIC_AMD) || 
+            return UtilsX86.IsVendor(leaf, AUTHENTIC_AMD) ||
                    UtilsX86.IsVendor(leaf, HYGON_GENUINE);
         }
     }
