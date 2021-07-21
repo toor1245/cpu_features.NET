@@ -22,8 +22,8 @@ namespace CpuFeaturesDotNet.X86
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }
             var leaf = CpuId(0);
-            var max_cpuid_leaf = leaf.eax;
-            var leaf1 = Leaf.SafeCpuId(max_cpuid_leaf, 1);
+            var maxCpuidLeaf = leaf.eax;
+            var leaf1 = Leaf.SafeCpuId(maxCpuidLeaf, 1);
 
             var family = ExtractBitRange(leaf1.eax, 11, 8);
             var extendedFamily = ExtractBitRange(leaf1.eax, 27, 20);
@@ -35,19 +35,21 @@ namespace CpuFeaturesDotNet.X86
             Stepping = (int)ExtractBitRange(leaf1.eax, 3, 0);
             Microarchitecture = GetMicroarchitectureX86(leaf, Family, Model, Stepping);
             BrandString = GetBrandString();
+            FeaturesX86.GetFeaturesX86Info(leaf1, maxCpuidLeaf);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string GetBrandString()
         {
-            var brand_string = stackalloc byte[49];
-            var leaf_ext_0 = CpuId(0x80000000);
-            var max_cpuid_leaf_ext = leaf_ext_0.eax;
+            var brandString = stackalloc byte[49];
+            var leafExt = CpuId(0x80000000);
+            var maxCpuidLeafExt = leafExt.eax;
 
-            SetString(max_cpuid_leaf_ext, 0x80000002, brand_string);
-            SetString(max_cpuid_leaf_ext, 0x80000003, brand_string + 16);
-            SetString(max_cpuid_leaf_ext, 0x80000004, brand_string + 32);
-            brand_string[48] = (byte)'\0';
-            return Encoding.ASCII.GetString(brand_string, 49);
+            SetString(maxCpuidLeafExt, 0x80000002, brandString);
+            SetString(maxCpuidLeafExt, 0x80000003, brandString + 16);
+            SetString(maxCpuidLeafExt, 0x80000004, brandString + 32);
+            brandString[48] = (byte)'\0';
+            return Encoding.ASCII.GetString(brandString, 49);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
