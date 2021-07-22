@@ -1,7 +1,6 @@
 using System.Runtime.InteropServices;
-using CpuFeaturesDotNet.Native;
 
-namespace CpuFeaturesDotNet.Utils
+namespace CpuFeaturesDotNet.Native
 {
     public static class Architecture
     {

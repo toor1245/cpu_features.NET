@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuFeaturesDotNet", "src\Cp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuFeaturesDotNet.UnitTesting", "tests\CpuFeaturesDotNet.UnitTesting.csproj", "{D3E62383-FA2D-44BD-8486-6A2751368DF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{FDBFE7A1-E046-4942-B726-8FAFB7F1F9D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{D3E62383-FA2D-44BD-8486-6A2751368DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3E62383-FA2D-44BD-8486-6A2751368DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3E62383-FA2D-44BD-8486-6A2751368DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDBFE7A1-E046-4942-B726-8FAFB7F1F9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBFE7A1-E046-4942-B726-8FAFB7F1F9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBFE7A1-E046-4942-B726-8FAFB7F1F9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBFE7A1-E046-4942-B726-8FAFB7F1F9D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CEA652DC-85CE-41D7-9B2E-D2FA2A6F8CE6} = {CCE61351-3C76-48E3-BC39-AE7D7C6DCC0E}

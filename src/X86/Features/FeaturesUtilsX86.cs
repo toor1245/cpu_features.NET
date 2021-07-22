@@ -1,8 +1,6 @@
-using CpuFeaturesDotNet.X86;
-
-namespace CpuFeaturesDotNet.Utils
+namespace CpuFeaturesDotNet.X86
 {
-    internal static unsafe class FeaturesUtilsX86
+    internal static class FeaturesUtilsX86
     {
         private const int MASK_XMM = 0x2;
         private const int MASK_YMM = 0x4;

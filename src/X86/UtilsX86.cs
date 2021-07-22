@@ -1,21 +1,14 @@
-using CpuFeaturesDotNet.X86;
 using System.Runtime.InteropServices;
 using static CpuFeaturesDotNet.Native.DllPath;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 using static CpuFeaturesDotNet.X86.CacheInfoX86;
 
-namespace CpuFeaturesDotNet.Utils
+namespace CpuFeaturesDotNet.X86
 {
     internal static class UtilsX86
     {
         [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__uarch")]
         public static extern MicroarchitectureX86 GetMicroarchitectureX86(Leaf leaf, int family, int model, int stepping);
-
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
-        public static extern Leaf CpuId(uint leafId, int ecx = 0);
-
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__is_vendor")]
-        public static extern bool IsVendor(Leaf leaf, string name);
 
         [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__xcr0_eax")]
         public static extern uint GetXCR0Eax();

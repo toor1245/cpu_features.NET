@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using static CpuFeaturesDotNet.Utils.BitUtils;
-using static CpuFeaturesDotNet.Utils.UtilsX86;
 using static CpuFeaturesDotNet.X86.CacheInfoX86;
 
 namespace CpuFeaturesDotNet.X86
@@ -18,13 +17,13 @@ namespace CpuFeaturesDotNet.X86
             static CacheInfoX86()
             {
                 Levels = new CacheLevelInfoX86[LEVELS_SIZE];
-                var leaf = CpuId(0);
-                if (IsVendor(leaf, VendorX86.GENUINE_INTEL))
+                var leaf = Leaf.CpuId(0);
+                if (VendorX86.IsIntelVendor(leaf))
                 {
                     ParseLeaf2(leaf.eax);
                     ParseCacheInfo(leaf.eax, 4);
                 }
-                else if (VendorX86.IsAMDMicroarchitecture(leaf))
+                else if (VendorX86.IsAMDVendor(leaf))
                 {
                     ParseCacheAMD();
                 }
@@ -57,15 +56,15 @@ namespace CpuFeaturesDotNet.X86
                 // In case when byte not equal 0xFF then leaf 4 should be used to fetch cache information.
                 for (var j = 0; j < 4 && bytes[j] != 0xFF; ++j)
                 {
-                    Levels[_size] = GetCacheLevelInfo(bytes[j]);
+                    Levels[_size] = UtilsX86.GetCacheLevelInfo(bytes[j]);
                 }
             }
 
             // Gets cache information newer AMD CPUs by 0x8000001D.
             private static void ParseCacheAMD()
             {
-                var maxExt = CpuId(0x80000000).eax;
-                if (!IsReservedAMD(maxExt, 22))
+                var maxExt = Leaf.CpuId(0x80000000).eax;
+                if (!UtilsX86.IsReservedAMD(maxExt, 22))
                 {
                     ParseCacheInfo(maxExt, 0x8000001D);
                 }

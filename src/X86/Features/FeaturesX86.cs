@@ -1,9 +1,7 @@
-using System;
 using System.Runtime.CompilerServices;
-using CpuFeaturesDotNet.Utils;
+using CpuFeaturesDotNet.X86.OperatingSystem;
+using CpuFeaturesDotNet.X86.Simd;
 using static CpuFeaturesDotNet.Utils.BitUtils;
-using static CpuFeaturesDotNet.Utils.UtilsX86;
-using static CpuFeaturesDotNet.Utils.FeaturesUtilsX86;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -19,8 +17,8 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedAES { get; private set; }
             public static bool IsSupportedERMS { get; private set; }
             public static bool IsSupportedF16C { get; private set; }
-            public static bool IsSupportedFMA4 { get; private set; }
-            public static bool IsSupportedFMA3 { get; private set; }
+            public static bool IsSupportedFMA4 { get; internal set; }
+            public static bool IsSupportedFMA3 { get; internal set; }
             public static bool IsSupportedVAES { get; private set; }
             public static bool IsSupportedVPCLMULQDQ { get; private set; }
             public static bool IsSupportedBMI1 { get; private set; }
@@ -43,9 +41,10 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedSS { get; private set; }
             public static bool IsSupportedADX { get; private set; }
 
-            internal static void GetFeaturesX86Info(in Leaf leaf1, uint maxCpuidLeaf, ref OsPreservesX86 osPreserves,
+            internal static void GetFeaturesX86Info(in Leaf leaf, in Leaf leaf1, ref OsPreservesX86 osPreserves,
                 int model)
             {
+                var maxCpuidLeaf = leaf.eax;
                 var leaf7 = Leaf.SafeCpuId(maxCpuidLeaf, 7);
                 var leaf7_1 = Leaf.SafeCpuId(maxCpuidLeaf, 7, 1);
 
@@ -81,51 +80,28 @@ namespace CpuFeaturesDotNet.X86
                 var haveXsave = IsBitSet(leaf1.ecx, 26);
                 var haveOsxsave = IsBitSet(leaf1.ecx, 27);
                 var haveXcr0 = haveXsave && haveOsxsave;
+                var osFeatures = OsBaseFeaturesX86.GetFeaturesX86();
 
                 if (haveXcr0)
                 {
-                    SetRegisters(leaf1, leaf7, leaf7_1, model, ref osPreserves);
+                    var leafSimd = new LeafSimd(leaf, leaf1, leaf7, leaf7_1);
+                    var simdFeatures = BaseSimdFeaturesX86.GetSimdResolver(in leafSimd, model);
+                    SetRegisters(simdFeatures, osFeatures, ref osPreserves);
                 }
                 else
                 {
-                    SetRegistersXcr0NotAvailable();
+                    osFeatures.SetRegistersXcr0NotAvailable();
                 }
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static void SetRegisters(in Leaf leaf1, in Leaf leaf_7,
-                in Leaf leaf7_1, int model, ref OsPreservesX86 osPreserves)
+            private static void SetRegisters(BaseSimdFeaturesX86 registerResolver, OsBaseFeaturesX86 osFeaturesX86,
+                ref OsPreservesX86 osPreserves)
             {
                 // Here we rely exclusively on cpuid for both CPU and OS support of vector
                 // extensions.
-                var xcr0Eax = GetXCR0Eax();
-                osPreserves.SseRegisters = HasXmmOsXSave(xcr0Eax);
-                osPreserves.AvxRegisters = HasYmmOsXSave(xcr0Eax);
-                osPreserves.SetAvx512FRegister(xcr0Eax);
-                osPreserves.AmxRegisters = HasTmmOsXSave(xcr0Eax);
-                SetSimdRegisters(in leaf1, in leaf_7, in leaf7_1, model, ref osPreserves);
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static void SetSimdRegisters(in Leaf leaf1, in Leaf leaf_7, in Leaf leaf7_1, int model,
-                ref OsPreservesX86 osPreserves)
-            {
-                if (osPreserves.SseRegisters)
-                {
-                    SetSeeRegisters(in leaf1);
-                }
-                if (osPreserves.AvxRegisters)
-                {
-                    SetAvxRegisters(in leaf1, in leaf_7);
-                }
-                if (osPreserves.Avx512Registers)
-                {
-                    SetAvx512Registers(in leaf_7, in leaf7_1, model);
-                }
-                if (osPreserves.AmxRegisters)
-                {
-                    SetAmxRegisters(in leaf_7);
-                }
+                osPreserves.SetRegisters(UtilsX86.GetXCR0Eax(), osFeaturesX86);
+                registerResolver.SetSimdRegisters(ref osPreserves);
             }
         }
     }

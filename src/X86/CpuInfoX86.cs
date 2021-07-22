@@ -1,9 +1,8 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CpuFeaturesDotNet.Native;
 using static CpuFeaturesDotNet.Utils.BitUtils;
-using static CpuFeaturesDotNet.Utils.UtilsX86;
-using Architecture = CpuFeaturesDotNet.Utils.Architecture;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -21,7 +20,7 @@ namespace CpuFeaturesDotNet.X86
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }
-            var leaf = CpuId(0);
+            var leaf = Leaf.CpuId(0);
             var maxCpuidLeaf = leaf.eax;
             var leaf1 = Leaf.SafeCpuId(maxCpuidLeaf, 1);
 
@@ -33,17 +32,17 @@ namespace CpuFeaturesDotNet.X86
             Family = (int)(extendedFamily + family);
             Model = (int)((extendedModel << 4) + model);
             Stepping = (int)ExtractBitRange(leaf1.eax, 3, 0);
-            Microarchitecture = GetMicroarchitectureX86(leaf, Family, Model, Stepping);
+            Microarchitecture = UtilsX86.GetMicroarchitectureX86(leaf, Family, Model, Stepping);
             BrandString = GetBrandString();
             var osPreserves = new OsPreservesX86();
-            FeaturesX86.GetFeaturesX86Info(in leaf1, maxCpuidLeaf, ref osPreserves, Model);
+            FeaturesX86.GetFeaturesX86Info(in leaf, in leaf1, ref osPreserves, Model);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string GetBrandString()
         {
             var brandString = stackalloc byte[49];
-            var leafExt = CpuId(0x80000000);
+            var leafExt = Leaf.CpuId(0x80000000);
             var maxCpuidLeafExt = leafExt.eax;
 
             SetString(maxCpuidLeafExt, 0x80000002, brandString);
