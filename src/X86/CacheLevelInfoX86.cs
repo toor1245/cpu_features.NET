@@ -13,7 +13,7 @@ namespace CpuFeaturesDotNet.X86
             public readonly int Partitioning; // Number of lines per sector
 
             internal CacheLevelInfoX86() { }
-            
+
             internal CacheLevelInfoX86(int level, CacheTypeX86 type, int size, int ways, int lineSize, int tlbEntries,
                 int partitioning)
             {

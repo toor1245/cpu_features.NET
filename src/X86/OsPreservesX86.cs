@@ -1,4 +1,4 @@
-using System;
+using CpuFeaturesDotNet.Native.OperatingSystem;
 using CpuFeaturesDotNet.Utils;
 
 namespace CpuFeaturesDotNet.X86
@@ -12,8 +12,8 @@ namespace CpuFeaturesDotNet.X86
 
         public void SetAvx512FRegister(uint xcr0Eax)
         {
-            Avx512Registers = OSNative.IsDarwin() 
-                ? OSNative.GetDarwinSysCtlByName("hw.optional.avx512f") 
+            Avx512Registers = OSNative.IsDarwin()
+                ? DarwinNative.GetDarwinSysCtlByName("hw.optional.avx512f")
                 : FeaturesUtilsX86.HasZmmOsXSave(xcr0Eax);
         }
     }

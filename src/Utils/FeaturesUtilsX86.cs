@@ -53,26 +53,26 @@ namespace CpuFeaturesDotNet.Utils
             {
                 // Skylake server
                 case 0x55:
-                {
-                    var proc_name = CpuInfoX86.BrandString;
-                    // detect Xeon
-                    if (proc_name[9] != 'X') return true;
-                    switch (proc_name[17])
                     {
-                        // detect Silver or Bronze
-                        case 'S':
-                        case 'B':
-                            return false;
-                        // detect Gold 5_20 and below, except for Gold 53__
-                        case 'G' when proc_name[22] == '5':
-                            return proc_name[23] == '3' || proc_name[24] == '2' && proc_name[25] == '2';
-                    }
+                        var proc_name = CpuInfoX86.BrandString;
+                        // detect Xeon
+                        if (proc_name[9] != 'X') return true;
+                        switch (proc_name[17])
+                        {
+                            // detect Silver or Bronze
+                            case 'S':
+                            case 'B':
+                                return false;
+                            // detect Gold 5_20 and below, except for Gold 53__
+                            case 'G' when proc_name[22] == '5':
+                                return proc_name[23] == '3' || proc_name[24] == '2' && proc_name[25] == '2';
+                        }
 
-                    // detect Xeon W 210x
-                    if (proc_name[17] == 'W' && proc_name[21] == '0') return false;
-                    // detect Xeon D 2xxx
-                    return proc_name[17] != 'D' || proc_name[19] != '2' || proc_name[20] != '1';
-                }
+                        // detect Xeon W 210x
+                        if (proc_name[17] == 'W' && proc_name[21] == '0') return false;
+                        // detect Xeon D 2xxx
+                        return proc_name[17] != 'D' || proc_name[19] != '2' || proc_name[20] != '1';
+                    }
                 // Cannon Lake client
                 case 0x66:
                     return false;

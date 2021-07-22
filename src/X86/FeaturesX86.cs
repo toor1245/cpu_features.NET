@@ -1,6 +1,4 @@
-using System;
 using System.Runtime.CompilerServices;
-using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 using static CpuFeaturesDotNet.Utils.UtilsX86;
 using static CpuFeaturesDotNet.Utils.FeaturesUtilsX86;
@@ -9,7 +7,7 @@ namespace CpuFeaturesDotNet.X86
 {
     public static partial class CpuInfoX86
     {
-        public static class FeaturesX86
+        public static partial class FeaturesX86
         {
             public static bool IsSupportedFPU { get; private set; }
             public static bool IsSupportedTSC { get; private set; }
@@ -30,40 +28,6 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedRDSEED { get; private set; }
             public static bool IsSupportedCLFLUSHOPT { get; private set; }
             public static bool IsSupportedCLWB { get; private set; }
-
-            public static bool IsSupportedSSE { get; private set; }
-            public static bool IsSupportedSSE2 { get; private set; }
-            public static bool IsSupportedSSE3 { get; private set; }
-            public static bool IsSupportedSSSE3 { get; private set; }
-            public static bool IsSupportedSSE41 { get; private set; }
-            public static bool IsSupportedSSE42 { get; private set; }
-            public static bool IsSupportedSSE4A { get; private set; }
-
-            public static bool IsSupportedAVX { get; private set; }
-            public static bool IsSupportedAVX2 { get; private set; }
-
-            public static bool IsSupportedAVX512F { get; private set; }
-            public static bool IsSupportedAVX512CD { get; private set; }
-            public static bool IsSupportedAVX512ER { get; private set; }
-            public static bool IsSupportedAVX512PF { get; private set; }
-            public static bool IsSupportedAVX512BW { get; private set; }
-            public static bool IsSupportedAVX512DQ { get; private set; }
-            public static bool IsSupportedAVX512VL { get; private set; }
-            public static bool IsSupportedAVX512IFMA { get; private set; }
-            public static bool IsSupportedAVX512VBMI { get; private set; }
-            public static bool IsSupportedAVX512VBMI2 { get; private set; }
-            public static bool IsSupportedAVX512VNNI { get; private set; }
-            public static bool IsSupportedAVX512BITALG { get; private set; }
-            public static bool IsSupportedAVX512VPOPCNTDQ { get; private set; }
-            public static bool IsSupportedAVX512_4VNNIW { get; private set; }
-            public static bool IsSupportedAVX512_4VBMI2 { get; private set; }
-            public static bool IsSupportedAVX512SecondFMA { get; private set; }
-            public static bool IsSupportedAVX512_4FMAPS { get; private set; }
-            public static bool IsSupportedAVX512_BF16 { get; private set; }
-            public static bool IsSupportedAVX512_VP2INTERSECT { get; private set; }
-            public static bool IsSupportedAMX_BF16 { get; private set; }
-            public static bool IsSupportedAMX_TILE { get; private set; }
-            public static bool IsSupportedAMX_INT8 { get; private set; }
 
             public static bool IsSupportedPCLMULQDQ { get; private set; }
             public static bool IsSupportedSMX { get; private set; }
@@ -160,82 +124,6 @@ namespace CpuFeaturesDotNet.X86
                 {
                     SetAmxRegisters(in leaf_7);
                 }
-            }
-
-            private static void SetSeeRegisters(in Leaf leaf1)
-            {
-                IsSupportedSSE = IsBitSet(leaf1.edx, 25);
-                IsSupportedSSE2 = IsBitSet(leaf1.edx, 26);
-                IsSupportedSSE3 = IsBitSet(leaf1.ecx, 0);
-                IsSupportedSSSE3 = IsBitSet(leaf1.ecx, 9);
-                IsSupportedSSE41 = IsBitSet(leaf1.ecx, 19);
-                IsSupportedSSE42 = IsBitSet(leaf1.ecx, 20);
-            }
-
-            private static void SetAvxRegisters(in Leaf leaf1, in Leaf leaf_7)
-            {
-                IsSupportedFMA3 = IsBitSet(leaf1.ecx, 12);
-                IsSupportedAVX = IsBitSet(leaf1.ecx, 28);
-                IsSupportedAVX2 = IsBitSet(leaf_7.ebx, 5);
-            }
-
-            private static void SetAvx512Registers(in Leaf leaf_7, in Leaf leaf7_1, int model)
-            {
-                IsSupportedAVX512F = IsBitSet(leaf_7.ebx, 16);
-                IsSupportedAVX512CD = IsBitSet(leaf_7.ebx, 28);
-                IsSupportedAVX512ER = IsBitSet(leaf_7.ebx, 27);
-                IsSupportedAVX512PF = IsBitSet(leaf_7.ebx, 26);
-                IsSupportedAVX512BW = IsBitSet(leaf_7.ebx, 30);
-                IsSupportedAVX512DQ = IsBitSet(leaf_7.ebx, 17);
-                IsSupportedAVX512VL = IsBitSet(leaf_7.ebx, 31);
-                IsSupportedAVX512IFMA = IsBitSet(leaf_7.ebx, 21);
-                IsSupportedAVX512VBMI = IsBitSet(leaf_7.ecx, 1);
-                IsSupportedAVX512VBMI2 = IsBitSet(leaf_7.ecx, 6);
-                IsSupportedAVX512VNNI = IsBitSet(leaf_7.ecx, 11);
-                IsSupportedAVX512BITALG = IsBitSet(leaf_7.ecx, 12);
-                IsSupportedAVX512VPOPCNTDQ = IsBitSet(leaf_7.ecx, 14);
-                IsSupportedAVX512_4VNNIW = IsBitSet(leaf_7.edx, 2);
-                IsSupportedAVX512_4VBMI2 = IsBitSet(leaf_7.edx, 3);
-                IsSupportedAVX512SecondFMA = HasSecondFMA(model);
-                IsSupportedAVX512_4FMAPS = IsBitSet(leaf_7.edx, 3);
-                IsSupportedAVX512_BF16 = IsBitSet(leaf7_1.eax, 5);
-                IsSupportedAVX512_VP2INTERSECT = IsBitSet(leaf_7.edx, 8);
-            }
-
-            private static void SetAmxRegisters(in Leaf leaf_7)
-            {
-                IsSupportedAMX_BF16 = IsBitSet(leaf_7.edx, 22);
-                IsSupportedAMX_TILE = IsBitSet(leaf_7.edx, 24);
-                IsSupportedAMX_INT8 = IsBitSet(leaf_7.edx, 25);
-            }
-
-            private static void SetRegistersXcr0NotAvailable()
-            {
-                if (OSNative.IsWindows())
-                {
-                    SetRegistersXcr0NotAvailableWindows();
-                }
-                else if (OSNative.IsDarwin())
-                {
-                    SetRegistersXcr0NotAvailableDarwin();
-                }
-            }
-
-            private static void SetRegistersXcr0NotAvailableWindows()
-            {
-                IsSupportedSSE = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_XMMI_INSTRUCTIONS_AVAILABLE);
-                IsSupportedSSE2 = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_XMMI64_INSTRUCTIONS_AVAILABLE);
-                IsSupportedSSE3 = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_SSE3_INSTRUCTIONS_AVAILABLE);
-            }
-
-            private static void SetRegistersXcr0NotAvailableDarwin()
-            {
-                IsSupportedSSE = OSNative.GetDarwinSysCtlByName("hw.optional.sse");
-                IsSupportedSSE2 = OSNative.GetDarwinSysCtlByName("hw.optional.sse2");
-                IsSupportedSSE3 = OSNative.GetDarwinSysCtlByName("hw.optional.sse3");
-                IsSupportedSSSE3 = OSNative.GetDarwinSysCtlByName("hw.optional.supplementalsse3");
-                IsSupportedSSE41 = OSNative.GetDarwinSysCtlByName("hw.optional.sse4_1");
-                IsSupportedSSE42 = OSNative.GetDarwinSysCtlByName("hw.optional.sse4_2");
             }
         }
     }
