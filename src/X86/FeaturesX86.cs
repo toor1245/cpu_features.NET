@@ -1,4 +1,6 @@
+using System;
 using System.Runtime.CompilerServices;
+using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 using static CpuFeaturesDotNet.Utils.UtilsX86;
 using static CpuFeaturesDotNet.Utils.FeaturesUtilsX86;
@@ -44,7 +46,7 @@ namespace CpuFeaturesDotNet.X86
             internal static void GetFeaturesX86Info(in Leaf leaf1, uint maxCpuidLeaf, ref OsPreservesX86 osPreserves,
                 int model)
             {
-                var leaf_7 = Leaf.SafeCpuId(maxCpuidLeaf, 7);
+                var leaf7 = Leaf.SafeCpuId(maxCpuidLeaf, 7);
                 var leaf7_1 = Leaf.SafeCpuId(maxCpuidLeaf, 7, 1);
 
                 IsSupportedFPU = IsBitSet(leaf1.edx, 0);
@@ -62,19 +64,19 @@ namespace CpuFeaturesDotNet.X86
                 IsSupportedAES = IsBitSet(leaf1.ecx, 25);
                 IsSupportedF16C = IsBitSet(leaf1.ecx, 29);
                 IsSupportedRDRND = IsBitSet(leaf1.ecx, 30);
-                IsSupportedSGX = IsBitSet(leaf_7.ebx, 2);
-                IsSupportedBMI1 = IsBitSet(leaf_7.ebx, 3);
-                IsSupportedHLE = IsBitSet(leaf_7.ebx, 4);
-                IsSupportedBMI2 = IsBitSet(leaf_7.ebx, 8);
-                IsSupportedERMS = IsBitSet(leaf_7.ebx, 9);
-                IsSupportedRTM = IsBitSet(leaf_7.ebx, 11);
-                IsSupportedRDSEED = IsBitSet(leaf_7.ebx, 18);
-                IsSupportedCLFLUSHOPT = IsBitSet(leaf_7.ebx, 23);
-                IsSupportedCLWB = IsBitSet(leaf_7.ebx, 24);
-                IsSupportedSHA = IsBitSet(leaf_7.ebx, 29);
-                IsSupportedVAES = IsBitSet(leaf_7.ecx, 9);
-                IsSupportedVPCLMULQDQ = IsBitSet(leaf_7.ecx, 10);
-                IsSupportedADX = IsBitSet(leaf_7.ebx, 19);
+                IsSupportedSGX = IsBitSet(leaf7.ebx, 2);
+                IsSupportedBMI1 = IsBitSet(leaf7.ebx, 3);
+                IsSupportedHLE = IsBitSet(leaf7.ebx, 4);
+                IsSupportedBMI2 = IsBitSet(leaf7.ebx, 8);
+                IsSupportedERMS = IsBitSet(leaf7.ebx, 9);
+                IsSupportedRTM = IsBitSet(leaf7.ebx, 11);
+                IsSupportedRDSEED = IsBitSet(leaf7.ebx, 18);
+                IsSupportedCLFLUSHOPT = IsBitSet(leaf7.ebx, 23);
+                IsSupportedCLWB = IsBitSet(leaf7.ebx, 24);
+                IsSupportedSHA = IsBitSet(leaf7.ebx, 29);
+                IsSupportedVAES = IsBitSet(leaf7.ecx, 9);
+                IsSupportedVPCLMULQDQ = IsBitSet(leaf7.ecx, 10);
+                IsSupportedADX = IsBitSet(leaf7.ebx, 19);
 
                 var haveXsave = IsBitSet(leaf1.ecx, 26);
                 var haveOsxsave = IsBitSet(leaf1.ecx, 27);
@@ -82,7 +84,7 @@ namespace CpuFeaturesDotNet.X86
 
                 if (haveXcr0)
                 {
-                    SetRegisters(leaf1, leaf_7, leaf7_1, model, ref osPreserves);
+                    SetRegisters(leaf1, leaf7, leaf7_1, model, ref osPreserves);
                 }
                 else
                 {
@@ -114,7 +116,7 @@ namespace CpuFeaturesDotNet.X86
                 }
                 if (osPreserves.AvxRegisters)
                 {
-                    SetAvxRegisters(in leaf1, in leaf7_1);
+                    SetAvxRegisters(in leaf1, in leaf_7);
                 }
                 if (osPreserves.Avx512Registers)
                 {
