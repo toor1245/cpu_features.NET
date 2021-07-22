@@ -11,6 +11,16 @@ leaf_t cpuid(uint32_t leaf_id, int ecx) {
   __cpuid_count(leaf_id, ecx, leaf.eax, leaf.ebx, leaf.ecx, leaf.edx);
   return leaf;
 }
+
+uint32_t __xcr0_eax(void) {
+  uint32_t eax, edx;
+  /* named form of xgetbv not supported on OSX, so must use byte form, see:
+     https://github.com/asmjit/asmjit/issues/78
+   */
+  __asm(".byte 0x0F, 0x01, 0xd0" : "=a"(eax), "=d"(edx) : "c"(0));
+  return eax;
+}
+
 #elif defined(CPU_FEATURES_DOTNET_COMPILER_MSC)
 
 #include <immintrin.h>
@@ -25,6 +35,8 @@ leaf_t cpuid(uint32_t leaf_id, int ecx) {
   leaf.edx = data[3];
   return leaf;
 }
+
+uint32_t __xcr0_eax(void) { return (uint32_t)_xgetbv(0); }
 
 #else
 #error "Unsupported compiler, x86 cpuid requires either GCC, Clang or MSVC."

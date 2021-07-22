@@ -14,6 +14,7 @@ typedef struct {
 
 // Returns the result of a call to the cpuid instruction.
 CPU_FEATURES_DOTNET_DLL_EXPORT leaf_t cpuid(uint32_t leaf_id, int ecx);
+CPU_FEATURES_DOTNET_DLL_EXPORT uint32_t __xcr0_eax(void);
 
 leaf_t safe_cpu_id(uint32_t max_cpuid_leaf, uint32_t leaf_id);
 leaf_t safe_cpu_id_ex(uint32_t max_cpuid_leaf, uint32_t leaf_id, int ecx);

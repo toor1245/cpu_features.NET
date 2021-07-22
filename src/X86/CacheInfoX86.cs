@@ -90,7 +90,7 @@ namespace CpuFeaturesDotNet.X86
                     var ways = (int)ExtractBitRange(leaf.ebx, 31, 22) + 1;
                     var tlbEntries = (int)(leaf.ecx + 1);
                     var cacheSize = ways * partitioning * lineSize * tlbEntries;
-                    Levels[cacheId] = CreateCacheInfo(level, cacheType, cacheSize, ways, lineSize, tlbEntries, partitioning);
+                    Levels[cacheId] = new CacheLevelInfoX86(level, cacheType, cacheSize, ways, lineSize, tlbEntries, partitioning);
                     _size++;
                 }
             }

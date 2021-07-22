@@ -35,7 +35,8 @@ namespace CpuFeaturesDotNet.X86
             Stepping = (int)ExtractBitRange(leaf1.eax, 3, 0);
             Microarchitecture = GetMicroarchitectureX86(leaf, Family, Model, Stepping);
             BrandString = GetBrandString();
-            FeaturesX86.GetFeaturesX86Info(leaf1, maxCpuidLeaf);
+            var osPreserves = new OsPreservesX86();
+            FeaturesX86.GetFeaturesX86Info(in leaf1, maxCpuidLeaf, ref osPreserves, Model);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

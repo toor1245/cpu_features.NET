@@ -1,4 +1,9 @@
+using System;
+using System.Runtime.CompilerServices;
+using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.Utils.BitUtils;
+using static CpuFeaturesDotNet.Utils.UtilsX86;
+using static CpuFeaturesDotNet.Utils.FeaturesUtilsX86;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -49,7 +54,7 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedAVX512VBMI2 { get; private set; }
             public static bool IsSupportedAVX512VNNI { get; private set; }
             public static bool IsSupportedAVX512BITALG { get; private set; }
-            public static bool IsSupportedAVX512VPOPCNTTDQ { get; private set; }
+            public static bool IsSupportedAVX512VPOPCNTDQ { get; private set; }
             public static bool IsSupportedAVX512_4VNNIW { get; private set; }
             public static bool IsSupportedAVX512_4VBMI2 { get; private set; }
             public static bool IsSupportedAVX512SecondFMA { get; private set; }
@@ -72,7 +77,8 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedSS { get; private set; }
             public static bool IsSupportedADX { get; private set; }
 
-            internal static void GetFeaturesX86Info(Leaf leaf1, uint maxCpuidLeaf)
+            internal static void GetFeaturesX86Info(in Leaf leaf1, uint maxCpuidLeaf, ref OsPreservesX86 osPreserves,
+                int model)
             {
                 var leaf_7 = Leaf.SafeCpuId(maxCpuidLeaf, 7);
                 var leaf7_1 = Leaf.SafeCpuId(maxCpuidLeaf, 7, 1);
@@ -105,6 +111,131 @@ namespace CpuFeaturesDotNet.X86
                 IsSupportedVAES = IsBitSet(leaf_7.ecx, 9);
                 IsSupportedVPCLMULQDQ = IsBitSet(leaf_7.ecx, 10);
                 IsSupportedADX = IsBitSet(leaf_7.ebx, 19);
+
+                var haveXsave = IsBitSet(leaf1.ecx, 26);
+                var haveOsxsave = IsBitSet(leaf1.ecx, 27);
+                var haveXcr0 = haveXsave && haveOsxsave;
+
+                if (haveXcr0)
+                {
+                    SetRegisters(leaf1, leaf_7, leaf7_1, model, ref osPreserves);
+                }
+                else
+                {
+                    SetRegistersXcr0NotAvailable();
+                }
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private static void SetRegisters(in Leaf leaf1, in Leaf leaf_7,
+                in Leaf leaf7_1, int model, ref OsPreservesX86 osPreserves)
+            {
+                // Here we rely exclusively on cpuid for both CPU and OS support of vector
+                // extensions.
+                var xcr0Eax = GetXCR0Eax();
+                osPreserves.SseRegisters = HasXmmOsXSave(xcr0Eax);
+                osPreserves.AvxRegisters = HasYmmOsXSave(xcr0Eax);
+                osPreserves.SetAvx512FRegister(xcr0Eax);
+                osPreserves.AmxRegisters = HasTmmOsXSave(xcr0Eax);
+                SetSimdRegisters(in leaf1, in leaf_7, in leaf7_1, model, ref osPreserves);
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private static void SetSimdRegisters(in Leaf leaf1, in Leaf leaf_7, in Leaf leaf7_1, int model,
+                ref OsPreservesX86 osPreserves)
+            {
+                if (osPreserves.SseRegisters)
+                {
+                    SetSeeRegisters(in leaf1);
+                }
+                if (osPreserves.AvxRegisters)
+                {
+                    SetAvxRegisters(in leaf1, in leaf7_1);
+                }
+                if (osPreserves.Avx512Registers)
+                {
+                    SetAvx512Registers(in leaf_7, in leaf7_1, model);
+                }
+                if (osPreserves.AmxRegisters)
+                {
+                    SetAmxRegisters(in leaf_7);
+                }
+            }
+
+            private static void SetSeeRegisters(in Leaf leaf1)
+            {
+                IsSupportedSSE = IsBitSet(leaf1.edx, 25);
+                IsSupportedSSE2 = IsBitSet(leaf1.edx, 26);
+                IsSupportedSSE3 = IsBitSet(leaf1.ecx, 0);
+                IsSupportedSSSE3 = IsBitSet(leaf1.ecx, 9);
+                IsSupportedSSE41 = IsBitSet(leaf1.ecx, 19);
+                IsSupportedSSE42 = IsBitSet(leaf1.ecx, 20);
+            }
+
+            private static void SetAvxRegisters(in Leaf leaf1, in Leaf leaf_7)
+            {
+                IsSupportedFMA3 = IsBitSet(leaf1.ecx, 12);
+                IsSupportedAVX = IsBitSet(leaf1.ecx, 28);
+                IsSupportedAVX2 = IsBitSet(leaf_7.ebx, 5);
+            }
+
+            private static void SetAvx512Registers(in Leaf leaf_7, in Leaf leaf7_1, int model)
+            {
+                IsSupportedAVX512F = IsBitSet(leaf_7.ebx, 16);
+                IsSupportedAVX512CD = IsBitSet(leaf_7.ebx, 28);
+                IsSupportedAVX512ER = IsBitSet(leaf_7.ebx, 27);
+                IsSupportedAVX512PF = IsBitSet(leaf_7.ebx, 26);
+                IsSupportedAVX512BW = IsBitSet(leaf_7.ebx, 30);
+                IsSupportedAVX512DQ = IsBitSet(leaf_7.ebx, 17);
+                IsSupportedAVX512VL = IsBitSet(leaf_7.ebx, 31);
+                IsSupportedAVX512IFMA = IsBitSet(leaf_7.ebx, 21);
+                IsSupportedAVX512VBMI = IsBitSet(leaf_7.ecx, 1);
+                IsSupportedAVX512VBMI2 = IsBitSet(leaf_7.ecx, 6);
+                IsSupportedAVX512VNNI = IsBitSet(leaf_7.ecx, 11);
+                IsSupportedAVX512BITALG = IsBitSet(leaf_7.ecx, 12);
+                IsSupportedAVX512VPOPCNTDQ = IsBitSet(leaf_7.ecx, 14);
+                IsSupportedAVX512_4VNNIW = IsBitSet(leaf_7.edx, 2);
+                IsSupportedAVX512_4VBMI2 = IsBitSet(leaf_7.edx, 3);
+                IsSupportedAVX512SecondFMA = HasSecondFMA(model);
+                IsSupportedAVX512_4FMAPS = IsBitSet(leaf_7.edx, 3);
+                IsSupportedAVX512_BF16 = IsBitSet(leaf7_1.eax, 5);
+                IsSupportedAVX512_VP2INTERSECT = IsBitSet(leaf_7.edx, 8);
+            }
+
+            private static void SetAmxRegisters(in Leaf leaf_7)
+            {
+                IsSupportedAMX_BF16 = IsBitSet(leaf_7.edx, 22);
+                IsSupportedAMX_TILE = IsBitSet(leaf_7.edx, 24);
+                IsSupportedAMX_INT8 = IsBitSet(leaf_7.edx, 25);
+            }
+
+            private static void SetRegistersXcr0NotAvailable()
+            {
+                if (OSNative.IsWindows())
+                {
+                    SetRegistersXcr0NotAvailableWindows();
+                }
+                else if (OSNative.IsDarwin())
+                {
+                    SetRegistersXcr0NotAvailableDarwin();
+                }
+            }
+
+            private static void SetRegistersXcr0NotAvailableWindows()
+            {
+                IsSupportedSSE = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_XMMI_INSTRUCTIONS_AVAILABLE);
+                IsSupportedSSE2 = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_XMMI64_INSTRUCTIONS_AVAILABLE);
+                IsSupportedSSE3 = OSNative.GetWindowsIsProcessorFeaturePresent(OSNative.WINDOWS_PF_SSE3_INSTRUCTIONS_AVAILABLE);
+            }
+
+            private static void SetRegistersXcr0NotAvailableDarwin()
+            {
+                IsSupportedSSE = OSNative.GetDarwinSysCtlByName("hw.optional.sse");
+                IsSupportedSSE2 = OSNative.GetDarwinSysCtlByName("hw.optional.sse2");
+                IsSupportedSSE3 = OSNative.GetDarwinSysCtlByName("hw.optional.sse3");
+                IsSupportedSSSE3 = OSNative.GetDarwinSysCtlByName("hw.optional.supplementalsse3");
+                IsSupportedSSE41 = OSNative.GetDarwinSysCtlByName("hw.optional.sse4_1");
+                IsSupportedSSE42 = OSNative.GetDarwinSysCtlByName("hw.optional.sse4_2");
             }
         }
     }

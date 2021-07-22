@@ -34,13 +34,14 @@
       <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="Native\x86-64\cpu_features_dotnet.win-x86-64.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Native\x86-64\cpu_features_dotnet.unix-x86-64.so">
+      <EmbeddedResource Include="Native\x86-64\cpu_features_dotnet.linux-x86-64.so">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="Imports\cpu_features_dotnet.so" />
+      <None Remove="Native\x86-64\cpu_features_dotnet_win-x86-64.dll" />
+      <EmbeddedResource Include="Native\x86-64\cpu_features_dotnet.win-x86-64.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
     
 </Project>

@@ -22,19 +22,33 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #if defined(__linux__)
-#define CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID
+#define CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID 1
+#else
+#define CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID 0
 #endif
 
 #if defined(__ANDROID__)
-#define CPU_FEATURES_DOTNET_OS_ANDROID
+#define CPU_FEATURES_DOTNET_OS_ANDROID 1
+#else
+#define CPU_FEATURES_DOTNET_OS_ANDROID 0
 #endif
 
 #if (defined(_WIN64) || defined(_WIN32))
-#define CPU_FEATURES_DOTNET_OS_WINDOWS
+#define CPU_FEATURES_DOTNET_OS_WINDOWS 1
+#else
+#define CPU_FEATURES_DOTNET_OS_WINDOWS 0
 #endif
 
 #if (defined(__apple__) || defined(__APPLE__) || defined(__MACH__))
-#define CPU_FEATURES_DOTNET_OS_DARWIN
+#define CPU_FEATURES_DOTNET_OS_DARWIN 1
+#else
+#define CPU_FEATURES_DOTNET_OS_DARWIN 0
+#endif
+
+#if (defined(__freebsd__) || defined(__FreeBSD__))
+#define CPU_FEATURES_DOTNET_OS_FREEBSD 1
+#else
+#define CPU_FEATURES_DOTNET_OS_FREEBSD 0
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,15 +100,21 @@
 // Architectures
 ////////////////////////////////////////////////////////////////////////////////
 
+#if defined(__pnacl__) || defined(__CLR_VER)
+#define CPU_FEATURES_DOTNET_ARCH_VM 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_VM 0
+#endif
+
 #if (defined(_M_IX86) || defined(__i386__)) && \
-    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
+    !CPU_FEATURES_DOTNET_ARCH_VM
 #define CPU_FEATURES_DOTNET_ARCH_X86_32 1
 #else
 #define CPU_FEATURES_DOTNET_ARCH_X86_32 0
 #endif
 
 #if (defined(_M_X64) || defined(__x86_64__)) && \
-    !defined(CPU_FEATURES_DOTNET_ARCH_VM)
+    !CPU_FEATURES_DOTNET_ARCH_VM
 #define CPU_FEATURES_DOTNET_ARCH_X86_64 1
 #else
 #define CPU_FEATURES_DOTNET_ARCH_X86_64 0
@@ -192,6 +212,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Utils
 ////////////////////////////////////////////////////////////////////////////////
+
+#if CPU_FEATURES_DOTNET_OS_WINDOWS
+#define WIN_DWORD DWORD
+#else
+#define WIN_DWORD
+#endif
 
 // Communicates to the compiler that the block is unreachable
 #if defined(CPU_FEATURES_DOTNET_COMPILER_CLANG) || \
