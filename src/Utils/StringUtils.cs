@@ -6,6 +6,10 @@ namespace CpuFeaturesDotNet.Utils
     {
         public static ulong str_len(byte* str)
         {
+            if (str == null)
+            {
+                return 0;
+            }
             byte* charPtr;
 
             for (charPtr = str; ((uint)charPtr & (IntPtr.Size - 1)) != 0; charPtr++)
