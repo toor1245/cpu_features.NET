@@ -24,6 +24,16 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                 return new DarwinFeaturesX86();
             }
 
+            if (OSNative.IsLinuxOrAndroid())
+            {
+                return new LinuxAndroidFeaturesX86();
+            }
+
+            if (OSNative.IsFreeBsd())
+            {
+                return new FreeBsdFeaturesX86();
+            }
+
             throw new NotSupportedException("Not supported Operating System");
         }
     }

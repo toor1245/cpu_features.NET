@@ -9,7 +9,7 @@ namespace CpuFeaturesDotNet.Native.OperatingSystem
         internal const int PF_XMMI64_INSTRUCTIONS_AVAILABLE = 10;
         internal const int PF_SSE3_INSTRUCTIONS_AVAILABLE = 13;
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__windows_is_processor_feature_present")]
+        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "windows_is_processor_feature_present")]
         internal static extern bool GetWindowsIsProcessorFeaturePresent(int processorFeature);
     }
 }

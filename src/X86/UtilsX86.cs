@@ -7,10 +7,10 @@ namespace CpuFeaturesDotNet.X86
 {
     internal static class UtilsX86
     {
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__uarch")]
+        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "uarch")]
         public static extern MicroarchitectureX86 GetMicroarchitectureX86(Leaf leaf, int family, int model, int stepping);
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__xcr0_eax")]
+        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "xcr0_eax")]
         public static extern uint GetXCR0Eax();
 
         public static CacheLevelInfoX86 GetCacheLevelInfo(uint reg)

@@ -1,4 +1,3 @@
-using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
 
 namespace CpuFeaturesDotNet.X86.Simd

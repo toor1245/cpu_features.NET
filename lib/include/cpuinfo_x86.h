@@ -52,12 +52,11 @@ typedef enum {
   AMD_ZEN3,          // K19 ZEN 3
 } X86Microarchitecture;
 
-CPU_FEATURES_DOTNET_DLL_EXPORT X86Microarchitecture __uarch(leaf_t leaf,
+CPU_FEATURES_DOTNET_DLL_EXPORT X86Microarchitecture uarch(leaf_t leaf,
                                                             int family,
                                                             int model,
                                                             int stepping);
-CPU_FEATURES_DOTNET_DLL_EXPORT char* __brand_string(char* brand_string);
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_vendor(leaf_t leaf, const char* name);
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_vendor(leaf_t leaf, const char* name);
 
 CPU_FEATURES_DOTNET_END_CPP_NAMESPACE
 

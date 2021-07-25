@@ -213,11 +213,6 @@
 // Utils
 ////////////////////////////////////////////////////////////////////////////////
 
-#if CPU_FEATURES_DOTNET_OS_WINDOWS
-#define WIN_DWORD DWORD
-#else
-#define WIN_DWORD
-#endif
 
 // Communicates to the compiler that the block is unreachable
 #if defined(CPU_FEATURES_DOTNET_COMPILER_CLANG) || \

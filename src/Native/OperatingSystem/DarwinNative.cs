@@ -5,7 +5,7 @@ namespace CpuFeaturesDotNet.Native.OperatingSystem
 {
     internal static class DarwinNative
     {
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "__darwin_sysctlbyname")]
+        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "darwin_sysctlbyname")]
         internal static extern bool GetDarwinSysCtlByName(string name);
     }
 }

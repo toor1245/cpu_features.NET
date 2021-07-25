@@ -12,7 +12,7 @@ leaf_t cpuid(uint32_t leaf_id, int ecx) {
   return leaf;
 }
 
-uint32_t __xcr0_eax(void) {
+uint32_t xcr0_eax(void) {
   uint32_t eax, edx;
   /* named form of xgetbv not supported on OSX, so must use byte form, see:
      https://github.com/asmjit/asmjit/issues/78
@@ -36,18 +36,8 @@ leaf_t cpuid(uint32_t leaf_id, int ecx) {
   return leaf;
 }
 
-uint32_t __xcr0_eax(void) { return (uint32_t)_xgetbv(0); }
+uint32_t xcr0_eax(void) { return (uint32_t)_xgetbv(0); }
 
 #else
 #error "Unsupported compiler, x86 cpuid requires either GCC, Clang or MSVC."
 #endif
-
-static const leaf_t k_empty_leaf;
-
-leaf_t safe_cpu_id_ex(uint32_t max_cpuid_leaf, uint32_t leaf_id, int ecx) {
-  return leaf_id <= max_cpuid_leaf ? cpuid(leaf_id, ecx) : k_empty_leaf;
-}
-
-leaf_t safe_cpu_id(uint32_t max_cpuid_leaf, uint32_t leaf_id) {
-  return safe_cpu_id_ex(max_cpuid_leaf, leaf_id, 0);
-}

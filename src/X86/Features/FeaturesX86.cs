@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using CpuFeaturesDotNet.X86.OperatingSystem;
 using CpuFeaturesDotNet.X86.Simd;
 using static CpuFeaturesDotNet.Utils.BitUtils;
@@ -80,28 +79,21 @@ namespace CpuFeaturesDotNet.X86
                 var haveXsave = IsBitSet(leaf1.ecx, 26);
                 var haveOsxsave = IsBitSet(leaf1.ecx, 27);
                 var haveXcr0 = haveXsave && haveOsxsave;
+
                 var osFeatures = OsBaseFeaturesX86.GetFeaturesX86();
+                var leafSimd = new LeafSimd(leaf, leaf1, leaf7, leaf7_1);
+                var simdFeatures = BaseSimdFeaturesX86.GetSimdResolver(in leafSimd, model);
 
                 if (haveXcr0)
                 {
-                    var leafSimd = new LeafSimd(leaf, leaf1, leaf7, leaf7_1);
-                    var simdFeatures = BaseSimdFeaturesX86.GetSimdResolver(in leafSimd, model);
-                    SetRegisters(simdFeatures, osFeatures, ref osPreserves);
+                    var xcr0Eax = UtilsX86.GetXCR0Eax();
+                    osPreserves.SetRegisters(xcr0Eax, osFeatures);
+                    simdFeatures.SetSimdRegisters(ref osPreserves);
                 }
                 else
                 {
                     osFeatures.SetRegistersXcr0NotAvailable();
                 }
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static void SetRegisters(BaseSimdFeaturesX86 registerResolver, OsBaseFeaturesX86 osFeaturesX86,
-                ref OsPreservesX86 osPreserves)
-            {
-                // Here we rely exclusively on cpuid for both CPU and OS support of vector
-                // extensions.
-                osPreserves.SetRegisters(UtilsX86.GetXCR0Eax(), osFeaturesX86);
-                registerResolver.SetSimdRegisters(ref osPreserves);
             }
         }
     }

@@ -14,7 +14,7 @@
 #include "filesystem.h"         // Needed to parse /proc/cpuinfo
 #include "stack_line_reader.h"  // Needed to parse /proc/cpuinfo
 #include "string_view.h"        // Needed to parse /proc/cpuinfo
-#elif defined(CPU_FEATURES_DOTNET_OS_DARWIN)
+#elif CPU_FEATURES_DOTNET_OS_DARWIN
 #if !defined(HAVE_SYSCTLBYNAME)
 #error "Darwin needs support for sysctlbyname"
 #endif
@@ -25,13 +25,13 @@
 
 CPU_FEATURES_DOTNET_START_CPP_NAMESPACE
 
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_os_windows();
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_os_linux_android();
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_os_android();
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_os_darwin();
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __is_os_freebsd();
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __darwin_sysctlbyname(char* name);
-CPU_FEATURES_DOTNET_DLL_EXPORT bool __windows_is_processor_feature_present(int32_t ProcessorFeature);
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_windows();
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_linux_android();
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_android();
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_darwin();
+CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_freebsd();
+CPU_FEATURES_DOTNET_DLL_EXPORT bool darwin_sysctlbyname(char* name);
+CPU_FEATURES_DOTNET_DLL_EXPORT bool windows_is_processor_feature_present(int32_t ProcessorFeature);
 
 CPU_FEATURES_DOTNET_END_CPP_NAMESPACE
 

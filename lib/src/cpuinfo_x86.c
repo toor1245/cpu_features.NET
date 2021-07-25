@@ -1,23 +1,6 @@
 #include <cpuinfo_x86.h>
 
-static void set_string(uint32_t max_cpuid_ext_leaf, uint32_t leaf_id,
-                       char* buffer) {
-  const leaf_t leaf = safe_cpu_id(max_cpuid_ext_leaf, leaf_id);
-  memcpy(buffer, &leaf, sizeof(leaf_t));
-}
-
-char* __brand_string(char* brand_string) {
-  const leaf_t leaf_ext_0 = cpuid(0x80000000, 0);
-  const uint32_t max_cpuid_leaf_ext = leaf_ext_0.eax;
-
-  set_string(max_cpuid_leaf_ext, 0x80000002, brand_string);
-  set_string(max_cpuid_leaf_ext, 0x80000003, brand_string + 16);
-  set_string(max_cpuid_leaf_ext, 0x80000004, brand_string + 32);
-  brand_string[48] = '\0';
-  return brand_string;
-}
-
-bool __is_vendor(leaf_t leaf, const char* name) {
+bool is_vendor(leaf_t leaf, const char* name) {
   const uint32_t ebx = *(const uint32_t*)(name);
   const uint32_t edx = *(const uint32_t*)(name + 4);
   const uint32_t ecx = *(const uint32_t*)(name + 8);
@@ -26,8 +9,8 @@ bool __is_vendor(leaf_t leaf, const char* name) {
 
 #define CPUID(FAMILY, MODEL) ((((FAMILY)&0xFF) << 8) | ((MODEL)&0xFF))
 
-X86Microarchitecture __uarch(leaf_t leaf, int family, int model, int stepping) {
-  if (__is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_GENUINE_INTEL)) {
+X86Microarchitecture uarch(leaf_t leaf, int family, int model, int stepping) {
+  if (is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_GENUINE_INTEL)) {
     switch (CPUID(family, model)) {
       case CPUID(0x06, 0x1C):  // Intel(R) Atom(TM) CPU 230 @ 1.60GHz
       case CPUID(0x06, 0x35):
@@ -126,7 +109,7 @@ X86Microarchitecture __uarch(leaf_t leaf, int family, int model, int stepping) {
         return X86_UNKNOWN;
     }
   }
-  if (__is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_AUTHENTIC_AMD)) {
+  if (is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_AUTHENTIC_AMD)) {
     switch (CPUID(family, model)) {
       // https://en.wikichip.org/wiki/amd/cpuid
       case CPUID(0xF, 0x04):
@@ -234,7 +217,7 @@ X86Microarchitecture __uarch(leaf_t leaf, int family, int model, int stepping) {
         return X86_UNKNOWN;
     }
   }
-  if (__is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_HYGON_GENUINE)) {
+  if (is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_HYGON_GENUINE)) {
     switch (CPUID(family, model)) {
       case CPUID(0x18, 0x00):
         return AMD_ZEN;

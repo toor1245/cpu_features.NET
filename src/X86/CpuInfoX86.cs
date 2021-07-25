@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 using CpuFeaturesDotNet.Native;
 using static CpuFeaturesDotNet.Utils.BitUtils;
@@ -38,6 +39,7 @@ namespace CpuFeaturesDotNet.X86
             FeaturesX86.GetFeaturesX86Info(in leaf, in leaf1, ref osPreserves, Model);
         }
 
+        [SecurityCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string GetBrandString()
         {
