@@ -42,7 +42,7 @@ namespace CpuFeaturesDotNet.IO
                 return -1;
             }
 
-            var found = (byte*) MemoryUtils.memchr(Ptr, c, (uint)Size);
+            var found = (byte*)MemoryUtils.memchr(Ptr, c, (uint)Size);
             if (found != null)
             {
                 return (int)(found - Ptr);
