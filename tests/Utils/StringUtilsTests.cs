@@ -11,7 +11,12 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Arrange
             var sse41 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
             const ulong expected = 6UL;
 
@@ -21,14 +26,17 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void strlen_GetLengthOfString_ReturnsLength()
         {
             // Arrange
             var sse3 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x21
+                0x49,
+                0x49,
+                0x41,
+                0x21
             };
             const ulong expected = 4UL;
 
@@ -38,7 +46,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void strlen_Empty_True()
         {

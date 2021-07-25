@@ -18,7 +18,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckMiddleBit_True()
         {
@@ -32,7 +32,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckMiddleBit_False()
         {
@@ -46,7 +46,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckFirstBit_True()
         {
@@ -60,7 +60,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckMsb_True()
         {
@@ -74,7 +74,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckMsb_False()
         {
@@ -88,7 +88,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void IsBitSet_CheckFirstBit_False()
         {

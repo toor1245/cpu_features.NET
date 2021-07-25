@@ -11,7 +11,12 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Arrange
             var sse41 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
             const int expected = 0x41;
 
@@ -22,14 +27,19 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, *actual);
         }
-        
+
         [Fact]
         public void memchr_LengthNull_True()
         {
             // Arrange
             var sse41 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
 
             // Act
@@ -38,19 +48,29 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.True(actual == null);
         }
-        
+
         [Fact]
         public void memcmp_CompareStrings_True()
         {
             // Arrange
             var sse41 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
-            
+
             var sse42 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x20
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x20
             };
             var expected = -1;
 
@@ -60,19 +80,29 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-        
+
         [Fact]
         public void memcmp_CompareStrings_False()
         {
             // Arrange
             var sse41 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
-            
+
             var sse42 = stackalloc byte[]
             {
-                0x49, 0x49, 0x41, 0x22, 0x5F, 0x1F
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
             };
             var expected = 0;
 
