@@ -17,7 +17,7 @@ namespace CpuFeaturesDotNet.X86
             static CacheInfoX86()
             {
                 Levels = new CacheLevelInfoX86[LEVELS_SIZE];
-                var leaf = Leaf.CpuId(0);
+                var leaf = LeafX86.CpuId(0);
                 if (VendorX86.IsIntelVendor(leaf))
                 {
                     ParseLeaf2(leaf.eax);
@@ -31,7 +31,7 @@ namespace CpuFeaturesDotNet.X86
 
             private static void ParseLeaf2(uint max_cpuid_leaf)
             {
-                var leaf = Leaf.SafeCpuId(max_cpuid_leaf, 2);
+                var leaf = LeafX86.SafeCpuId(max_cpuid_leaf, 2);
                 var registers = stackalloc uint[]
                 {
                     leaf.eax,
@@ -63,7 +63,7 @@ namespace CpuFeaturesDotNet.X86
             // Gets cache information newer AMD CPUs by 0x8000001D.
             private static void ParseCacheAMD()
             {
-                var maxExt = Leaf.CpuId(0x80000000).eax;
+                var maxExt = LeafX86.CpuId(0x80000000).eax;
                 if (!UtilsX86.IsReservedAMD(maxExt, 22))
                 {
                     ParseCacheInfo(maxExt, 0x8000001D);
@@ -77,7 +77,7 @@ namespace CpuFeaturesDotNet.X86
                 _size = 0;
                 for (var cacheId = 0; cacheId < LEVELS_SIZE; cacheId++)
                 {
-                    var leaf = Leaf.SafeCpuId(maxCpuidLeaf, leafId, cacheId);
+                    var leaf = LeafX86.SafeCpuId(maxCpuidLeaf, leafId, cacheId);
                     var cacheType = (CacheTypeX86)ExtractBitRange(leaf.eax, 4, 0);
 
                     if (cacheType == CacheTypeX86.NULL)

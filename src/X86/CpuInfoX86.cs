@@ -21,9 +21,9 @@ namespace CpuFeaturesDotNet.X86
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }
-            var leaf = Leaf.CpuId(0);
+            var leaf = LeafX86.CpuId(0);
             var maxCpuidLeaf = leaf.eax;
-            var leaf1 = Leaf.SafeCpuId(maxCpuidLeaf, 1);
+            var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);
 
             var family = ExtractBitRange(leaf1.eax, 11, 8);
             var extendedFamily = ExtractBitRange(leaf1.eax, 27, 20);
@@ -44,7 +44,7 @@ namespace CpuFeaturesDotNet.X86
         private static string GetBrandString()
         {
             var brandString = stackalloc byte[49];
-            var leafExt = Leaf.CpuId(0x80000000);
+            var leafExt = LeafX86.CpuId(0x80000000);
             var maxCpuidLeafExt = leafExt.eax;
 
             SetString(maxCpuidLeafExt, 0x80000002, brandString);
@@ -57,8 +57,8 @@ namespace CpuFeaturesDotNet.X86
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void SetString(uint max_cpuid_ext_leaf, uint leaf_id, byte* buffer)
         {
-            var leaf = Leaf.SafeCpuId(max_cpuid_ext_leaf, leaf_id);
-            Unsafe.CopyBlockUnaligned(buffer, &leaf, (uint)sizeof(Leaf));
+            var leaf = LeafX86.SafeCpuId(max_cpuid_ext_leaf, leaf_id);
+            Unsafe.CopyBlockUnaligned(buffer, &leaf, (uint)sizeof(LeafX86));
         }
     }
 }

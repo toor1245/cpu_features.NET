@@ -26,6 +26,13 @@ namespace CpuFeaturesDotNet.IO
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static StringView GetString(string str)
+        {
+            var bytes = StringUtils.GetAsciiBytes(str);
+            return GetView(bytes, StringUtils.str_len(bytes));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static StringView GetString(byte* str, uint length)
         {
             if (length > StringUtils.str_len(str))
