@@ -10,9 +10,9 @@ namespace CpuFeaturesDotNet.Utils
         public static byte* GetAsciiBytes(string str)
         {
             var bytes = Encoding.ASCII.GetBytes(str);
-            return (byte*) Unsafe.AsPointer(ref bytes);
+            return (byte*)Unsafe.AsPointer(ref bytes);
         }
-        
+
         public static ulong str_len(byte* str)
         {
             if (str == null)

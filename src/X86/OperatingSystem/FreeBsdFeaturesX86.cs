@@ -10,15 +10,36 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
         {
             var fileDescriptor = FileSystem.OpenFile("/var/run/dmesg.boot");
             if (fileDescriptor < 0) return;
-            
+
             StackLineReader.Initialize(out var reader, fileDescriptor);
             var features = stackalloc byte[]
             {
-                0x14, 0x14, 0x2E, 0x41, 0x3D, 0x4A, 0x4B, 0x48, 0x41, 0x49, 0x3D
+                0x14,
+                0x14,
+                0x2E,
+                0x41,
+                0x3D,
+                0x4A,
+                0x4B,
+                0x48,
+                0x41,
+                0x49,
+                0x3D
             };
             var features2 = stackalloc byte[]
             {
-                0x14, 0x14, 0x2E, 0x41, 0x3D, 0x4A, 0x4B, 0x48, 0x41, 0x49, 0x20, 0x3D
+                0x14,
+                0x14,
+                0x2E,
+                0x41,
+                0x3D,
+                0x4A,
+                0x4B,
+                0x48,
+                0x41,
+                0x49,
+                0x20,
+                0x3D
             };
             var sse = StringUtils.GetAsciiBytes("SSE");
             var sse2 = StringUtils.GetAsciiBytes("SSE2");
@@ -26,7 +47,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
             var ssse3 = StringUtils.GetAsciiBytes("SSSE3");
             var sse41 = StringUtils.GetAsciiBytes("SSE4.1");
             var sse42 = StringUtils.GetAsciiBytes("SSE4.2");
-            
+
             while (true)
             {
                 var result = StackLineReader.NextLine(ref reader);
@@ -41,7 +62,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                         var b = &line.Ptr[i];
                         if (*b == '<' || *b == '>' || *b == ',') *b = (byte)' ';
                     }
-                        
+
                     if (isFeature)
                     {
                         IsSupportedSSE = StringView.HasWord(in line, sse);
