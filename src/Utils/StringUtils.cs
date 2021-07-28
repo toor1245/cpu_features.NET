@@ -1,9 +1,18 @@
 using System;
+using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace CpuFeaturesDotNet.Utils
 {
     internal static unsafe class StringUtils
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte* GetAsciiBytes(string str)
+        {
+            var bytes = Encoding.ASCII.GetBytes(str);
+            return (byte*)Unsafe.AsPointer(ref bytes);
+        }
+
         public static ulong str_len(byte* str)
         {
             if (str == null)

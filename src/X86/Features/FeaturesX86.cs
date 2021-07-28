@@ -40,12 +40,12 @@ namespace CpuFeaturesDotNet.X86
             public static bool IsSupportedSS { get; private set; }
             public static bool IsSupportedADX { get; private set; }
 
-            internal static void GetFeaturesX86Info(in Leaf leaf, in Leaf leaf1, ref OsPreservesX86 osPreserves,
+            internal static void GetFeaturesX86Info(in LeafX86 leaf, in LeafX86 leaf1, ref OsPreservesX86 osPreserves,
                 int model)
             {
                 var maxCpuidLeaf = leaf.eax;
-                var leaf7 = Leaf.SafeCpuId(maxCpuidLeaf, 7);
-                var leaf7_1 = Leaf.SafeCpuId(maxCpuidLeaf, 7, 1);
+                var leaf7 = LeafX86.SafeCpuId(maxCpuidLeaf, 7);
+                var leaf7_1 = LeafX86.SafeCpuId(maxCpuidLeaf, 7, 1);
 
                 IsSupportedFPU = IsBitSet(leaf1.edx, 0);
                 IsSupportedTSC = IsBitSet(leaf1.edx, 4);
@@ -81,7 +81,7 @@ namespace CpuFeaturesDotNet.X86
                 var haveXcr0 = haveXsave && haveOsxsave;
 
                 var osFeatures = OsBaseFeaturesX86.GetFeaturesX86();
-                var leafSimd = new LeafSimd(leaf, leaf1, leaf7, leaf7_1);
+                var leafSimd = new LeafSimdX86(leaf, leaf1, leaf7, leaf7_1);
                 var simdFeatures = BaseSimdFeaturesX86.GetSimdResolver(in leafSimd, model);
 
                 if (haveXcr0)

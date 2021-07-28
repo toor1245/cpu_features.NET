@@ -8,7 +8,7 @@ namespace CpuFeaturesDotNet.X86
     internal static class UtilsX86
     {
         [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "uarch")]
-        public static extern MicroarchitectureX86 GetMicroarchitectureX86(Leaf leaf, int family, int model, int stepping);
+        public static extern MicroarchitectureX86 GetMicroarchitectureX86(LeafX86 leaf, int family, int model, int stepping);
 
         [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "xcr0_eax")]
         public static extern uint GetXCR0Eax();
@@ -134,7 +134,7 @@ namespace CpuFeaturesDotNet.X86
         // reserved. https://www.amd.com/system/files/TechDocs/25481.pdf
         public static bool IsReservedAMD(uint maxExtended, int bit)
         {
-            var cpuidExt = Leaf.SafeCpuId(maxExtended, 0x80000001).ecx;
+            var cpuidExt = LeafX86.SafeCpuId(maxExtended, 0x80000001).ecx;
             return !IsBitSet(cpuidExt, bit);
         }
     }

@@ -7,11 +7,11 @@ namespace CpuFeaturesDotNet.X86.Simd
 {
     internal abstract class BaseSimdFeaturesX86
     {
-        private readonly Leaf _leaf1;
-        private readonly Leaf _leaf7;
-        private readonly Leaf _leaf7_1;
+        private readonly LeafX86 _leaf1;
+        private readonly LeafX86 _leaf7;
+        private readonly LeafX86 _leaf7_1;
 
-        protected BaseSimdFeaturesX86(in LeafSimd leafsimd)
+        protected BaseSimdFeaturesX86(in LeafSimdX86 leafsimd)
         {
             _leaf1 = leafsimd.leaf1;
             _leaf7 = leafsimd.leaf7;
@@ -64,7 +64,7 @@ namespace CpuFeaturesDotNet.X86.Simd
             IsSupportedAMX_INT8 = IsBitSet(_leaf7.edx, 25);
         }
 
-        internal static BaseSimdFeaturesX86 GetSimdResolver(in LeafSimd leafSimd, int model)
+        internal static BaseSimdFeaturesX86 GetSimdResolver(in LeafSimdX86 leafSimd, int model)
         {
             if (VendorX86.IsIntelVendor(leafSimd.leaf))
             {
@@ -76,9 +76,9 @@ namespace CpuFeaturesDotNet.X86.Simd
                 throw new NotSupportedException();
             }
 
-            var leafMaxExt = Leaf.CpuId(0x80000000);
+            var leafMaxExt = LeafX86.CpuId(0x80000000);
             var maxExtendedCpuid = leafMaxExt.eax;
-            var leafFeatures = Leaf.SafeCpuId(maxExtendedCpuid, 0x80000001);
+            var leafFeatures = LeafX86.SafeCpuId(maxExtendedCpuid, 0x80000001);
             return new AmdFeaturesX86(leafSimd, leafFeatures);
         }
 

@@ -6,7 +6,7 @@ namespace CpuFeaturesDotNet.X86.Simd
     {
         private readonly int _model;
 
-        public IntelFeaturesX86(in LeafSimd leafSimd, int model)
+        public IntelFeaturesX86(in LeafSimdX86 leafSimd, int model)
             : base(leafSimd)
         {
             _model = model;

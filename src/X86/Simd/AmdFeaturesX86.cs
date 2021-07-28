@@ -5,9 +5,9 @@ namespace CpuFeaturesDotNet.X86.Simd
 {
     internal sealed class AmdFeaturesX86 : BaseSimdFeaturesX86
     {
-        private readonly Leaf _leafExtFeatures;
+        private readonly LeafX86 _leafExtFeatures;
 
-        public AmdFeaturesX86(in LeafSimd leafSimd, Leaf leafExtFeatures)
+        public AmdFeaturesX86(in LeafSimdX86 leafSimd, LeafX86 leafExtFeatures)
             : base(leafSimd)
         {
             _leafExtFeatures = leafExtFeatures;
