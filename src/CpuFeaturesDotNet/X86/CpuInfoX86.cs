@@ -23,13 +23,7 @@ namespace CpuFeaturesDotNet.X86
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }
-#if DEBUG && OS_WINDOWS
-            Console.WriteLine("Windows OS");
-#endif
-#if DEBUG && OS_LINUX
-            Console.WriteLine("Linux OS");
-#endif
-            
+
             var leaf = LeafX86.CpuId(0);
             var maxCpuidLeaf = leaf.eax;
             var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);
