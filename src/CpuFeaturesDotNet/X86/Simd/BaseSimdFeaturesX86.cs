@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using CpuFeaturesDotNet.X86.OperatingSystem;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
 

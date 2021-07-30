@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using CpuFeaturesDotNet.Native;
+using CpuFeaturesDotNet.X86.OperatingSystem;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 
 namespace CpuFeaturesDotNet.X86

@@ -1,6 +1,5 @@
-using CpuFeaturesDotNet.X86.OperatingSystem;
 
-namespace CpuFeaturesDotNet.X86
+namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
     internal ref struct OsPreservesX86
     {
