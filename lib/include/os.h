@@ -11,9 +11,7 @@
 #if CPU_FEATURES_DOTNET_OS_WINDOWS
 #include <windows.h>  // IsProcessorFeaturePresent
 #elif CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID
-#include "filesystem.h"         // Needed to parse /proc/cpuinfo
-#include "stack_line_reader.h"  // Needed to parse /proc/cpuinfo
-#include "string_view.h"        // Needed to parse /proc/cpuinfo
+#elif CPU_FEATURES_DOTNET_OS_FREEBSD
 #elif CPU_FEATURES_DOTNET_OS_DARWIN
 #if !defined(HAVE_SYSCTLBYNAME)
 #error "Darwin needs support for sysctlbyname"
