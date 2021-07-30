@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\CpuFeaturesDotNet.csproj" />
+      <ProjectReference Include="..\..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
     </ItemGroup>
 
 </Project>

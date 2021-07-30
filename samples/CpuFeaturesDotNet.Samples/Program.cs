@@ -1,8 +1,7 @@
 ﻿using System;
 using static CpuFeaturesDotNet.X86.CpuInfoX86;
-using CacheInfoX86 = CpuFeaturesDotNet.X86.CpuInfoX86.CacheInfoX86;
 
-namespace CpuFeaturesDotNet.Sample
+namespace CpuFeaturesDotNet.Samples
 {
     class Program
     {
@@ -14,7 +13,7 @@ namespace CpuFeaturesDotNet.Sample
             Console.WriteLine("stepping       : {0}", Stepping);
             Console.WriteLine("uarch          : {0}", Microarchitecture);
             Console.WriteLine();
-            
+
             for (var i = 0; i < CacheInfoX86.Size; i++)
             {
                 Console.WriteLine("==========================================================");
@@ -27,7 +26,7 @@ namespace CpuFeaturesDotNet.Sample
                 Console.WriteLine("partitioning    : {0}", CacheInfoX86.Levels[i].Partitioning);
                 Console.WriteLine("==========================================================\n");
             }
-            
+
             Console.WriteLine("Is supported BMI1      : {0}", FeaturesX86.IsSupportedBMI1);
             Console.WriteLine("Is supported AVX       : {0}", FeaturesX86.IsSupportedAVX);
             Console.WriteLine("Is supported AVX2      : {0}", FeaturesX86.IsSupportedAVX2);

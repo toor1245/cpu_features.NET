@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CpuFeaturesDotNet.UnitTesting")]
 namespace CpuFeaturesDotNet.Utils
 {
     internal static unsafe class BitUtils

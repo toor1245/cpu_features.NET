@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard1.3</TargetFramework>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Runtime" Version="4.3.0" />
+      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>CpuFeaturesDotNet.UnitTesting</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>CpuFeaturesDotNet</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+</Project>

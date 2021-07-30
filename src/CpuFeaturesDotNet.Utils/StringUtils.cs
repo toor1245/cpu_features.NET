@@ -37,12 +37,7 @@ namespace CpuFeaturesDotNet.Utils
                 himagic = (himagic << 16 << 16) | himagic;
                 lomagic = (lomagic << 16 << 16) | lomagic;
             }
-
-            if (IntPtr.Size > 8)
-            {
-                throw new InvalidOperationException();
-            }
-
+            
             while (true)
             {
                 var longword = *longwordPtr++;

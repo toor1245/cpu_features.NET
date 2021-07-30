@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using static CpuFeaturesDotNet.Native.DllPath;
 using static CpuFeaturesDotNet.Utils.BitUtils;
-using static CpuFeaturesDotNet.X86.CacheInfoX86;
+using static CpuFeaturesDotNet.X86.CpuInfoX86;
 
 namespace CpuFeaturesDotNet.X86
 {

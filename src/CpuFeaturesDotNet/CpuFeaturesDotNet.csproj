@@ -42,5 +42,8 @@
         </EmbeddedResource>
         <None Remove="Native\x86-64\cpu_features_dotnet.linux-x86-64.so" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
+    </ItemGroup>
     
 </Project>

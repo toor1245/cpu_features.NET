@@ -22,7 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
       <ProjectReference Include="..\src\CpuFeaturesDotNet.csproj" />
+      <ProjectReference Include="..\src\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
     </ItemGroup>
 
 </Project>
