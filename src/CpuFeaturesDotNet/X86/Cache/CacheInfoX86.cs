@@ -5,7 +5,7 @@ namespace CpuFeaturesDotNet.X86
 {
     public static unsafe partial class CpuInfoX86
     {
-        public static partial class CacheInfoX86
+        public static class CacheInfoX86
         {
             private const int LEVELS_SIZE = 10;
             private static uint _size;

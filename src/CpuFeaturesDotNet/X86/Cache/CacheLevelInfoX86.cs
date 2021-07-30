@@ -1,6 +1,6 @@
 namespace CpuFeaturesDotNet.X86
 {
-    public static unsafe partial class CpuInfoX86
+    public static partial class CpuInfoX86
     {
         public sealed class CacheLevelInfoX86
         {
