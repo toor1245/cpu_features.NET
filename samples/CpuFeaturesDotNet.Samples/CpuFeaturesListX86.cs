@@ -31,6 +31,12 @@ namespace CpuFeaturesDotNet.Samples
                 OutputHelper.WriteLine("==========================================================\n");
             }
 
+            OutputHelper.WriteLine("Is supported SSE       : {0}", FeaturesX86.IsSupportedSSE);
+            OutputHelper.WriteLine("Is supported SSE2      : {0}", FeaturesX86.IsSupportedSSE2);
+            OutputHelper.WriteLine("Is supported SSE3      : {0}", FeaturesX86.IsSupportedSSE3);
+            OutputHelper.WriteLine("Is supported SSSE3     : {0}", FeaturesX86.IsSupportedSSSE3);
+            OutputHelper.WriteLine("Is supported SSE41     : {0}", FeaturesX86.IsSupportedSSE41);
+            OutputHelper.WriteLine("Is supported SSE42     : {0}", FeaturesX86.IsSupportedSSE42);
             OutputHelper.WriteLine("Is supported BMI1      : {0}", FeaturesX86.IsSupportedBMI1);
             OutputHelper.WriteLine("Is supported AVX       : {0}", FeaturesX86.IsSupportedAVX);
             OutputHelper.WriteLine("Is supported AVX2      : {0}", FeaturesX86.IsSupportedAVX2);

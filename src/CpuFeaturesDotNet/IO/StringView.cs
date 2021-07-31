@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text;
 using CpuFeaturesDotNet.Utils;
 
 namespace CpuFeaturesDotNet.IO
@@ -226,7 +227,7 @@ namespace CpuFeaturesDotNet.IO
         public static bool GetAttributeKeyValue(in StringView line, ref StringView key,
             ref StringView value)
         {
-            var str = stackalloc byte[] { (byte)':', (byte)' ' };
+            var str = stackalloc byte[] { 0x3A, 0x20 };
             var sep = GetString(str);
             var indexOfSeparator = line.IndexOf(sep);
             if (indexOfSeparator < 0)
@@ -237,9 +238,19 @@ namespace CpuFeaturesDotNet.IO
             var valuePopFront = line.PopFront((ulong)indexOfSeparator + sep.Size);
             value = TrimWhiteSpace(ref valuePopFront);
 
-            var valueKeepFront = line.KeepFront((ulong)indexOfSeparator + sep.Size);
+            var valueKeepFront = line.KeepFront((ulong)indexOfSeparator);
             key = TrimWhiteSpace(ref valueKeepFront);
             return true;
+        }
+
+        public override string ToString()
+        {
+            var result = new StringBuilder();
+            for (var i = 0; i < (int)Size; i++)
+            {
+                result.Append((char)*(Ptr + i));
+            }
+            return result.ToString();
         }
     }
 }

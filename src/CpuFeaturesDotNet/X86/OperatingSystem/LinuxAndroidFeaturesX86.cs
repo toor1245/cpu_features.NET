@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using CpuFeaturesDotNet.IO;
-using CpuFeaturesDotNet.Utils;
 using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
 
 namespace CpuFeaturesDotNet.X86.OperatingSystem
@@ -15,31 +13,70 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                 return;
             }
             StackLineReader.Initialize(out var reader, fileDescriptor);
-            var flags = StringView.GetString(StringUtils.GetAsciiBytes("flags"), 5);
+            var flagsInBytes = stackalloc byte[]
+            {
+                0x66, 0x6C, 0x61, 0x67, 0x73
+            };
+            var flags = StringView.GetString(flagsInBytes);
             while (true)
             {
                 var result = StackLineReader.NextLine(ref reader);
                 var line = result.line;
                 StringView key = default, value = default;
-
                 if (!StringView.GetAttributeKeyValue(line, ref key, ref value))
                 {
                     continue;
                 }
-                
+
                 if (!StringView.IsEquals(key, flags))
                 {
                     continue;
                 }
-
-                IsSupportedSSE = StringView.HasWord(value, StringUtils.GetAsciiBytes("sse"));
-                IsSupportedSSE2 = StringView.HasWord(value, StringUtils.GetAsciiBytes("sse2"));
-                IsSupportedSSE3 = StringView.HasWord(value, StringUtils.GetAsciiBytes("sse3"));
-                IsSupportedSSSE3 = StringView.HasWord(value, StringUtils.GetAsciiBytes("ssse3"));
-                IsSupportedSSE41 = StringView.HasWord(value, StringUtils.GetAsciiBytes("sse4_1"));
-                IsSupportedSSE42 = StringView.HasWord(value, StringUtils.GetAsciiBytes("sse4_2"));
+                
+                IsSupportedSSE = HasSse(in value);
+                IsSupportedSSE2 = HasSse2(in value);
+                IsSupportedSSE3 = HasSse3(in value);
+                IsSupportedSSSE3 = HasSsse3(in value);
+                IsSupportedSSE41 = HasSse41(in value);
+                IsSupportedSSE42 = HasSse42(in value);
                 break;
             }
+        }
+
+        private static unsafe bool HasSse(in StringView value)
+        {
+            var sse = stackalloc byte[] { 0x73, 0x73, 0x65 };
+            return StringView.HasWord(value, sse);
+        }
+        
+        private unsafe bool HasSse2(in StringView value)
+        {
+            var sse2 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x32 };
+            return StringView.HasWord(value, sse2);
+        }
+        
+        private unsafe bool HasSse3(in StringView value)
+        {
+            var sse3 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x33 };
+            return StringView.HasWord(value, sse3);
+        }
+        
+        private unsafe bool HasSsse3(in StringView value)
+        {
+            var ssse3 = stackalloc byte[] { 0x73, 0x73, 0x73, 0x65, 0x33 };
+            return StringView.HasWord(value, ssse3);
+        }
+        
+        private unsafe bool HasSse41(in StringView value)
+        {
+            var sse41 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x31 };
+            return StringView.HasWord(value, sse41);
+        }
+        
+        private unsafe bool HasSse42(in StringView value)
+        {
+            var sse42 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x32 };
+            return StringView.HasWord(value, sse42);
         }
     }
 }

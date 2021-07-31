@@ -9,7 +9,8 @@ namespace CpuFeaturesDotNet.Utils
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte* GetAsciiBytes(string str)
         {
-            var bytes = Encoding.ASCII.GetBytes(str);
+            var chars = Encoding.UTF8.GetBytes(str);
+            var bytes = Encoding.Convert(Encoding.UTF8, Encoding.ASCII, chars);
             return (byte*)Unsafe.AsPointer(ref bytes);
         }
 
