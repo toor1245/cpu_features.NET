@@ -15,6 +15,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                 return;
             }
             StackLineReader.Initialize(out var reader, fileDescriptor);
+            var flags = StringView.GetString(StringUtils.GetAsciiBytes("flags"), 5);
             while (true)
             {
                 var result = StackLineReader.NextLine(ref reader);
@@ -26,7 +27,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                     continue;
                 }
                 
-                if (!StringView.IsEquals(key, StringView.GetString(StringUtils.GetAsciiBytes("flags"))))
+                if (!StringView.IsEquals(key, flags))
                 {
                     continue;
                 }
