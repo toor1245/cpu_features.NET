@@ -107,7 +107,7 @@ namespace CpuFeaturesDotNet.IO
 
         public readonly StringView PopFront(ulong count)
         {
-            return count > Size ? new StringView() : GetView(Ptr, Size - count);
+            return count > Size ? new StringView() : GetView(Ptr + count, Size - count);
         }
 
         public StringView PopBack(ulong count)
