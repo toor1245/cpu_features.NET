@@ -127,6 +127,24 @@
 #define CPU_FEATURES_DOTNET_ARCH_X86 0
 #endif
 
+#if (defined(__arm__) || defined(_M_ARM))
+#define CPU_FEATURES_DOTNET_ARCH_ARM 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_ARM 0
+#endif
+
+#if defined(__aarch64__)
+#define CPU_FEATURES_DOTNET_ARCH_AARCH64 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_AARCH64 0
+#endif
+
+#if (defined(CPU_FEATURES_DOTNET_ARCH_AARCH64) || defined(CPU_FEATURES_DOTNET_ARCH_ARM))
+#define CPU_FEATURES_DOTNET_ARCH_ANY_ARM 1
+#else
+#define CPU_FEATURES_DOTNET_ARCH_ANY_ARM 0
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // Compiler flags
 ////////////////////////////////////////////////////////////////////////////////
