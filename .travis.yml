@@ -1,10 +1,12 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
-sudo: false
-
 mono: none
 dotnet: 2.1.502
+
+before_install:
+  - sudo apt-get update
+  - sudo apt install nuget
 
 install:
   - nuget restore CpuFeaturesDotNet.sln
