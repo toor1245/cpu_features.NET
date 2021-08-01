@@ -1,10 +1,10 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
-mono: none
-dotnet: 5.0.8
+mono: none 
 
 before_install:
+  - sudo apt-get install -y dotnet-sdk-5.0
   - sudo apt-get update
   - sudo apt install nuget
 
