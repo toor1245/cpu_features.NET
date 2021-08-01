@@ -1,4 +1,4 @@
-name: dotnet Linux ARM
+name: run dotnet tests(Linux ARM)
 
 on:
   push:
