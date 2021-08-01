@@ -2,7 +2,7 @@ language: csharp
 solution: CpuFeaturesDotNet.sln
 
 mono: none
-dotnet: 2.1.502
+dotnet: 5.0.8
 
 before_install:
   - sudo apt-get update
@@ -34,5 +34,5 @@ matrix:
       
 script:
   - dotnet --version
-  - msbuild /p:Configuration=Release CpuFeaturesDotNet.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./tests/CpuFeaturesDotNet.UnitTesting/bin/Release/CpuFeaturesDotNet.UnitTesting.dll
+  - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+  - dotnet test "tests" -c Release
