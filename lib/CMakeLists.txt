@@ -17,6 +17,26 @@ if(NOT CMAKE_BUILD_TYPE)
             FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+option(BUILD_SHARED_LIBS "Build library as shared." OFF)
+# PIC
+option(BUILD_PIC "Build with Position Independant Code." OFF) # Default is off at least for GCC
+
+# Force PIC on unix when building shared libs
+# see: https://en.wikipedia.org/wiki/Position-independent_code
+if(BUILD_SHARED_LIBS AND UNIX)
+    set(BUILD_PIC ON)
+endif()
+
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR arm)
+
+set(triple arm-linux-gnueabihf)
+
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_C_COMPILER_TARGET ${triple})
+set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_CXX_COMPILER_TARGET ${triple})
+
 include(CheckIncludeFile)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
@@ -31,24 +51,30 @@ macro(setup_include_and_definitions TARGET_NAME)
 endmacro()
 
 set(PROCESSOR_IS_X86 FALSE)
+set(PROCESSOR_IS_ARM FALSE)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "(x86_64)|(AMD64|amd64)|(^i.86$)")
     set(PROCESSOR_IS_X86 TRUE)
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^arm")
+    set(PROCESSOR_IS_ARM TRUE)
 endif()
 
 macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
     list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/macros.h)
+    list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/arch.h)
+    list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/os.h)
+    list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/filesystem.h)
+    list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/os.c)
+    list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/filesystem.c)
+    list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/arch.c)
     if(PROCESSOR_IS_X86)
         list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/cpuinfo_x86.h)
         list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/cpuid_x86.h)
-        list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/arch.h)
-        list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/os.h)
-        list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/filesystem.h)
         list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/cpuid_x86.c)
         list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/cpuinfo_x86.c)
-        list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/arch.c)
-        list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/os.c)
-        list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/filesystem.c)
+    elseif(PROCESSOR_IS_ARM)
+        list(APPEND ${HDRS_LIST_NAME} ${PROJECT_SOURCE_DIR}/include/cpuinfo_arm.h)
+        list(APPEND ${SRCS_LIST_NAME} ${PROJECT_SOURCE_DIR}/src/cpuinfo_arm.c)
     else()
         message(FATAL_ERROR "Unsupported architectures ${CMAKE_SYSTEM_PROCESSOR}")
     endif()

@@ -35,6 +35,10 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </EmbeddedResource>
         <None Remove="Native\x86-64\cpu_features_dotnet.win-x86-64.dll" />
+        <None Remove="Native\Arm\cpu_features_dotnet.linux-arm.so" />
+        <EmbeddedResource Include="Native\Arm\cpu_features_dotnet.linux-arm.so">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Native\x86-64\cpu_features_dotnet.linux-x86-64.so">

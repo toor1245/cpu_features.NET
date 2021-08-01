@@ -12,5 +12,8 @@ namespace CpuFeaturesDotNet.Native
 
         [DllImport(DllPath.X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86_64")]
         public static extern bool IsArchX86_64();
+
+        [DllImport(DllPath.ARM_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_arm_any")]
+        public static extern bool IsArchArmAny();
     }
 }

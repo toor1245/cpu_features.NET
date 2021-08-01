@@ -402,3 +402,4 @@ Desktop.ini
 cmake-build*/
 
 !src/CpuFeaturesDotnet/X86/
+!src/CpuFeaturesDotNet/Native/Arm/
