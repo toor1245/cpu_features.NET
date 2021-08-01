@@ -16,7 +16,7 @@ env:
 
 jobs:
   # Building using the github runner environement directly.
-  arm:
+  linux.arm:
     runs-on: ubuntu-latest
     strategy:
       matrix:
