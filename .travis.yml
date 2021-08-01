@@ -14,18 +14,21 @@ install:
 
 matrix:
   # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
+  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
       TARGET=arm-linux-gnueabihf
       QEMU_ARCH=arm
   # Toolchains for little-endian, 32-bit ARMv8 for GNU/Linux systems
+  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
       TARGET=armv8l-linux-gnueabihf
       QEMU_ARCH=arm
   # Toolchains for little-endian, soft-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
+  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
