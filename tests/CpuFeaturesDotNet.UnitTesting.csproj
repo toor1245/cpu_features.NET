@@ -29,4 +29,8 @@
       <ProjectReference Include="..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ArchTests" />
+    </ItemGroup>
+
 </Project>
