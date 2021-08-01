@@ -10,7 +10,6 @@ before_install:
 
 install:
   - nuget restore CpuFeaturesDotNet.sln
-  - nuget install xunit.runners -OutputDirectory testrunner
 
 matrix:
   # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
