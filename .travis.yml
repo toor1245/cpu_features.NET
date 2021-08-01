@@ -1,6 +1,8 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
+arch: arm64 
+
 mono: none
 
 dotnet: 5.0.102
@@ -14,7 +16,6 @@ install:
 
 matrix:
   # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
-  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
