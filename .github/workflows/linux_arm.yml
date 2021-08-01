@@ -1,0 +1,48 @@
+name: dotnet Linux ARM
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # min hours day(month) month day(week)
+    - cron: '0 0 7,22 * *'
+    
+workflow_dispatch:
+
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  # Building using the github runner environement directly.
+  arm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        targets: [
+          [arm-linux-gnueabihf]
+        ]
+      fail-fast: false
+    env:
+      TARGET: ${{ matrix.targets[0] }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core 3.1 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Setup .NET 5.0 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Create build
+        run: dotnet build "src" -c Release --force
+
+      - name: Run Unit Tests
+        run: dotnet test "tests/CpuFeaturesDotNet.UnitTesting" -c Release
