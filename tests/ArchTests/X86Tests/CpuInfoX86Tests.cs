@@ -9,7 +9,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.X86Tests
         [FactX86]
         public void IsArchX86_True()
         {
-            Assert.False(Architecture.IsArchX86());
+            Assert.True(Architecture.IsArchX86());
         }
     }
 }
