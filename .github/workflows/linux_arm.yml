@@ -19,13 +19,9 @@ jobs:
   arm:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        targets: [
-          [arm-linux-gnueabihf]
-        ]
       fail-fast: false
     env:
-      TARGET: ${{ matrix.targets[0] }}
+      TARGET: arm-linux-gnueabihf
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
