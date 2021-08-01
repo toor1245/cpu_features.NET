@@ -16,7 +16,7 @@ env:
 
 jobs:
   # Building using the github runner environement directly.
-  windows_x86-64:
+  x86:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
