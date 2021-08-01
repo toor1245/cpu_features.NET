@@ -3,11 +3,10 @@ name: dotnet Linux ARM
 on:
   push:
   pull_request:
+  workflow_dispatch:
   schedule:
     # min hours day(month) month day(week)
     - cron: '0 0 7,22 * *'
-    
-workflow_dispatch:
 
 env:
   # Stop wasting time caching packages
@@ -20,13 +19,9 @@ jobs:
   arm:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        targets: [
-          [arm-linux-gnueabihf]
-        ]
       fail-fast: false
     env:
-      TARGET: ${{ matrix.targets[0] }}
+      TARGET: arm-linux-gnueabihf
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -42,7 +37,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests/CpuFeaturesDotNet.UnitTesting" -c Release
+        run: dotnet test "tests" -c Release
