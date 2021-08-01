@@ -36,7 +36,8 @@
         </EmbeddedResource>
         <None Remove="Native\x86-64\cpu_features_dotnet.win-x86-64.dll" />
         <None Remove="Native\Arm\cpu_features_dotnet.linux-arm.so" />
-        <EmbeddedResource Include="Native\Arm\cpu_features_dotnet.linux-arm.so">
+        <None Remove="Native\Arm\libcpu_features_dotnet.so" />
+        <EmbeddedResource Include="Native\Arm\libcpu_features_dotnet.so">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </EmbeddedResource>
     </ItemGroup>
