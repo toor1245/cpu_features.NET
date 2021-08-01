@@ -46,7 +46,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --runtime linux-arm --force
 
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release
