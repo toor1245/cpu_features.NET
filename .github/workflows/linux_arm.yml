@@ -44,4 +44,4 @@ jobs:
         run: dotnet build "src" -c Release --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests/CpuFeaturesDotNet.UnitTesting" -c Release
+        run: dotnet test "tests" -c Release
