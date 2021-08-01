@@ -3,11 +3,10 @@ name: dotnet Linux ARM
 on:
   push:
   pull_request:
+  workflow_dispatch:
   schedule:
     # min hours day(month) month day(week)
     - cron: '0 0 7,22 * *'
-    
-workflow_dispatch:
 
 env:
   # Stop wasting time caching packages
