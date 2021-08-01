@@ -1,0 +1,36 @@
+language: csharp
+solution: CpuFeaturesDotNet.sln
+
+sudo: false
+
+mono: none
+dotnet: 2.1.502
+
+install:
+  - nuget restore solution-name.sln
+  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+
+matrix:
+  # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
+  - os: linux
+    env:
+      TOOLCHAIN=LINARO
+      TARGET=arm-linux-gnueabihf
+      QEMU_ARCH=arm
+  # Toolchains for little-endian, 32-bit ARMv8 for GNU/Linux systems
+  - os: linux
+    env:
+      TOOLCHAIN=LINARO
+      TARGET=armv8l-linux-gnueabihf
+      QEMU_ARCH=arm
+  # Toolchains for little-endian, soft-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
+  - os: linux
+    env:
+      TOOLCHAIN=LINARO
+      TARGET=arm-linux-gnueabi
+      QEMU_ARCH=arm
+      
+script:
+  - dotnet --version
+  - msbuild /p:Configuration=Release CpuFeaturesDotNet.sln
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./tests/CpuFeaturesDotNet.UnitTesting/bin/Release/CpuFeaturesDotNet.UnitTesting.dll
