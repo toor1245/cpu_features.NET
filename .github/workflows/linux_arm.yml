@@ -48,4 +48,4 @@ jobs:
         run: dotnet build "src/CpuFeaturesDotNet" -c Release --runtime linux-arm --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests" --runtime linux-arm -c Release
+        run: dotnet test "tests" -c Release --runtime linux-arm
