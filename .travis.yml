@@ -1,6 +1,11 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
+cache:
+  timeout: 1000
+  directories:
+    - $HOME/cpu_features_dotnet_archives
+
 mono: none
 
 dotnet: 5.0.102
