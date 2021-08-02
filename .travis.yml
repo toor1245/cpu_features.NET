@@ -1,8 +1,6 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
-arch: arm64 
-
 mono: none
 
 dotnet: 5.0.102
@@ -22,14 +20,12 @@ matrix:
       TARGET=arm-linux-gnueabihf
       QEMU_ARCH=arm
   # Toolchains for little-endian, 32-bit ARMv8 for GNU/Linux systems
-  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
       TARGET=armv8l-linux-gnueabihf
       QEMU_ARCH=arm
   # Toolchains for little-endian, soft-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
-  - arch: arm64 
   - os: linux
     env:
       TOOLCHAIN=LINARO
@@ -37,6 +33,4 @@ matrix:
       QEMU_ARCH=arm
       
 script:
-  - dotnet --version
-  - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-  - dotnet test "tests" -c Release --runtime linux-arm
+  - bash -e -x ./scripts/run_integration.sh
