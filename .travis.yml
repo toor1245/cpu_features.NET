@@ -1,5 +1,5 @@
 language: csharp
-#solution: CpuFeaturesDotNet.sln
+solution: CpuFeaturesDotNet.sln
 
 #cache:
 #  timeout: 1000
@@ -8,7 +8,7 @@ language: csharp
 
 #mono: none
 
-#dotnet: 5.0.102
+dotnet: 5.0
 
 services:
   - docker
