@@ -1,10 +1,10 @@
 language: csharp
 solution: CpuFeaturesDotNet.sln
 
-#cache:
-#  timeout: 1000
-#  directories:
-#    - $HOME/cpu_features_dotnet_archives
+cache:
+  timeout: 1000
+  directories:
+    - $HOME/cpu_features_dotnet_archives
 
 #mono: none
 
@@ -14,10 +14,10 @@ services:
   - docker
 
 before_install:
-- sudo apt-get update
-- sudo apt install nuget
-- sudo docker pull toor1245/cpu_features-dotnet:arm32v7
-- 
+  - sudo apt-get update
+  - sudo apt install nuget
+  - sudo docker pull toor1245/cpu_features-dotnet:arm32v7
+
 
 #install:
 #  - nuget restore CpuFeaturesDotNet.sln
