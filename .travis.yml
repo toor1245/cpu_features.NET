@@ -1,21 +1,21 @@
-language: csharp
-solution: CpuFeaturesDotNet.sln
+#language: csharp
+#solution: CpuFeaturesDotNet.sln
 
-cache:
-  timeout: 1000
-  directories:
-    - $HOME/cpu_features_dotnet_archives
+#cache:
+#  timeout: 1000
+#  directories:
+#    - $HOME/cpu_features_dotnet_archives
 
-mono: none
+#mono: none
 
-dotnet: 5.0.102
+#dotnet: 5.0.102
 
 before_install:
   - sudo apt-get update
   - sudo apt install nuget
 
-install:
-  - nuget restore CpuFeaturesDotNet.sln
+#install:
+#  - nuget restore CpuFeaturesDotNet.sln
 
 matrix:
   # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
