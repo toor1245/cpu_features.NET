@@ -15,7 +15,7 @@ env:
 
 jobs:
   arm32v7:
-    runs-on: [self-hosted, linux, ARM]
+    runs-on: ARM
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
