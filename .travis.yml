@@ -6,6 +6,7 @@ dotnet: 5.0
 matrix:
   include:
     - os: linux
+      dist: bionic
 sudo: required
 services:
   - docker
