@@ -5,20 +5,11 @@ dotnet: 5.0
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode11
     - os: linux
 sudo: required
 services:
   - docker
 
-# At least one script line is required:
-# https://docs.travis-ci.com/user/languages/csharp/#net-core
-script:
-  - dotnet restore
-  - dotnet build
-  - dotnet test --verbosity normal tests
-
 after_success: |
   sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  sudo docker run --platform "linux/arm/v7" -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7 /bin/bash -c "dotnet build && dotnet test CpuFeaturesDotNet.UnitTesting.dll"
+  sudo docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7 /bin/bash -c "dotnet build && dotnet test CpuFeaturesDotNet.UnitTesting.dll"
