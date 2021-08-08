@@ -1,14 +1,13 @@
 language: csharp
 mono: none
 
-dotnet: latest
+dotnet: 5.0
 
 matrix:
   include:
     - os: osx
       osx_image: xcode11
     - os: linux
-      dist: bionic
 sudo: required
 services:
   - docker
