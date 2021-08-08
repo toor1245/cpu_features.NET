@@ -15,37 +15,21 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # Building using the github runner environement directly.
-  arm:
+  arm32v7:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        targets: [
-          [arm-linux-gnueabihf],
-          [armv8l-linux-gnueabihf],
-          [arm-linux-gnueabi],
-          [armeb-linux-gnueabihf],
-          [armeb-linux-gnueabi]
-        ]
-      fail-fast: false
-    env:
-      TARGET: ${{ matrix.targets[0] }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup .NET Core 3.1 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '3.1.x'
+      - name: Install Qemu
+        run: |
+          sudo apt-get update
+          sudo snap install qemu-virgil --classic
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: '5.0.x'
-
-      - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --runtime linux-arm --force
-
+      
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release --runtime linux-arm
+        run: ./scripts/run_integration.sh
