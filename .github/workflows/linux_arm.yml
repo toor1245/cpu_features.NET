@@ -27,6 +27,4 @@ jobs:
           sudo snap install qemu-virgil --classic
       
       - name: Run Unit Tests
-        run: |
-          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-          sudo docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7
+        run: sudo docker run --platform linux/arm/v7 -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7
