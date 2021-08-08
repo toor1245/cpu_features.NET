@@ -1,0 +1,35 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. 
+version: 2.1
+
+jobs:
+  # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
+  build-and-test:  
+    # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
+    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # Be sure to update the tag on this image to a more stable version, using latest can result in unstable builds.
+    docker:
+      - image: ubuntu-2004:202101-01
+      - image: toor1245/cpu_features-dotnet:manifest-arm32v7
+    resource_class: arm.medium
+    steps:
+      # Checkout the code as the first step.
+      - checkout
+      - run: uname -a
+      - run: echo "Hello, Arm!"
+      # Then simply use the dotnet container as you'd expect and run your tests
+      - run:
+          # Update this line with the directory that contains your tests project file
+          #working_directory: ~/project/App.Tests
+          name: Run tests
+          command: |
+            sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+            sudo docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7 /bin/bash -c "dotnet build && dotnet test CpuFeaturesDotNet.UnitTesting.dll"
+            
+workflows:
+  # Below is the definition of your workflow.
+  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
+  # CircleCI will run this workflow on every commit.
+  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  sample: 
+    jobs:
+      - build-and-test
