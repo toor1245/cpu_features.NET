@@ -6,7 +6,6 @@ dotnet: 5.0.102
 matrix:
   include:
     - os: linux
-      dist: bionic
       arch: arm64
 sudo: required
 services:
