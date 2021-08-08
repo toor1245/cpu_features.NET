@@ -34,4 +34,4 @@ jobs:
       - name: Run Unit Tests
         run: |
           sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-          sudo docker run -it --rm toor1245/cpu_features-dotnet:manifest-arm32v7
+          sudo docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7
