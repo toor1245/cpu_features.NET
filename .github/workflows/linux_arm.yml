@@ -32,4 +32,6 @@ jobs:
           dotnet-version: '5.0.x'
       
       - name: Run Unit Tests
-        run: ./scripts/run_integration.sh
+        run: |
+          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+s         sudo docker run -it --rm toor1245/cpu_features-dotnet:manifest-arm32v7
