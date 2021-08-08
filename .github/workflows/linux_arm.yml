@@ -1,5 +1,4 @@
 name: run dotnet tests(Linux ARM)
-
 on:
   push:
   pull_request:
@@ -16,7 +15,7 @@ env:
 
 jobs:
   arm32v7:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, ARM]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
