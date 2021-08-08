@@ -1,31 +1,25 @@
 language: csharp
-solution: CpuFeaturesDotNet.sln
+mono: none
 
-cache:
-  timeout: 1000
-  directories:
-    - $HOME/cpu_features_dotnet_archives
+dotnet: latest
 
-#mono: none
-
-dotnet: 5.0
-
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode11
+    - os: linux
+      dist: bionic
+sudo: required
 services:
   - docker
 
-before_install:
-  - sudo apt-get update
-  - sudo apt install nuget
-  - sudo docker pull toor1245/cpu_features-dotnet:arm32v7
-
-
-#install:
-#  - nuget restore CpuFeaturesDotNet.sln
-
-matrix:
-  # Toolchains for little-endian, hard-float, 32-bit ARMv7 (and earlier) for GNU/Linux systems
-  - os: linux
-    arch: arm64
-      
+# At least one script line is required:
+# https://docs.travis-ci.com/user/languages/csharp/#net-core
 script:
-  - sudo docker run -it --rm oor1245/cpu_features-dotnet:arm32v7 /bin/sh -c "dotnet test CpuFeaturesDotNet.UnitTesting.dll"
+  - dotnet restore
+  - dotnet build
+  - dotnet test --verbosity normal tests
+
+after_success: |
+  sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  sudo docker run --platform "linux/arm/v7" -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7 /bin/bash -c "dotnet build && dotnet test CpuFeaturesDotNet.UnitTesting.dll"
