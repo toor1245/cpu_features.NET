@@ -15,7 +15,7 @@ env:
 
 jobs:
   arm32v7:
-    runs-on: ARM
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
