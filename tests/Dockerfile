@@ -4,3 +4,4 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
 COPY bin/Release/net5.0/linux-arm/publish/ App/
 RUN uname -a
 WORKDIR /App
+ENTRYPOINT ["dotnet", "test", "CpuFeaturesDotNet.UnitTesting.dll", "-v=normal"]

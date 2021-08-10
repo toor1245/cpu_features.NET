@@ -23,7 +23,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
         [Fact]
         public void IsArchArmAny_True()
         {
-            Assert.True(Architecture.IsArchArmAny());
+            Assert.False(Architecture.IsArchArmAny());
         }
     }
 }
