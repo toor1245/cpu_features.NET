@@ -4,7 +4,6 @@ name: default
 
 platform:
   os: linux
-  dist: 
   arch: arm
 
 steps:
