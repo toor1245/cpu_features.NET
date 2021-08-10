@@ -2,9 +2,14 @@ kind: pipeline
 type: docker
 name: default
 
+platform:
+  os: linux
+  dist: 
+  arch: arm
+
 steps:
-- name: greeting
-  image: alpine
+- name: arm32v7
+  image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
-  - echo hello
-  - echo world
+  - sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - sudo docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7 /bin/bash -c "dotnet build && dotnet test CpuFeaturesDotNet.UnitTesting.dll"
