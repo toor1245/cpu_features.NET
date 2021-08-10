@@ -33,85 +33,15 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void IsBitSet_CheckMiddleBit_True()
+        [Theory]
+        [InlineData(0b00001101U, 3, true)]
+        [InlineData(0b00000101U, 3, false)]
+        [InlineData(0b00001101U, 0, true)]
+        [InlineData(0b10001101U, 7, true)]
+        public void IsBitSet_CheckMiddleBit_True(uint register, int bit, bool expected)
         {
-            // Arrange
-            const uint register = 0b00001101;
-            const bool expected = true;
-
             // Act
-            var actual = BitUtils.IsBitSet(register, 3);
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void IsBitSet_CheckMiddleBit_False()
-        {
-            // Arrange
-            const uint register = 0b00000101;
-            const bool expected = false;
-
-            // Act
-            var actual = BitUtils.IsBitSet(register, 3);
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void IsBitSet_CheckFirstBit_True()
-        {
-            // Arrange
-            const uint register = 0b00001101;
-            const bool expected = true;
-
-            // Act
-            var actual = BitUtils.IsBitSet(register, 0);
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void IsBitSet_CheckMsb_True()
-        {
-            // Arrange
-            const uint register = 0b10001100;
-            const bool expected = true;
-
-            // Act
-            var actual = BitUtils.IsBitSet(register, 7);
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void IsBitSet_CheckMsb_False()
-        {
-            // Arrange
-            const uint register = 0b00001100;
-            const bool expected = false;
-
-            // Act
-            var actual = BitUtils.IsBitSet(register, 7);
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void IsBitSet_CheckFirstBit_False()
-        {
-            // Arrange
-            const uint register = 0b00001100;
-            const bool expected = false;
-
-            // Act
-            var actual = BitUtils.IsBitSet(register, 0);
+            var actual = BitUtils.IsBitSet(register, bit);
 
             // Assert
             Assert.Equal(expected, actual);
