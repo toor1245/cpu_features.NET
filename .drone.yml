@@ -11,4 +11,4 @@ steps:
   image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
   - dotnet build
-  - dotnet test CpuFeaturesDotNet.UnitTesting.dll
+  - dotnet test
