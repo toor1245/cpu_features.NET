@@ -1,7 +1,8 @@
 name: run dotnet tests(Linux ARM)
 on:
-  push:
   pull_request:
+    branches:
+      - master
   workflow_dispatch:
   schedule:
     # min hours day(month) month day(week)
