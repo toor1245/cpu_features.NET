@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.Native;
-using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit;
 
 namespace CpuFeaturesDotNet.UnitTesting.Attributes
@@ -22,16 +21,10 @@ namespace CpuFeaturesDotNet.UnitTesting.Attributes
     {
         public FactArmAttribute()
         {
-            if (!OSNative.IsLinuxOrAndroid())
-            {
-                Skip = "Not supported OS. At the moment shared library works only on Linux";
-                return;
-            }
             if (!Architecture.IsArchArmAny())
             {
                 Skip = "Ignored on unsupported arm microarchitecture";
             }
         }
-        
     }
 }

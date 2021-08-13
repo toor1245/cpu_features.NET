@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.DllPath;
+using static CpuFeaturesDotNet.Native.Library;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 using static CpuFeaturesDotNet.X86.CpuInfoX86;
 

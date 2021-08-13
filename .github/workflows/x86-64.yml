@@ -1,12 +1,10 @@
-name: run dotnet tests(Windows x86-64)
+name: .NET tests x86-64
 
 on:
-  push:
   pull_request:
+    branches:
+      - master
   workflow_dispatch:
-  schedule:
-    # min hours day(month) month day(week)
-    - cron: '0 0 7,22 * *'
 
 env:
   # Stop wasting time caching packages
@@ -17,7 +15,13 @@ env:
 jobs:
   # Building using the github runner environement directly.
   x86:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          - os: windows-latest
+          - os: ubuntu-latest
+#         - os: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

@@ -52,7 +52,7 @@ namespace CpuFeaturesDotNet.Utils
                 himagic = (himagic << 16 << 16) | himagic;
                 lomagic = (lomagic << 16 << 16) | lomagic;
             }
-            
+
             while (true)
             {
                 var longword = *longwordPtr++;

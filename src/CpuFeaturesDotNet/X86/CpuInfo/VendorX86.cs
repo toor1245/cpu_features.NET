@@ -14,7 +14,7 @@
 
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.DllPath;
+using static CpuFeaturesDotNet.Native.Library;
 
 namespace CpuFeaturesDotNet.X86
 {

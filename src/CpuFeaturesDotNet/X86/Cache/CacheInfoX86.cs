@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using static CpuFeaturesDotNet.Utils.BitUtils;
 
 namespace CpuFeaturesDotNet.X86

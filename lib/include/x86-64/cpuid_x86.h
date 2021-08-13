@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "macros.h"
+#include "shared/macros.h"
 
 CPU_FEATURES_DOTNET_START_CPP_NAMESPACE
 
