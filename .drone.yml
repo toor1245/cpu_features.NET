@@ -2,18 +2,13 @@ kind: pipeline
 type: docker
 name: default
 
-steps:
-- name: arm32v7
+platform:
   os: linux
   arch: arm
+
+steps:
+- name: arm32v7
   image: toor1245/cpu_features-dotnet:manifest-arm32v7
-  commands:
-  - dotnet build
-  - dotnet test
-- name: arm64v8
-  os: linux
-  arch: arm64
-  image: toor1245/cpu_features-dotnet:manifest-arm64v8
   commands:
   - dotnet build
   - dotnet test
