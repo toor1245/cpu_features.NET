@@ -83,5 +83,21 @@
       <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Native\Platforms\linux\x86-64\cpu_features_dotnet.x64.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\x86-64\cpu_features_dotnet.x64.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Native\Platforms\linux\x86-64\cpu_features_dotnet_shared.x64.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\x86-64\cpu_features_dotnet_shared.x64.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Native\Platforms\linux\aarch32-64\cpu_features_dotnet.armhf.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\aarch32-64\cpu_features_dotnet.armhf.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Native\Platforms\linux\aarch32-64\cpu_features_dotnet_shared.armhf.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\aarch32-64\cpu_features_dotnet_shared.armhf.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>

@@ -23,8 +23,8 @@ namespace CpuFeaturesDotNet.Native
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet_shared.x86.dll";
         public const string X86_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x86.dll";
 #elif X64 && OS_LINUX
-        public const string SHARED_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet_shared.x64.dll";
-        public const string X86_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x64.dll";
+        public const string SHARED_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet_shared.x64.so";
+        public const string X86_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x64.so";
 #elif X64 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet_shared.x64.dll";
         public const string X86_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x64.dll";
