@@ -1,4 +1,4 @@
-#include <cpuinfo_x86.h>
+#include <x86-64//cpuinfo_x86.h>
 
 bool is_vendor(leaf_t leaf, const char* name) {
   const uint32_t ebx = *(const uint32_t*)(name);

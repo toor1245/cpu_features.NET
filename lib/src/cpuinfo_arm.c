@@ -1,1 +1,1 @@
-#include "cpuinfo_arm.h"
+#include "arm/cpuinfo_arm.h"

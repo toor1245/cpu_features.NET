@@ -13,13 +13,13 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.DllPath;
+using static CpuFeaturesDotNet.Native.Library;
 
 namespace CpuFeaturesDotNet.Native.OperatingSystem
 {
     internal static class DarwinNative
     {
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "darwin_sysctlbyname")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "darwin_sysctlbyname")]
         internal static extern bool GetDarwinSysCtlByName(string name);
     }
 }

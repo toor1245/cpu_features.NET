@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
+using CpuFeaturesDotNet.UnitTesting.Attributes;
 using Xunit;
+using Architecture = CpuFeaturesDotNet.Native.Architecture;
 
 namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
 {
     public class CpuInfoArmTests
     {
-        //[Fact(Skip = "Need to setup CI/CD")]
-        [Fact]
+        [FactArm]
         public void IsArchArmAny_True()
         {
-            Assert.False(Architecture.IsArchArmAny());
+            Assert.True(Architecture.IsArchArmAny());
         }
     }
 }

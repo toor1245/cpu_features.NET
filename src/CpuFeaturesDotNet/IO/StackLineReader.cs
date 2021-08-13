@@ -21,7 +21,9 @@ namespace CpuFeaturesDotNet.IO
     {
         private const short STACK_LINE_READER_BUFFER_SIZE = 1024;
 
+#pragma warning disable 649
         private fixed byte Buffer[STACK_LINE_READER_BUFFER_SIZE];
+#pragma warning restore 649
 
         public int FileDescriptor;
         public StringView StringView;

@@ -13,25 +13,25 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.DllPath;
+using static CpuFeaturesDotNet.Native.Library;
 
 namespace CpuFeaturesDotNet.Native.OperatingSystem
 {
     public static class OSNative
     {
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_windows")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_windows")]
         public static extern bool IsWindows();
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_linux_android")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_linux_android")]
         public static extern bool IsLinuxOrAndroid();
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_android")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_android")]
         public static extern bool IsAndroid();
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_darwin")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_darwin")]
         public static extern bool IsDarwin();
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_freebsd")]
+        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_os_freebsd")]
         public static extern bool IsFreeBsd();
     }
 }

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "cpuid_x86.h"
+#include "x86-64/cpuid_x86.h"
 #include "memory.h"
 
 CPU_FEATURES_DOTNET_START_CPP_NAMESPACE
