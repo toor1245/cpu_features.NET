@@ -21,7 +21,7 @@ namespace CpuFeaturesDotNet.UnitTesting.NativeTests
         [Fact]
         public void IsArchX86_64()
         {
-            
+
         }
     }
 }

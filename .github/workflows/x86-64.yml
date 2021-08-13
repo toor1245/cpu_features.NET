@@ -1,12 +1,10 @@
 name: .NET tests x86-64
 
 on:
-  push:
   pull_request:
+    branches:
+      - master
   workflow_dispatch:
-  schedule:
-    # min hours day(month) month day(week)
-    - cron: '0 0 7,22 * *'
 
 env:
   # Stop wasting time caching packages
