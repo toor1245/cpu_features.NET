@@ -12,3 +12,9 @@ steps:
   commands:
   - dotnet build
   - dotnet test
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
