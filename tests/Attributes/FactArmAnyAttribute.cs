@@ -12,18 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.UnitTesting.Attributes;
+using CpuFeaturesDotNet.Native;
 using Xunit;
-using Architecture = CpuFeaturesDotNet.Native.Architecture;
 
-namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
+namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public class CpuInfoArmTests
+    public sealed class FactArmAnyAttribute : FactAttribute
     {
-        [FactArmAny]
-        public void IsArchArmAny_True()
+        public FactArmAnyAttribute()
         {
-            Assert.True(Architecture.IsArchArmAny());
+            if (!Architecture.IsArchArmAny())
+            {
+                Skip = "Ignored on unsupported ARM architecture";
+            }
         }
     }
 }

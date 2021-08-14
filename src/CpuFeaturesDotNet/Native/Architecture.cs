@@ -19,7 +19,7 @@ namespace CpuFeaturesDotNet.Native
     public static class Architecture
     {
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86")]
-        public static extern bool IsArchX86();
+        public static extern bool IsArchX86Any();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86_32")]
         public static extern bool IsArchX86_32();
