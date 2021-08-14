@@ -14,7 +14,7 @@ namespace CpuFeaturesDotNet.Samples
                 throw new NotSupportedException("Not supported OS At the moment shared library works only on Linux");
             }
         }
-        
+
         protected override void Run()
         {
             OutputHelper.WriteLine(Architecture.IsArchArmAny() ? "It is ARM architecture" : "It is not ARM architecture");

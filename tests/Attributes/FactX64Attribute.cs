@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using CpuFeaturesDotNet.Native;
 using Xunit;
 
-namespace CpuFeaturesDotNet.UnitTesting.NativeTests
+namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public class ArchitectureTests
+    public sealed class FactX64Attribute : FactAttribute
     {
-        [Fact]
-        public void IsArchX86_64()
+        public FactX64Attribute()
         {
-
+            if (!Architecture.IsArchX86_64())
+            {
+                Skip = "Ignored on unsupported X64 architecture";
+            }
         }
     }
 }

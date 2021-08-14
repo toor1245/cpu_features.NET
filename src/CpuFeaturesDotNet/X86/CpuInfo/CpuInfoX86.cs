@@ -32,7 +32,7 @@ namespace CpuFeaturesDotNet.X86
 
         static CpuInfoX86()
         {
-            if (!Architecture.IsArchX86())
+            if (!Architecture.IsArchX86Any())
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }

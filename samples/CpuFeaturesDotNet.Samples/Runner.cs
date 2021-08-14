@@ -9,16 +9,16 @@ namespace CpuFeaturesDotNet.Samples
     public class Runner
     {
         protected readonly ITestOutputHelper OutputHelper;
-        
+
         public Runner(ITestOutputHelper output)
         {
             OutputHelper = output;
         }
-        
-        //[Fact]
+
+        [Fact]
         public void StartRunner()
         {
-            if (!Architecture.IsArchX86())
+            if (!Architecture.IsArchX86Any())
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }

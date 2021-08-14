@@ -17,13 +17,13 @@ using Xunit;
 
 namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public sealed class FactArmAttribute : FactAttribute
+    public sealed class FactX86AnyAttribute : FactAttribute
     {
-        public FactArmAttribute()
+        public FactX86AnyAttribute()
         {
-            if (!Architecture.IsArchArmAny())
+            if (!Architecture.IsArchX86Any())
             {
-                Skip = "Ignored on unsupported arm microarchitecture";
+                Skip = "Ignored on unsupported X86-64 architecture";
             }
         }
     }
