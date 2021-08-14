@@ -25,13 +25,13 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.X86Tests
         {
             Assert.True(Architecture.IsArchX86_32());
         }
-        
+
         [FactX64]
         public void IsArchX64_True()
         {
             Assert.True(Architecture.IsArchX86_64());
         }
-        
+
         [FactX86Any]
         public void IsArchX86Any_True()
         {

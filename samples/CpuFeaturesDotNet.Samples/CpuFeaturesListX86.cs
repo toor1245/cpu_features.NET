@@ -7,9 +7,9 @@ namespace CpuFeaturesDotNet.Samples
 {
     public class CpuFeaturesListX86 : Runner
     {
-        public CpuFeaturesListX86(ITestOutputHelper output) 
+        public CpuFeaturesListX86(ITestOutputHelper output)
             : base(output) { }
-        
+
         protected override void Run()
         {
             OutputHelper.WriteLine(Architecture.IsArchArmAny().ToString());
@@ -20,7 +20,7 @@ namespace CpuFeaturesDotNet.Samples
             OutputHelper.WriteLine("stepping        : {0}", Stepping);
             OutputHelper.WriteLine("uarch           : {0}", Microarchitecture);
             OutputHelper.WriteLine("\n");
-            
+
             OutputHelper.WriteLine("Cache info X86");
             for (var i = 0; i < CacheInfoX86.Size; i++)
             {

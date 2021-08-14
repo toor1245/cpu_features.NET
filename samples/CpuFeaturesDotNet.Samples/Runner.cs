@@ -9,12 +9,12 @@ namespace CpuFeaturesDotNet.Samples
     public class Runner
     {
         protected readonly ITestOutputHelper OutputHelper;
-        
+
         public Runner(ITestOutputHelper output)
         {
             OutputHelper = output;
         }
-        
+
         [Fact]
         public void StartRunner()
         {
