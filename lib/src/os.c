@@ -1,4 +1,4 @@
-#include "shared/os.h"
+#include "os.h"
 
 bool is_os_windows() {
   return CPU_FEATURES_DOTNET_OS_WINDOWS;

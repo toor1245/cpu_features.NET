@@ -1,4 +1,4 @@
-#include <shared/arch.h>
+#include <arch.h>
 
 bool is_arch_X86() {
   return CPU_FEATURES_DOTNET_ARCH_X86;
