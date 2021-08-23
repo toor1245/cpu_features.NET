@@ -1,0 +1,38 @@
+name: .NET tests linux.x86-64
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  make-x86:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check cmake
+        run: cmake --version
+      - name: Configure
+        run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build cmake-build-release --target all -v
+
+      - name: Setup .NET 5.0 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Create build
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+
+      - name: Run Unit Tests
+        run: dotnet test "tests" -c Release

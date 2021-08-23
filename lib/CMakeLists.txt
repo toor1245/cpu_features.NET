@@ -1,30 +1,3 @@
-set(CMAKE_C_STANDARD 99)
-
-set(IS_GENERATE_FOR_ARM FALSE)
-if(IS_GENERATE_FOR_ARM)
-    set(CMAKE_SYSTEM_NAME Linux)
-    set(CMAKE_SYSTEM_PROCESSOR arm)
-
-    set(triple arm-linux-gnueabihf)
-
-    set(CMAKE_C_COMPILER clang)
-    set(CMAKE_C_COMPILER_TARGET ${triple})
-    set(CMAKE_CXX_COMPILER clang++)
-    set(CMAKE_CXX_COMPILER_TARGET ${triple})
-endif()
-
-# Default Build Type to be Release
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-            "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
-            FORCE)
-endif(NOT CMAKE_BUILD_TYPE)
-
-if(UNIX)
-   set(CMAKE_C_FLAGS "-fPIC")
-   set(CMAKE_CXX_FLAGS "-fPIC")
-endif()
-
 include(CheckIncludeFile)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
@@ -133,11 +106,11 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "(FreeBSD)")
 endif()
 
 macro(copy_to_CpuFeaturesDotNet TARGET_NAME)
-    message(${CMAKE_BINARY_DIR}/lib/${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION})
+    message(${CMAKE_BINARY_DIR}/lib/${CONFIGURATION_BINARY_DIR}${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION})
     message(${LIBRARY_ARCHITECTURE_PATH}/)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_BINARY_DIR}/lib/${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION} ${LIBRARY_ARCHITECTURE_PATH}
+            ${CMAKE_BINARY_DIR}/lib/${CONFIGURATION_BINARY_DIR}${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION} ${LIBRARY_ARCHITECTURE_PATH}
             )
 endmacro()
 

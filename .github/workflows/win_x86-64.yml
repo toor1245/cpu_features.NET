@@ -1,4 +1,4 @@
-name: .NET tests x86-64
+name: .NET tests win.x86-64
 
 on:
   pull_request:
@@ -14,22 +14,16 @@ env:
 
 jobs:
   # Building using the github runner environement directly.
-  x86:
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-          - os: windows-latest
-          - os: ubuntu-latest
-#         - os: macos-latest
+  msvc-x86:
+    runs-on:  windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup .NET Core 3.1 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '3.1.x'
+      - name: Configure
+        run: cmake -S. -Bcmake-build-release -G "Visual Studio 16 2019" -DCMAKE_CONFIGURATION_TYPES=Release
+      - name: Build
+        run: cmake --build cmake-build-release --config Release --target ALL_BUILD -- /maxcpucount
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
