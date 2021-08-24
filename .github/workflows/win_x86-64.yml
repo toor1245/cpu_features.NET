@@ -20,10 +20,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure
-        run: cmake -S. -Bcmake-build-release -G "Visual Studio 16 2019" -DCMAKE_CONFIGURATION_TYPES=Release
-      - name: Build
-        run: cmake --build cmake-build-release --config Release --target ALL_BUILD -- /maxcpucount
+      - name: Install ninja-build tool
+        uses: seanmiddleditch/gha-setup-ninja@v3
+
+      - name: CMake Build
+        run: cmake -Bcmake-build-release -H. -GNinja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Ninja
+        run: ninja -Ccmake-build-release
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
