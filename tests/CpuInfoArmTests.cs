@@ -16,7 +16,7 @@ using CpuFeaturesDotNet.UnitTesting.Attributes;
 using Xunit;
 using Architecture = CpuFeaturesDotNet.Native.Architecture;
 
-namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
+namespace CpuFeaturesDotNet.UnitTesting
 {
     public class CpuInfoArmTests
     {
