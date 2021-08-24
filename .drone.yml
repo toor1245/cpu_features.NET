@@ -15,16 +15,10 @@ steps:
     - cmake --version
     - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release --target all
-    - cd src
-    - cd CpuFeaturesDotNet
-    - cd Native
-    - cd Platforms
-    - cd linux
-    - cd aarch32
-    - ls
-    - arch
-    #- dotnet build -c Release --force
-    #- dotnet test "tests" -c Release -v=normal
+    - dotnet build -c Release --force
+    - cd tests
+    - dotnet build
+    - dotnet test -c Release -v=normal
 
 trigger:
   branch:
