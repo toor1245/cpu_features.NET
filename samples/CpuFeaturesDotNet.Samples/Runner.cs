@@ -14,7 +14,7 @@ namespace CpuFeaturesDotNet.Samples
             OutputHelper = output;
         }
 
-        [Fact]
+        //[Fact]
         public void StartRunner()
         {
             if (!Architecture.IsArchX86Any())
