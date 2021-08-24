@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: arm32v7
-  image: toor1245/dotnet/sdk:5.0-buster-slim-arm32v7
+  image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
     - apt-get update && apt-get -y install cmake
     - cmake --version
