@@ -9,7 +9,8 @@ platform:
 steps:
 - name: arm32v7
   image: toor1245/cpu_features-dotnet:manifest-arm32v7
-  commands: ls
+  commands:
+    - ls
 
 trigger:
   branch:
