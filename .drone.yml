@@ -20,11 +20,11 @@ steps:
     - cd Native
     - cd Platforms
     - cd linux
-    - cd x86-64
+    - cd aarch32
     - ls
     - arch
-    - dotnet build -c Release --force
-    - dotnet test "tests" -c Release -v=normal
+    #- dotnet build -c Release --force
+    #- dotnet test "tests" -c Release -v=normal
 
 trigger:
   branch:
