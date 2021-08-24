@@ -12,10 +12,10 @@ steps:
   commands:
     - apt-get update && apt-get -y install cmake
     - cmake --version
-    - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
-    - cmake --build cmake-build-release --target all
-    - dotnet build -c Release --force
-    - dotnet test -c Release -v=normal --runtime linux-arm --force
+    - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+    - cmake --build cmake-build-debug --target all
+    - dotnet build
+    - dotnet test
 
 trigger:
   branch:
