@@ -10,8 +10,9 @@ steps:
 - name: arm32v7
   image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
-  - dotnet build
-  - dotnet test
+    - arch
+    - dotnet build
+    - dotnet test
 
 trigger:
   branch:
