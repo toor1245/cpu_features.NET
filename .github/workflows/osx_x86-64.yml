@@ -1,4 +1,4 @@
-name: .NET tests win.x86-64
+name: .NET tests osx.x86-64
 
 on:
   pull_request:
@@ -13,21 +13,18 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # Building using the github runner environement directly.
-  ninja-x86:
-    runs-on:  windows-latest
+  make-x86:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install ninja-build tool
-        uses: seanmiddleditch/gha-setup-ninja@v3
-
-      - name: CMake Build
-        run: cmake -S. -Bcmake-build-release -GNinja -DCMAKE_BUILD_TYPE=Release
-
-      - name: Ninja
-        run: ninja -Ccmake-build-release
+      - name: Check cmake
+        run: cmake --version
+      - name: Configure
+        run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build cmake-build-release --target all -v
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
