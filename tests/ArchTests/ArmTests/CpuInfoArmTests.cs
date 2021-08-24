@@ -29,7 +29,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
         [FactArm32]
         public void IsArchArm32_True()
         {
-            Assert.True(Architecture.IsArchArm32());
+            Assert.False(Architecture.IsArchArm32());
         }
 
         [FactArm64]
