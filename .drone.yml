@@ -18,6 +18,7 @@ steps:
     - arch
     - dotnet build "src/CpuFeaturesDotNet" -c Release --force
     - dotnet test "tests" -c Release
+    - cat /drone/src/src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj
 
 trigger:
   branch:
