@@ -15,14 +15,16 @@ steps:
     - cmake --version
     - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release --target all
+    - cd src
+    - cd CpuFeaturesDotNet
+    - cd Native
+    - cd Platforms
+    - cd linux
+    - cd x86-64
+    - ls
     - arch
     - dotnet build -c Release --force
     - dotnet test "tests" -c Release -v=normal
-    - cat /drone/src/src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj
-    - cd tests
-    - ls
-    - cd ArchTests
-    - ls
 
 trigger:
   branch:
