@@ -8,7 +8,6 @@ platform:
 
 steps:
 - name: arm32v7
-  image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
     - apt-get update && apt-get -y install cmake
     - cmake --version
@@ -16,7 +15,7 @@ steps:
     - cmake --build cmake-build-debug --target all
     - dotnet restore
     - dotnet build
-    - dotnet test
+    - dotnet test tests/CpuFeaturesDotNet.UnitTesting.csproj
 
 trigger:
   branch:
