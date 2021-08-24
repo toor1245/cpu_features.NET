@@ -18,8 +18,9 @@ steps:
     - dotnet build -c Release --force
     - cd tests
     - dotnet publish -c Release --runtime linux-arm
-    - cd bin/Release/net5.0/linux-arm/publish/
-    - dotnet test "CpuFeaturesDotNet.UnitTesting.dll"
+    - docker build -t toor1245/cpu_features-dotnet:manifest-arm32v7 -f ./Dockerfile.buster-slim-arm32v7 .
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - docker run -i --rm toor1245/cpu_features-dotnet:manifest-arm32v7
 
 trigger:
   branch:
