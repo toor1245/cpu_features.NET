@@ -17,7 +17,7 @@ steps:
     - cmake --build cmake-build-release --target all
     - arch
     - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-    - dotnet test "tests" -c Release
+    - dotnet test "tests" -c Release -v=diagnostic
     - cat /drone/src/src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj
 
 trigger:
