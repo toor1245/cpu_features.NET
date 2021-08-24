@@ -19,6 +19,10 @@ steps:
     - dotnet build -c Release --force
     - dotnet test "tests" -c Release -v=normal
     - cat /drone/src/src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj
+    - cd tests
+    - ls
+    - cd ArchTests
+    - ls
 
 trigger:
   branch:
