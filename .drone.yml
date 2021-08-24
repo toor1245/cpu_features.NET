@@ -16,8 +16,8 @@ steps:
     - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release --target all
     - arch
-    - dotnet build
-    - dotnet test -v=normal
+    - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+    - dotnet test "tests" -c Release
 
 trigger:
   branch:
