@@ -56,9 +56,9 @@
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <Optimize>false</Optimize>
-        <PlatformTarget>X64</PlatformTarget>
-        <Prefer32bit>false</Prefer32bit>
+        <Optimize>@IS_OPTIMIZE@</Optimize>
+        <PlatformTarget>@PLATFORM_TARGET@</PlatformTarget>
+        <Prefer32bit>@PREFER_32BIT@</Prefer32bit>
         <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
@@ -75,12 +75,12 @@
       <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll" />
-      <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll">
+      <None Remove="@NATIVE_LIB_SHARED_PATH@" />
+      <EmbeddedResource Include="@NATIVE_LIB_SHARED_PATH@">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
-      <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll" />
-      <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll">
+      <None Remove="@NATIVE_LIB_PATH@" />
+      <EmbeddedResource Include="@NATIVE_LIB_PATH@">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>

@@ -1,6 +1,5 @@
 ﻿using System;
 using CpuFeaturesDotNet.Native;
-using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit;
 using Xunit.Abstractions;
 
