@@ -18,7 +18,7 @@ steps:
     - dotnet build -c Release --force
     - cd tests
     - dotnet build
-    - dotnet test -c Release -v=normal
+    - dotnet test -c Release -v=normal --runtime linux-arm
 
 trigger:
   branch:
