@@ -15,7 +15,7 @@ steps:
     - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
     - cmake --build cmake-build-debug --target all
     - dotnet build
-    - dotnet test "tests"
+    - dotnet test
 
 trigger:
   branch:
