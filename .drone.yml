@@ -19,7 +19,7 @@ steps:
     - cd tests
     - dotnet publish -c Release --runtime linux-arm
     - cd bin/Release/net5.0/linux-arm/publish/
-    - dotnet test "CpuFeaturesDotNet.UnitTesting.dll" -v=normal
+    - dotnet test "CpuFeaturesDotNet.UnitTesting.dll"
 
 trigger:
   branch:
