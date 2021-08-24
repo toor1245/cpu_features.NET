@@ -17,7 +17,7 @@ steps:
     - cmake --build cmake-build-release --target all
     - arch
     - dotnet build
-    - dotnet test
+    - dotnet test -v=normal
 
 trigger:
   branch:
