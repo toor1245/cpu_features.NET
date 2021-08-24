@@ -24,7 +24,7 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@v3
 
       - name: CMake Build
-        run: cmake -Bcmake-build-release -H. -GNinja -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S. -Bcmake-build-release -GNinja -DCMAKE_BUILD_TYPE=Release
 
       - name: Ninja
         run: ninja -Ccmake-build-release
