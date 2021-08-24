@@ -14,7 +14,7 @@ steps:
     - apt-get update && apt-get -y install cmake
     - cmake --version
     - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
-    - cmake --build cmake-build-release --target all -v
+    - cmake --build cmake-build-release --target all
     - arch
     - dotnet build
     - dotnet test
