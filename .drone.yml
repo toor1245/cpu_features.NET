@@ -16,7 +16,10 @@ steps:
     - cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release --target all
     - dotnet build -c Release --force
-    - dotnet test "tests/CpuFeaturesDotNet.UnitTesting.dll" -c Release -v=normal --runtime linux-arm
+    - cd tests
+    - dotnet publish -c Release --runtime linux-arm
+    - cd bin/Release/net5.0/linux-arm/publish/
+    - dotnet test "CpuFeaturesDotNet.UnitTesting.dll" -v=normal
 
 trigger:
   branch:
