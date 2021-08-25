@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: arm32v7
-  image: alpine
+  image: toor1245/cpu_features-dotnet:manifest-arm32v7
   commands:
     - ls
     - apt-get update && apt-get -y install cmake
