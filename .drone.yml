@@ -10,7 +10,6 @@ steps:
 - name: arm32v7
   image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
   commands:
-    - ls
     - apt-get update && apt-get -y install cmake
     - cmake --version
     - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
