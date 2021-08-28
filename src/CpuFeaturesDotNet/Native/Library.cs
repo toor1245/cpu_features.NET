@@ -18,53 +18,34 @@ namespace CpuFeaturesDotNet.Native
     {
 #if X86 && OS_LINUX
         public const string SHARED_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet_shared.x86.dll";
-        public const string X86_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x86.dll";
-        public const string ARM64_LIBRARY = "none";
-        public const string ARM32_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x86.dll";
 #elif X86 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet_shared.x86.dll";
-        public const string X86_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x86.dll";
-        public const string ARM64_LIBRARY = "none";
-        public const string ARM32_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x86.dll";
 #elif X64 && OS_LINUX
         public const string SHARED_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet_shared.x64.so";
-        public const string X86_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x64.so";
-        public const string ARM64_LIBRARY = "none";
-        public const string ARM32_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x64.so";
 #elif X64 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet_shared.x64.dll";
-        public const string X86_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x64.dll";
-        public const string ARM64_LIBRARY = "none";
-        public const string ARM32_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x64.dll";
 #elif X64 && OS_MAC
         public const string SHARED_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet_shared.x64.so";
-        public const string X86_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet.x64.so";
-        public const string ARM64_LIBRARY = "none";
-        public const string ARM32_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet.x64.so";
 #elif ARM32 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet_shared.aarch32.dll";
-        public const string ARM32_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet.aarch32.dll";
-        public const string ARM64_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet.aarch32.dll";
 #elif ARM32 && OS_LINUX
         public const string SHARED_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet_shared.aarch32.so";
-        public const string ARM32_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet.aarch32.so";
-        public const string X86_LIBRARY = "none";
-        public const string ARM64_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet.aarch32.so";
 #elif ARM64 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\aarch64\\cpu_features_dotnet_shared.aarch64.dll";
-        public const string ARM64_LIBRARY = "Native\\Platforms\\win\\aarch64\\cpu_features_dotnet.aarch64.dll";
-        public const string ARM32_LIBRARY = "none";
-        public const string X86_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\aarch64\\cpu_features_dotnet.aarch64.dll";
 #elif ARM64 && OS_LINUX
         public const string SHARED_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet_shared.aarch64.so";
-        public const string ARM64_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet.aarch64.so";
-        public const string ARM32_LIBRARY = "none";
-        public const string X86_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet.aarch64.so";
 #elif ARM64 && OS_MAC
         public const string SHARED_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet_shared.aarch64.so";
-        public const string ARM64_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet.aarch64.so";
-        public const string ARM32_LIBRARY = "none";
-        public const string X86_LIBRARY = "none";
+        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet.aarch64.so";
 #endif
     }
 }
