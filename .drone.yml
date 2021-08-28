@@ -8,11 +8,8 @@ platform:
 
 steps:
 - name: arm32v7
-  image: toor1245/cpu_features-dotnet:armhf
   commands:
     - ls
-    - dotnet test CpuFeaturesDotNet.UnitTesting.dll
-
 
 trigger:
   branch:
