@@ -1,6 +1,5 @@
 ﻿using System;
 using CpuFeaturesDotNet.Native;
-using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,7 +14,7 @@ namespace CpuFeaturesDotNet.Samples
             OutputHelper = output;
         }
 
-        [Fact]
+        //[Fact]
         public void StartRunner()
         {
             if (!Architecture.IsArchX86Any())

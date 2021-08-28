@@ -40,7 +40,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             Assert.Equal(expected, actual);
         }
 
-        //[Fact]
+        [Fact(Skip = "Need to fix arm str_len")]
         public void strlen_GetLengthOfString_ReturnsLength()
         {
             // Arrange

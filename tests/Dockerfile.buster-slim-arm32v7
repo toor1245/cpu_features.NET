@@ -1,7 +1,12 @@
-FROM multiarch/debian-debootstrap:armhf-buster-slim
-RUN apt-get update && apt-get install -y curl gnupg icu-devtools
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
+
+#RUN curl -k -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.9/dotnet-runtime-5.0.9-linux-arm.tar.gz \
+#    && dotnet_sha512='9019858e75f73b5fd6ce0e04aeb060f61221391b6a55dbf8ed2e43f1011198252f651fb0e07b2b8e7d8d558403f2c86f6ced147c2501e36a90411bd21e521a4f' \
+#    && echo "$dotnet_sha512  dotnet.tar.gz" | sha512sum -c - \
+#    && mkdir -p /dotnet \
+#    && tar -ozxf dotnet.tar.gz -C /dotnet \
+#    && ln -s /dotnet/dotnet /usr/bin/dotnet
+
 COPY bin/Release/net5.0/linux-arm/publish/ App/
-RUN uname -a
 WORKDIR /App
-ENTRYPOINT ["dotnet", "test", "CpuFeaturesDotNet.UnitTesting.dll", "-v=normal"]
+ENTRYPOINT [ "dotnet", "test" "CpuFeaturesDotNet.UnitTesting.dll"]

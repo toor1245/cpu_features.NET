@@ -1,4 +1,4 @@
-name: .NET tests x86-64
+name: .NET tests osx.x86-64
 
 on:
   pull_request:
@@ -13,23 +13,18 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # Building using the github runner environement directly.
-  x86:
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-          - os: windows-latest
-          - os: ubuntu-latest
-#         - os: macos-latest
+  make-x86:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup .NET Core 3.1 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '3.1.x'
+      - name: Check cmake
+        run: cmake --version
+      - name: Configure
+        run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build cmake-build-release --target all -v
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2

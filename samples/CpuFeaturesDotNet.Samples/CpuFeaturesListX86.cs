@@ -12,8 +12,6 @@ namespace CpuFeaturesDotNet.Samples
 
         protected override void Run()
         {
-            OutputHelper.WriteLine(Architecture.IsArchArmAny().ToString());
-            OutputHelper.WriteLine(RuntimeInformation.OSArchitecture.ToString());
             OutputHelper.WriteLine("brand_string    : {0}", BrandString);
             OutputHelper.WriteLine("family          : {0}", Family);
             OutputHelper.WriteLine("model           : {0}", Model);

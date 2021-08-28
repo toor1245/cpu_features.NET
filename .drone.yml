@@ -8,11 +8,15 @@ platform:
 
 steps:
 - name: arm32v7
-  image: toor1245/cpu_features-dotnet:manifest-arm32v7
+  image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
   commands:
-  - dotnet build
-  - dotnet test
-
+    - apt-get update && apt-get -y install cmake
+    - cmake --version
+    - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+    - cmake --build cmake-build-debug --target all
+    - dotnet build
+    - dotnet test
+    
 trigger:
   branch:
     - master
