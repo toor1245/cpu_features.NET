@@ -22,7 +22,6 @@ trigger:
     - master
   event:
     - pull_request
-
 ---
 kind: pipeline
 type: docker
@@ -47,8 +46,7 @@ trigger:
   branch:
     - master
   event:
-    - pull_request
-      
+    - pull_request   
 ---
 kind: pipeline
 type: docker
