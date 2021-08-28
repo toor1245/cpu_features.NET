@@ -32,6 +32,8 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32/cpuinfo_arm.h)
 
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_arm.c)
+    elseif(PROCESSOR_IS_AARCH64)
+        message("there is no AARCH64 files")
     else()
         message(FATAL_ERROR "Unsupported architectures ${CMAKE_SYSTEM_PROCESSOR}")
     endif()
