@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: arm32
+name: linux-arm32-gcc
 
 platform:
   os: linux
@@ -25,7 +25,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: arm64
+name: linux-arm64-gcc
 
 platform:
   os: linux
