@@ -44,8 +44,8 @@ namespace CpuFeaturesDotNet.Native
         public const string SHARED_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet_shared.aarch64.so";
         public const string NATIVE_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet.aarch64.so";
 #elif ARM64 && OS_MAC
-        public const string SHARED_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet_shared.aarch64.so";
-        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet.aarch64.so";
+        public const string SHARED_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet_shared.aarch64.dylib";
+        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet.aarch64.dylib";
 #endif
     }
 }
