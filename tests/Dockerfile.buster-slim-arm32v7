@@ -18,4 +18,4 @@ RUN curl -k -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Ru
 
 COPY bin/Release/net5.0/linux-arm/publish/ App/
 WORKDIR /App
-ENTRYPOINT [ "dotnet", "test", "CpuFeaturesDotNet.UnitTesting.dll" ]
+RUN dotnet test CpuFeaturesDotNet.UnitTesting.dll
