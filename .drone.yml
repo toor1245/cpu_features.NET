@@ -34,7 +34,7 @@ platform:
 
 steps:
   - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm64v8
+    image: mcr.microsoft.com/dotnet/sdk:5.0
     commands:
       - apt-get update && apt-get -y install cmake
       - cmake --version
