@@ -9,7 +9,8 @@ platform:
 steps:
 - name: arm32v7
   commands:
-    - ls
+    - dotnet build
+    - dotnet test
 
 trigger:
   branch:
