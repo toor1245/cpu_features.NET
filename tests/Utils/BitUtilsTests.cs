@@ -40,11 +40,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
         [InlineData(0b10001101U, 7, true)]
         public void IsBitSet_CheckMiddleBit_True(uint register, int bit, bool expected)
         {
-            // Act
-            var actual = BitUtils.IsBitSet(register, bit);
-
-            // Assert
-            Assert.Equal(expected, actual);
+            Assert.True(Architecture.IsArchArm32());
         }
     }
 }
