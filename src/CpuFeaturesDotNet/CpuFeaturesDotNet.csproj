@@ -75,12 +75,12 @@
       <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="Native\Platforms\linux\x86-64\cpu_features_dotnet_shared.x64.so" />
-      <EmbeddedResource Include="Native\Platforms\linux\x86-64\cpu_features_dotnet_shared.x64.so">
+      <None Remove="Native\Platforms\linux\aarch32\cpu_features_dotnet_shared.aarch32.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\aarch32\cpu_features_dotnet_shared.aarch32.so">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
-      <None Remove="Native\Platforms\linux\x86-64\cpu_features_dotnet.x64.so" />
-      <EmbeddedResource Include="Native\Platforms\linux\x86-64\cpu_features_dotnet.x64.so">
+      <None Remove="Native\Platforms\linux\aarch32\cpu_features_dotnet.aarch32.so" />
+      <EmbeddedResource Include="Native\Platforms\linux\aarch32\cpu_features_dotnet.aarch32.so">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
