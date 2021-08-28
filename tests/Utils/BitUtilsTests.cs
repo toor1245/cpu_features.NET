@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.Utils;
 using Xunit;
 
@@ -34,10 +33,18 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void IsBitSet_CheckMiddleBit_True()
+        [Theory]
+        [InlineData(0b00001101U, 3, true)]
+        [InlineData(0b00000101U, 3, false)]
+        [InlineData(0b00001101U, 0, true)]
+        [InlineData(0b10001101U, 7, true)]
+        public void IsBitSet_CheckMiddleBit_True(uint register, int bit, bool expected)
         {
-            Assert.True(Architecture.IsArchArm32());
+            // Act
+            var actual = BitUtils.IsBitSet(register, bit);
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
     }
 }

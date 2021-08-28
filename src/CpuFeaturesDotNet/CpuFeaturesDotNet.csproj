@@ -76,12 +76,6 @@
     </ItemGroup>
     <ItemGroup>
       <None Remove="Native\Platforms\linux\aarch32\cpu_features_dotnet_shared.aarch32.so" />
-      <EmbeddedResource Include="Native\Platforms\linux\aarch32\cpu_features_dotnet_shared.aarch32.so">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Native\Platforms\linux\aarch32\cpu_features_dotnet.aarch32.so" />
-      <EmbeddedResource Include="Native\Platforms\linux\aarch32\cpu_features_dotnet.aarch32.so">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
     </ItemGroup>
 </Project>
