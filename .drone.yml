@@ -16,7 +16,8 @@ steps:
     - cmake --build cmake-build-debug --target all
     - dotnet build --force
     - dotnet test
-
+    - cd /drone/src/tests/bin/Debug/net5.0/Native/Platforms/linux\aarch32
+    - ls
 
 trigger:
   branch:
