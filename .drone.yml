@@ -1,5 +1,30 @@
 kind: pipeline
 type: docker
+name: arm32
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: Build and Test
+  image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
+  commands:
+    - apt-get update && apt-get -y install cmake
+    - cmake --version
+    - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+    - cmake --build cmake-build-debug --target all
+    - dotnet build
+    - dotnet test
+      
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
+---
+kind: pipeline
+type: docker
 name: arm64
 
 platform:
@@ -22,54 +47,3 @@ trigger:
     - master
   event:
     - pull_request
----
-kind: pipeline
-type: docker
-name: arm32
-
-platform:
-  os: linux
-  arch: arm
-
-steps:
-- name: Build and Test
-  image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
-  commands:
-    - apt-get update && apt-get -y install cmake
-    - cmake --version
-    - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
-    - cmake --build cmake-build-debug --target all
-    - dotnet build
-    - dotnet test
-      
-trigger:
-  branch:
-    - master
-  event:
-    - pull_request 
-
----
-kind: pipeline
-type: docker
-name: arm32v7
-
-platform:
-  os: linux
-  arch: arm
-
-steps:
-  - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
-    commands:
-      - apt-get update && apt-get -y install cmake
-      - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
-      - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
-
-trigger:
-  branch:
-    - master
-  event:
-    - pull_request 
