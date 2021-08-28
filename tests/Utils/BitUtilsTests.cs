@@ -34,7 +34,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
         }
 
         [Fact]
-        public void IsBitSet_CheckMiddleBit_True(
+        public void IsBitSet_CheckMiddleBit_True()
         {
             Assert.True(Architecture.IsArchArm32());
         }
