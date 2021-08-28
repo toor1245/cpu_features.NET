@@ -15,8 +15,8 @@ steps:
     - cmake --version
     - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
     - cmake --build cmake-build-debug --target all
-    - dotnet build
-    - dotnet test
+    - dotnet build -c Release --force
+    - dotnet test -c Release
 
 
 trigger:
