@@ -16,13 +16,6 @@ steps:
     - cmake --build cmake-build-debug --target all
     - dotnet build
     - dotnet test
-      
-trigger:
-  branch:
-    - master
-  event:
-    - pull_request
-
 ---
 kind: pipeline
 type: docker
@@ -42,9 +35,3 @@ steps:
       - cmake --build cmake-build-debug --target all
       - dotnet build
       - dotnet test
-
-trigger:
-  branch:
-    - master
-  event:
-    - pull_request   
