@@ -42,12 +42,12 @@ namespace CpuFeaturesDotNet.Native
         public const string ARM64_LIBRARY = "none";
         public const string ARM32_LIBRARY = "none";
 #elif ARM32 && OS_WINDOWS
-        public const string SHARED_LIBRARY = "Native\\Platforms\\win\\aarch32-64\\cpu_features_dotnet_shared.aarch32.dll";
-        public const string ARM32_LIBRARY = "Native\\Platforms\\win\\aarch32-64\\cpu_features_dotnet.aarch32.dll";
+        public const string SHARED_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet_shared.aarch32.dll";
+        public const string ARM32_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet.aarch32.dll";
         public const string ARM64_LIBRARY = "none";
 #elif ARM32 && OS_LINUX
-        public const string SHARED_LIBRARY = "Native/Platforms/linux/aarch32-64/cpu_features_dotnet_shared.aarch32.so";
-        public const string ARM32_LIBRARY = "Native/Platforms/linux/aarch32-64/cpu_features_dotnet.aarch32.so";
+        public const string SHARED_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet_shared.aarch32.so";
+        public const string ARM32_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet.aarch32.so";
         public const string X86_LIBRARY = "none";
         public const string ARM64_LIBRARY = "none";
 #elif ARM64 && OS_WINDOWS

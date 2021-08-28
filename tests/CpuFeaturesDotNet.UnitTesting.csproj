@@ -29,7 +29,6 @@
 
     <ItemGroup>
       <Folder Include="ArchTests" />
-      <Folder Include="ArchTests\ArmTests" />
     </ItemGroup>
 
 </Project>

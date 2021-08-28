@@ -15,8 +15,6 @@ steps:
     - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
     - cmake --build cmake-build-debug --target all
     - dotnet build
-    - cd tests/bin/Debug/net5.0/Native/Platforms/linux/aarch32
-    - ls
     - dotnet test
     
 trigger:
