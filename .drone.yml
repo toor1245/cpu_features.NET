@@ -1,7 +1,11 @@
 kind: pipeline
 type: docker
 name: linux-arm32-gcc
-platform: { os: linux, arch: arm }
+
+platform:
+  os: linux
+  arch: arm
+
 steps:
 - name: Build and Test
   image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
@@ -12,11 +16,22 @@ steps:
     - cmake --build cmake-build-debug --target all
     - dotnet build
     - dotnet test
+      
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
+
 ---
 kind: pipeline
 type: docker
 name: linux-arm64-gcc
-platform: { os: linux, arch: arm64 }
+
+platform:
+  os: linux
+  arch: arm64
+
 steps:
   - name: Build and Test
     image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm64v8
@@ -26,19 +41,10 @@ steps:
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
       - cmake --build cmake-build-debug --target all
       - dotnet build
-      - dotnet test  
----
-kind: pipeline
-type: docker
-name: linux-i386-gcc
-platform: { os: linux, arch: i386 }
-steps:
-  - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0
-    commands:
-      - apt-get update && apt-get -y install cmake
-      - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
-      - cmake --build cmake-build-debug --target all
-      - dotnet build
       - dotnet test
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request   
