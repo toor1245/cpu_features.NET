@@ -24,7 +24,7 @@ namespace CpuFeaturesDotNet.X86
         private const string AUTHENTIC_AMD = "AuthenticAMD";
         private const string HYGON_GENUINE = "HygonGenuine";
 
-        [DllImport(X86_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_vendor")]
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_vendor")]
         private static extern bool IsVendor(LeafX86 leaf, string name);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
