@@ -33,12 +33,8 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             Assert.Equal(expected, actual);
         }
 
-        [Theory]
-        [InlineData(0b00001101U, 3, true)]
-        [InlineData(0b00000101U, 3, false)]
-        [InlineData(0b00001101U, 0, true)]
-        [InlineData(0b10001101U, 7, true)]
-        public void IsBitSet_CheckMiddleBit_True(uint register, int bit, bool expected)
+        [Fact]
+        public void IsBitSet_CheckMiddleBit_True(
         {
             Assert.True(Architecture.IsArchArm32());
         }
