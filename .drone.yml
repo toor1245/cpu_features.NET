@@ -54,7 +54,7 @@ name: linux-i386-gcc
 
 platform:
   os: linux
-  arch: 386
+  arch: amd64
 
 steps:
   - name: Build and Test

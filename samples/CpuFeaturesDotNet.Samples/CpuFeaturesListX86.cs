@@ -1,7 +1,5 @@
-using System.Runtime.InteropServices;
 using Xunit.Abstractions;
 using static CpuFeaturesDotNet.X86.CpuInfoX86;
-using Architecture = CpuFeaturesDotNet.Native.Architecture;
 
 namespace CpuFeaturesDotNet.Samples
 {
