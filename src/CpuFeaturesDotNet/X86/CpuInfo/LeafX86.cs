@@ -23,9 +23,9 @@ namespace CpuFeaturesDotNet.X86
         public readonly uint eax, ebx, ecx, edx;
 
         [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
-        internal static extern LeafX86 CpuId(uint leafId, int ecx = 0);
+        public static extern LeafX86 CpuId(uint leafId, int ecx = 0);
 
-        internal static LeafX86 SafeCpuId(uint maxExtensionCpuId, uint leafId, int ecx = 0)
+        public static LeafX86 SafeCpuId(uint maxExtensionCpuId, uint leafId, int ecx = 0)
         {
             return leafId <= maxExtensionCpuId ? CpuId(leafId, ecx) : new LeafX86();
         }

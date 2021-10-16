@@ -20,12 +20,12 @@ namespace CpuFeaturesDotNet.IO
     internal static unsafe class FileSystem
     {
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "open_file")]
-        internal static extern int OpenFile(string fileName);
+        public static extern int OpenFile(string fileName);
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "read_file")]
-        internal static extern int ReadFile(int fileDescriptor, byte* buffer, ulong bufferSize);
+        public static extern int ReadFile(int fileDescriptor, byte* buffer, ulong bufferSize);
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "close_file")]
-        internal static extern void CloseFile(int fileDescriptor);
+        public static extern void CloseFile(int fileDescriptor);
     }
 }

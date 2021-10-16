@@ -79,7 +79,7 @@ namespace CpuFeaturesDotNet.X86.Simd
             IsSupportedAMX_INT8 = IsBitSet(_leaf7.edx, 25);
         }
 
-        internal static BaseSimdFeaturesX86 GetSimdResolver(in LeafSimdX86 leafSimd, int model)
+        public static BaseSimdFeaturesX86 GetSimdResolver(in LeafSimdX86 leafSimd, int model)
         {
             if (VendorX86.IsIntelVendor(leafSimd.leaf))
             {

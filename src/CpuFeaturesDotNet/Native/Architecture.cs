@@ -34,6 +34,6 @@ namespace CpuFeaturesDotNet.Native
         public static extern bool IsArchArm32();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_aarch64")]
-        public static extern bool IsArchArm64();
+        public static extern bool IsArchAarch64();
     }
 }

@@ -35,7 +35,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
         [FactArm64]
         public void IsArchArm64_True()
         {
-            Assert.True(Architecture.IsArchArm64());
+            Assert.True(Architecture.IsArchAarch64());
         }
     }
 }

@@ -23,6 +23,11 @@
 
 CPU_FEATURES_DOTNET_START_CPP_NAMESPACE
 
+
+CPU_FEATURES_DOTNET_END_CPP_NAMESPACE
+
+#endif //CPU_FEATURES_DOTNET_OS_H
+
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_windows();
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_linux_android();
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_android();
@@ -30,7 +35,3 @@ CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_darwin();
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_freebsd();
 CPU_FEATURES_DOTNET_DLL_EXPORT bool darwin_sysctlbyname(char* name);
 CPU_FEATURES_DOTNET_DLL_EXPORT bool windows_is_processor_feature_present(int32_t ProcessorFeature);
-
-CPU_FEATURES_DOTNET_END_CPP_NAMESPACE
-
-#endif //CPU_FEATURES_DOTNET_OS_H

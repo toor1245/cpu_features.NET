@@ -41,7 +41,7 @@ namespace CpuFeaturesDotNet.IO
         }
 
         // Replaces the content of buffer with bytes from the file.
-        internal static int LoadFullBuffer(ref StackLineReader reader)
+        public static int LoadFullBuffer(ref StackLineReader reader)
         {
             fixed (byte* ptr = reader.Buffer)
             {
@@ -54,7 +54,7 @@ namespace CpuFeaturesDotNet.IO
         }
 
         // Appends with bytes from the file to buffer, filling the remaining space.
-        internal static int LoadMore(ref StackLineReader reader)
+        public static int LoadMore(ref StackLineReader reader)
         {
             fixed (byte* bufferPtr = reader.Buffer)
             {
@@ -68,7 +68,7 @@ namespace CpuFeaturesDotNet.IO
             }
         }
 
-        internal static int IndexOfEol(in StackLineReader reader)
+        public static int IndexOfEol(in StackLineReader reader)
         {
             return reader.StringView.IndexOfChar((byte)'\n');
         }
@@ -76,7 +76,7 @@ namespace CpuFeaturesDotNet.IO
 
         // Relocate buffer's pending bytes at the beginning of the array and fills the
         // remaining space with bytes from the file.
-        internal static int BringToFrontAndLoadMore(ref StackLineReader reader)
+        public static int BringToFrontAndLoadMore(ref StackLineReader reader)
         {
             fixed (byte* bufferPtr = reader.Buffer)
             {
@@ -92,7 +92,7 @@ namespace CpuFeaturesDotNet.IO
 
         // Loads chunks of buffer size from disks until it contains a newline character
         // or end of file.
-        internal static void SkipToNextLine(ref StackLineReader reader)
+        public static void SkipToNextLine(ref StackLineReader reader)
         {
             while (true)
             {
@@ -109,7 +109,7 @@ namespace CpuFeaturesDotNet.IO
             }
         }
 
-        internal static LineResult CreateLineResult(bool eof, bool fullLine, in StringView view)
+        public static LineResult CreateLineResult(bool eof, bool fullLine, in StringView view)
         {
             LineResult result;
             result.eof = eof;
@@ -119,22 +119,22 @@ namespace CpuFeaturesDotNet.IO
         }
 
         // Helper methods to provide clearer semantic in StackLineReader_NextLine.
-        internal static LineResult CreateEOFLineResult(StringView view)
+        public static LineResult CreateEOFLineResult(StringView view)
         {
             return CreateLineResult(true, true, view);
         }
 
-        internal static LineResult CreateTruncatedLineResult(StringView view)
+        public static LineResult CreateTruncatedLineResult(StringView view)
         {
             return CreateLineResult(false, false, view);
         }
 
-        internal static LineResult CreateValidLineResult(StringView view)
+        public static LineResult CreateValidLineResult(StringView view)
         {
             return CreateLineResult(false, true, view);
         }
 
-        internal static LineResult NextLine(ref StackLineReader reader)
+        public static LineResult NextLine(ref StackLineReader reader)
         {
             if (reader.SkipMode)
             {

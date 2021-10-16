@@ -19,11 +19,11 @@ namespace CpuFeaturesDotNet.Native.OperatingSystem
 {
     internal static class WindowsNative
     {
-        internal const int PF_XMMI_INSTRUCTIONS_AVAILABLE = 6;
-        internal const int PF_XMMI64_INSTRUCTIONS_AVAILABLE = 10;
-        internal const int PF_SSE3_INSTRUCTIONS_AVAILABLE = 13;
+        public const int PF_XMMI_INSTRUCTIONS_AVAILABLE = 6;
+        public const int PF_XMMI64_INSTRUCTIONS_AVAILABLE = 10;
+        public const int PF_SSE3_INSTRUCTIONS_AVAILABLE = 13;
 
         [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "windows_is_processor_feature_present")]
-        internal static extern bool GetWindowsIsProcessorFeaturePresent(int processorFeature);
+        public static extern bool GetWindowsIsProcessorFeaturePresent(int processorFeature);
     }
 }
