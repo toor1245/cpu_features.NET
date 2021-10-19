@@ -26,7 +26,7 @@ namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 
         static CpuInfoAarch64()
         {
-            if (Architecture.IsArchAarch64())
+            if (!Architecture.IsArchAarch64())
             {
                 throw new NotSupportedException();
             }

@@ -19,10 +19,10 @@ namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
     internal static class CpuInfoUtilsAarch64
     {
-        [DllImport(Library.NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_aarch64_part_num")]
-        public static extern CpuPartNumberAarch64 GetPartNumberAarch64();
-        
         [DllImport(Library.NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_aarch64_impl")]
         public static extern CpuImplementorAarch64 GetImplementorAarch64();
+        
+        [DllImport(Library.NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_aarch64_part_num")]
+        public static extern CpuPartNumberAarch64 GetPartNumberAarch64();
     }
 }
