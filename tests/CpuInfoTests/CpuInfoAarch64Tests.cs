@@ -6,7 +6,7 @@ namespace CpuFeaturesDotNet.UnitTesting.CpuInfoTests
 {
     public class CpuInfoAarch64Tests
     {
-        [Fact]
+        [FactArm64]
         public void Implementor()
         {
             Assert.True(CpuInfoAarch64.Part == CpuPartNumberAarch64.ARM_CORTEX_A77);
