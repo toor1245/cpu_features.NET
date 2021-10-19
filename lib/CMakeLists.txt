@@ -4,6 +4,7 @@ include(GNUInstallDirs)
 
 macro(setup_include_and_definitions TARGET_NAME)
     target_include_directories(${TARGET_NAME}
+            PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64>
             PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32>
             PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/shared>
             PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64>
@@ -18,6 +19,7 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
     list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/arch.h)
     list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/os.h)
     list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/filesystem.h)
+    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/cpu_utils.h)
 
     list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/os.c)
     list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/filesystem.c)
@@ -33,7 +35,12 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
 
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_arm.c)
     elseif(PROCESSOR_IS_AARCH64)
-        message("there is no AARCH64 files")
+        list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cpureg_aarch64.h)
+        list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cputype_aarch64.h)
+        list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cpuinfo_aarch64.h)
+
+        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/aarch64/cputype_aarch64.c)
+        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/aarch64/cpuinfo_aarch64.c)
     else()
         message(FATAL_ERROR "Unsupported architectures ${CMAKE_SYSTEM_PROCESSOR}")
     endif()

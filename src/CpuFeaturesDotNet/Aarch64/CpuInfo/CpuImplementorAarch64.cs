@@ -12,14 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.Library;
-
-namespace CpuFeaturesDotNet.Native.OperatingSystem
+namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
-    internal static class DarwinNative
+    public enum CpuImplementorAarch64
     {
-        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "darwin_sysctlbyname")]
-        public static extern bool GetDarwinSysCtlByName(string name);
+        UNKNOWN_AARCH64,
+        ARM,
+        APM,
+        CAVIUM,
+        BRCM,
+        QCOM,
+        NVIDIA,
+        FUJITSU,
+        HISI,
+        APPLE
     }
 }

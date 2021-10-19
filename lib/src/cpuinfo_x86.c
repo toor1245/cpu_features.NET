@@ -9,7 +9,7 @@ bool is_vendor(leaf_t leaf, const char* name) {
 
 #define CPUID(FAMILY, MODEL) ((((FAMILY)&0xFF) << 8) | ((MODEL)&0xFF))
 
-X86Microarchitecture uarch(leaf_t leaf, int family, int model, int stepping) {
+x86_microarchitecture uarch(leaf_t leaf, int family, int model, int stepping) {
   if (is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_GENUINE_INTEL)) {
     switch (CPUID(family, model)) {
       case CPUID(0x06, 0x1C):  // Intel(R) Atom(TM) CPU 230 @ 1.60GHz

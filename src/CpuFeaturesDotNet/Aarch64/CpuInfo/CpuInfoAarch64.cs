@@ -12,19 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using CpuFeaturesDotNet.Native;
-using Xunit;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
-    public sealed class FactArm64Attribute : FactAttribute
+    public static unsafe class CpuInfoAarch64
     {
-        public FactArm64Attribute()
+        public static CpuImplementorAarch64 Implementer { get; }
+        public static int Variant { get; }
+        public static CpuPartNumberAarch64 Part { get; }
+        public static int Revision { get; }
+
+        static CpuInfoAarch64()
         {
             if (!Architecture.IsArchAarch64())
             {
-                Skip = "Ignored on unsupported ARM64 architecture";
+                throw new NotSupportedException();
             }
+
+            Implementer = CpuInfoUtilsAarch64.GetImplementorAarch64();
+            Part = CpuInfoUtilsAarch64.GetPartNumberAarch64();
         }
     }
 }

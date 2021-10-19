@@ -10,19 +10,6 @@ endif()
 
 set(CMAKE_C_STANDARD 99)
 
-set(IS_GENERATE_FOR_ARM FALSE)
-if(IS_GENERATE_FOR_ARM)
-    set(CMAKE_SYSTEM_NAME Linux)
-    set(CMAKE_SYSTEM_PROCESSOR arm)
-
-    set(triple arm-linux-gnueabihf)
-
-    set(CMAKE_C_COMPILER clang)
-    set(CMAKE_C_COMPILER_TARGET ${triple})
-    set(CMAKE_CXX_COMPILER clang++)
-    set(CMAKE_CXX_COMPILER_TARGET ${triple})
-endif()
-
 # Default Build Type to be Release
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING
