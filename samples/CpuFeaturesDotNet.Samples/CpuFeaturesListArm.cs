@@ -1,4 +1,5 @@
 using System;
+using CpuFeaturesDotNet.Aarch64.CpuInfo;
 using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit.Abstractions;
@@ -18,6 +19,7 @@ namespace CpuFeaturesDotNet.Samples
         protected override void Run()
         {
             OutputHelper.WriteLine(Architecture.IsArchArmAny() ? "It is ARM architecture" : "It is not ARM architecture");
+            OutputHelper.WriteLine(CpuInfoAarch64.Implementer.ToString());
         }
     }
 }

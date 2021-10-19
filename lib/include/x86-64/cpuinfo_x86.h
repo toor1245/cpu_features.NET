@@ -50,9 +50,9 @@ typedef enum {
   AMD_ZEN_PLUS,      // K17 ZEN+
   AMD_ZEN2,          // K17 ZEN 2
   AMD_ZEN3,          // K19 ZEN 3
-} X86Microarchitecture;
+} x86_microarchitecture;
 
-CPU_FEATURES_DOTNET_DLL_EXPORT X86Microarchitecture uarch(leaf_t leaf,
+CPU_FEATURES_DOTNET_DLL_EXPORT x86_microarchitecture uarch(leaf_t leaf,
                                                             int family,
                                                             int model,
                                                             int stepping);
