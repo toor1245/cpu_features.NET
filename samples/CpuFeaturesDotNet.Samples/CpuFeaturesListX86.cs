@@ -1,3 +1,5 @@
+using System;
+using CpuFeaturesDotNet.Native;
 using Xunit.Abstractions;
 using static CpuFeaturesDotNet.X86.CpuInfoX86;
 
@@ -6,7 +8,13 @@ namespace CpuFeaturesDotNet.Samples
     public class CpuFeaturesListX86 : Runner
     {
         public CpuFeaturesListX86(ITestOutputHelper output)
-            : base(output) { }
+            : base(output)
+        {
+            if (!Architecture.IsArchX86())
+            {
+                throw new NotSupportedException("Your target CPU architecture is not X86");
+            }
+        }
 
         protected override void Run()
         {

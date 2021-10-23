@@ -32,7 +32,7 @@ namespace CpuFeaturesDotNet.X86
 
         static CpuInfoX86()
         {
-            if (!Architecture.IsArchX86Any())
+            if (!Architecture.IsArchX86())
             {
                 throw new NotSupportedException("Your target CPU architecture is not X86");
             }
@@ -55,7 +55,6 @@ namespace CpuFeaturesDotNet.X86
             FeaturesX86.GetFeaturesX86Info(in leaf, in leaf1, ref osPreserves, Model);
         }
 
-        [SecurityCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string GetBrandString()
         {

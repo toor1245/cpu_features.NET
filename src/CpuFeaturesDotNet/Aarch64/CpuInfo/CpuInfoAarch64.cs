@@ -31,7 +31,7 @@ namespace CpuFeaturesDotNet.Aarch64.CpuInfo
                 throw new NotSupportedException();
             }
 
-            Implementer = CpuInfoUtilsAarch64.GetImplementorAarch64();
+            Implementer = CpuInfoUtilsAarch64.GetImplementerAarch64();
             Part = CpuInfoUtilsAarch64.GetPartNumberAarch64();
         }
     }

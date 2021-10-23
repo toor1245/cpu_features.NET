@@ -13,16 +13,18 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  make-x86:
-    runs-on: ubuntu-latest
+  make-x86-dotnet50:
+    runs-on: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Check cmake
         run: cmake --version
+
       - name: Configure
         run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+
       - name: Build
         run: cmake --build cmake-build-release --target all -v
 
@@ -32,7 +34,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj" -c Release --force
 
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release

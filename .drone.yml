@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: linux-arm-gcc
+name: linux-dotnet50-arm-gcc
 
 platform:
   os: linux
@@ -14,8 +14,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj" -f net5.0
+      - dotnet test "tests/" -f net5.0
       
 trigger:
   branch:
@@ -25,7 +25,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: linux-aarch64-gcc
+name: linux-dotnet50-aarch64-gcc
 
 platform:
   os: linux
@@ -39,8 +39,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj" -f net5.0
+      - dotnet test "tests/" -f net5.0
 
 trigger:
   branch:
@@ -50,7 +50,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: linux-i386-gcc
+name: linux-dotnet50-i386-gcc
 
 platform:
   os: linux
@@ -64,8 +64,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj" -f net5.0
+      - dotnet test "tests/" -f net5.0
 
 trigger:
   branch:
@@ -75,7 +75,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: linux-x86_64-gcc
+name: linux-dotnet50-amd64-gcc
 
 platform:
   os: linux
@@ -89,8 +89,41 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj" -f net5.0
+      - dotnet test "tests/" -f net5.0
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
+---
+kind: pipeline
+type: docker
+name: linux-mono-amd64-gcc
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: Build and Test
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    user: root
+    commands:
+      - apt-get update && apt-get -y install cmake
+      - cmake --version
+      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - cmake --build cmake-build-debug --target all
+      - cat /etc/issue
+      - apt install apt-transport-https dirmngr gnupg ca-certificates -y
+      - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+      - echo "deb https://download.mono-project.com/repo/debian stable-buster main" | tee /etc/apt/sources.list.d/mono-official-stable.list
+      - apt update
+      - apt install mono-complete -y
+      - mono --version
+      - dotnet build "tests/CpuFeaturesDotNet.UnitTesting.csproj"
+      - mono ~/.nuget/packages/xunit.runner.console/2.4.1/tools/net472/xunit.console.exe ./tests/bin/Debug/net472/CpuFeaturesDotNet.UnitTesting.dll
 
 trigger:
   branch:

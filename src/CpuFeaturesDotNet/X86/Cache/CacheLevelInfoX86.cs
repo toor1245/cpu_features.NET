@@ -16,19 +16,42 @@ namespace CpuFeaturesDotNet.X86
 {
     public static partial class CpuInfoX86
     {
-        public sealed class CacheLevelInfoX86
+        public readonly struct CacheLevelInfoX86
         {
-            public readonly int Level; // Cache level
-            public readonly CacheTypeX86 Type; // Cache type
-            public readonly int CacheSize; // Cache size in bytes
-            public readonly int Ways; // Associativity, 0 undefined, 0xFF fully associative
-            public readonly int LineSize; // Cache line size in bytes
-            public readonly int TlbEntries; // Number of entries for TLB
-            public readonly int Partitioning; // Number of lines per sector
+            /// <summary>
+            /// Cache level
+            /// </summary>
+            public int Level { get; }
 
-            internal CacheLevelInfoX86()
-            {
-            }
+            /// <summary>
+            /// Cache type
+            /// </summary>
+            public CacheTypeX86 Type { get; }
+
+            /// <summary>
+            /// Cache size in bytes
+            /// </summary>
+            public int CacheSize { get; }
+
+            /// <summary>
+            /// Associativity, 0 undefined, 0xFF fully associative
+            /// </summary>
+            public int Ways { get; }
+
+            /// <summary>
+            /// Cache line size in bytes
+            /// </summary>
+            public int LineSize { get; }
+
+            /// <summary>
+            /// Number of entries for TLB
+            /// </summary>
+            public int TlbEntries { get; }
+
+            /// <summary>
+            /// Number of lines per sector
+            /// </summary>
+            public int Partitioning { get; }
 
             internal CacheLevelInfoX86(int level, CacheTypeX86 type, int size, int ways, int lineSize,
                 int tlbEntries,

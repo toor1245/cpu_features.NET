@@ -1,7 +1,6 @@
 using System;
 using CpuFeaturesDotNet.Aarch64.CpuInfo;
 using CpuFeaturesDotNet.Native;
-using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit.Abstractions;
 
 namespace CpuFeaturesDotNet.Samples
@@ -10,16 +9,16 @@ namespace CpuFeaturesDotNet.Samples
     {
         public CpuFeaturesListArm(ITestOutputHelper output) : base(output)
         {
-            if (!OSNative.IsLinuxOrAndroid())
+            if (!Architecture.IsArchArm())
             {
-                throw new NotSupportedException("Not supported OS At the moment shared library works only on Linux");
+                throw new NotSupportedException("Your target CPU architecture is not ARM");
             }
         }
 
         protected override void Run()
         {
-            OutputHelper.WriteLine(Architecture.IsArchArmAny() ? "It is ARM architecture" : "It is not ARM architecture");
-            OutputHelper.WriteLine(CpuInfoAarch64.Implementer.ToString());
+            OutputHelper.WriteLine($"implementer: {CpuInfoAarch64.Implementer.ToString()}");
+            OutputHelper.WriteLine($"part_number: {CpuInfoAarch64.Part.ToString()}");
         }
     }
 }

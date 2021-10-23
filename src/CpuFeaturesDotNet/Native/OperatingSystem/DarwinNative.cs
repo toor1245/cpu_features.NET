@@ -12,14 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.Library;
 
 namespace CpuFeaturesDotNet.Native.OperatingSystem
 {
     internal static class DarwinNative
     {
-        [DllImport(SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "darwin_sysctlbyname")]
-        public static extern bool GetDarwinSysCtlByName(string name);
+#if OS_MAC
+        private const string DARWIN_LIBRARY_LIBC = "libc"; 
+        
+        [DllImport(DARWIN_LIBRARY_LIBC)]
+        private static extern int sysctlbyname(string name, out int intVal, ref IntPtr length, IntPtr newp, IntPtr newLen);
+        
+        public static bool GetDarwinSysCtlByName(string name)
+        {
+            var enabledLength = (IntPtr) IntPtr.Size;
+            var failure = sysctlbyname(name, out var enabled, ref enabledLength, IntPtr.Zero, (IntPtr) 0);
+            return failure != 0 && Convert.ToBoolean(enabled);
+        }
+#else
+        public static bool GetDarwinSysCtlByName(string name) => false;
+#endif
     }
 }

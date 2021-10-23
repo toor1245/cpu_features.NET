@@ -14,16 +14,21 @@
 
 using CpuFeaturesDotNet.Native;
 using Xunit;
+#pragma warning disable 162
 
 namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public sealed class FactArmAnyAttribute : FactAttribute
+    public sealed class FactAarch32Attribute : FactAttribute
     {
-        public FactArmAnyAttribute()
+        public FactAarch32Attribute()
         {
-            if (!Architecture.IsArchArmAny())
+#if NETFRAMEWORK
+            Skip = "Ignored on unsupported Aarch32 architecture for .NET Framework";
+            return;
+#endif
+            if (!Architecture.IsArchAarch32())
             {
-                Skip = "Ignored on unsupported ARM architecture";
+                Skip = "Ignored on unsupported Aarch32 architecture";
             }
         }
     }

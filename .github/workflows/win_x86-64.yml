@@ -14,7 +14,7 @@ env:
 
 jobs:
   # Building using the github runner environement directly.
-  ninja-x86:
+  ninja-x86-dotnet50:
     runs-on:  windows-latest
     steps:
       - name: Checkout repository
@@ -39,3 +39,31 @@ jobs:
 
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release
+
+  ninja-x86-net472:
+    runs-on:  windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install ninja-build tool
+        uses: seanmiddleditch/gha-setup-ninja@v3
+
+      - name: CMake Build
+        run: cmake -S. -Bcmake-build-release -GNinja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Ninja
+        run: ninja -Ccmake-build-release
+
+      - name: Setup .NET 5.0 @ Latest
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Create build
+        run: dotnet build -c Debug --force
+
+      - name: Run tests
+        shell: cmd
+        run: scripts\run_win_x86_net472_tests.bat
+

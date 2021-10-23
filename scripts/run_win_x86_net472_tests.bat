@@ -1,0 +1,1 @@
+%userprofile%\.nuget\packages\xunit.runner.console\2.4.1\tools\net472\xunit.console.exe .\tests\bin\Debug\net472\CpuFeaturesDotNet.UnitTesting.dll

@@ -10,12 +10,10 @@
 // microarchitectures.
 #if CPU_FEATURES_DOTNET_OS_WINDOWS
 #include <windows.h>  // IsProcessorFeaturePresent
-#elif CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID
-#elif CPU_FEATURES_DOTNET_OS_FREEBSD
+#elif CPU_FEATURES_DOTNET_OS_LINUX_OR_ANDROID || \
+  CPU_FEATURES_DOTNET_OS_FREEBSD
+#include "filesystem.h"
 #elif CPU_FEATURES_DOTNET_OS_DARWIN
-#if !defined(HAVE_SYSCTLBYNAME)
-#error "Darwin needs support for sysctlbyname"
-#endif
 #include <sys/sysctl.h>
 #else
 #error "Unsupported OS"
@@ -33,5 +31,4 @@ CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_linux_android(void);
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_android(void);
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_darwin(void);
 CPU_FEATURES_DOTNET_DLL_EXPORT bool is_os_freebsd(void);
-CPU_FEATURES_DOTNET_DLL_EXPORT bool darwin_sysctlbyname(char* name);
 CPU_FEATURES_DOTNET_DLL_EXPORT bool windows_is_processor_feature_present(int32_t ProcessorFeature);

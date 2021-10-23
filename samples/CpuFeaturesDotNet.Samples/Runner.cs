@@ -17,10 +17,6 @@ namespace CpuFeaturesDotNet.Samples
         [Fact]
         public void StartRunner()
         {
-            if (!Architecture.IsArchX86Any())
-            {
-                throw new NotSupportedException("Your target CPU architecture is not X86");
-            }
             Run();
         }
 
