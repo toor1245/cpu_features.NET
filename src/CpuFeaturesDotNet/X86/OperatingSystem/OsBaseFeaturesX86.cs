@@ -19,33 +19,40 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
     internal abstract class OsBaseFeaturesX86
     {
+        protected readonly FeaturesX86 _featuresX86;
+
+        public OsBaseFeaturesX86(FeaturesX86 featuresX86)
+        {
+            _featuresX86 = featuresX86;
+        }
+        
         public abstract void SetRegistersXcr0NotAvailable();
 
         public virtual bool HasAvx512Registers(uint xcr0Eax)
         {
-            return FeaturesUtilsX86.HasZmmOsXSave(xcr0Eax);
+            return FeaturesHelperX86.HasZmmOsXSave(xcr0Eax);
         }
 
-        internal static OsBaseFeaturesX86 GetFeaturesX86()
+        internal static OsBaseFeaturesX86 GetFeaturesX86(FeaturesX86 featuresX86)
         {
             if (OSNative.IsWindows())
             {
-                return new WindowsFeaturesX86();
+                return new WindowsFeaturesX86(featuresX86);
             }
 
             if (OSNative.IsDarwin())
             {
-                return new DarwinFeaturesX86();
+                return new DarwinFeaturesX86(featuresX86);
             }
 
             if (OSNative.IsLinuxOrAndroid())
             {
-                return new LinuxAndroidFeaturesX86();
+                return new LinuxAndroidFeaturesX86(featuresX86);
             }
 
             if (OSNative.IsFreeBsd())
             {
-                return new FreeBsdFeaturesX86();
+                return new FreeBsdFeaturesX86(featuresX86);
             }
 
             throw new NotSupportedException("Not supported Operating System");

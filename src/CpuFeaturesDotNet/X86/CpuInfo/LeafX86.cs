@@ -18,9 +18,9 @@ using static CpuFeaturesDotNet.Native.Library;
 namespace CpuFeaturesDotNet.X86
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal readonly struct LeafX86
+    internal struct LeafX86
     {
-        public readonly uint eax, ebx, ecx, edx;
+        public uint eax, ebx, ecx, edx;
 
         [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
         public static extern LeafX86 CpuId(uint leafId, int ecx = 0);

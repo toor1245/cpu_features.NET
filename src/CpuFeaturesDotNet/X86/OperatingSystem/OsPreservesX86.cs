@@ -14,19 +14,19 @@
 
 namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
-    internal ref struct OsPreservesX86
+    internal readonly ref struct OsPreservesX86
     {
-        public bool HasSseRegisters;
-        public bool HasAvxRegisters;
-        public bool HasAvx512Registers;
-        public bool HasAmxRegisters;
+        public readonly bool HasSseRegisters;
+        public readonly bool HasAvxRegisters;
+        public readonly bool HasAvx512Registers;
+        public readonly bool HasAmxRegisters;
 
-        public void SetRegisters(uint xcr0Eax, OsBaseFeaturesX86 osFeaturesX86)
+        public OsPreservesX86(uint xcr0Eax, OsBaseFeaturesX86 osFeaturesX86)
         {
-            HasSseRegisters = FeaturesUtilsX86.HasXmmOsXSave(xcr0Eax);
-            HasAvxRegisters = FeaturesUtilsX86.HasYmmOsXSave(xcr0Eax);
+            HasSseRegisters = FeaturesHelperX86.HasXmmOsXSave(xcr0Eax);
+            HasAvxRegisters = FeaturesHelperX86.HasYmmOsXSave(xcr0Eax);
             HasAvx512Registers = osFeaturesX86.HasAvx512Registers(xcr0Eax);
-            HasAmxRegisters = FeaturesUtilsX86.HasTmmOsXSave(xcr0Eax);
+            HasAmxRegisters = FeaturesHelperX86.HasTmmOsXSave(xcr0Eax);
         }
     }
 }

@@ -13,16 +13,16 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.Utils;
-using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
+using CpuFeaturesDotNet.X86.Simd;
 
-namespace CpuFeaturesDotNet.X86.Simd
+namespace CpuFeaturesDotNet.X86
 {
     internal sealed class AmdFeaturesX86 : BaseSimdFeaturesX86
     {
         private readonly LeafX86 _leafExtFeatures;
 
-        public AmdFeaturesX86(in LeafSimdX86 leafSimd, LeafX86 leafExtFeatures)
-            : base(leafSimd)
+        public AmdFeaturesX86(in LeafSimdX86 leafSimd, in LeafX86 leafExtFeatures, FeaturesX86 featuresX86)
+            : base(leafSimd, featuresX86)
         {
             _leafExtFeatures = leafExtFeatures;
         }
@@ -30,8 +30,8 @@ namespace CpuFeaturesDotNet.X86.Simd
         protected override void SetAvxRegisters()
         {
             base.SetAvxRegisters();
-            IsSupportedFMA4 = BitUtils.IsBitSet(_leafExtFeatures.ecx, 16);
-            IsSupportedSSE4A = BitUtils.IsBitSet(_leafExtFeatures.ecx, 6);
+            _featuresX86.IsSupportedFMA4 = BitUtils.IsBitSet(_leafExtFeatures.ecx, 16);
+            _featuresX86.IsSupportedSSE4A = BitUtils.IsBitSet(_leafExtFeatures.ecx, 6);
         }
     }
 }

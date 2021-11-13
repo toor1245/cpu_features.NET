@@ -14,7 +14,7 @@
 
 namespace CpuFeaturesDotNet.X86
 {
-    internal static class FeaturesUtilsX86
+    internal static class FeaturesHelperX86
     {
         private const int MASK_XMM = 0x2;
         private const int MASK_YMM = 0x4;
@@ -59,32 +59,31 @@ namespace CpuFeaturesDotNet.X86
                                      MASK_ZMM16_31 | MASK_XTILECFG | MASK_XTILEDATA);
         }
 
-        public static bool HasSecondFMA(int model)
+        public static bool HasSecondFMA(int model, string brandString)
         {
             switch (model)
             {
                 // Skylake server
                 case 0x55:
+                {
+                    // detect Xeon
+                    if (brandString[9] != 'X') return true;
+                    switch (brandString[17])
                     {
-                        var proc_name = CpuInfoX86.BrandString;
-                        // detect Xeon
-                        if (proc_name[9] != 'X') return true;
-                        switch (proc_name[17])
-                        {
-                            // detect Silver or Bronze
-                            case 'S':
-                            case 'B':
-                                return false;
-                            // detect Gold 5_20 and below, except for Gold 53__
-                            case 'G' when proc_name[22] == '5':
-                                return proc_name[23] == '3' || proc_name[24] == '2' && proc_name[25] == '2';
-                        }
-
-                        // detect Xeon W 210x
-                        if (proc_name[17] == 'W' && proc_name[21] == '0') return false;
-                        // detect Xeon D 2xxx
-                        return proc_name[17] != 'D' || proc_name[19] != '2' || proc_name[20] != '1';
+                        // detect Silver or Bronze
+                        case 'S':
+                        case 'B':
+                            return false;
+                        // detect Gold 5_20 and below, except for Gold 53__
+                        case 'G' when brandString[22] == '5':
+                            return brandString[23] == '3' || brandString[24] == '2' && brandString[25] == '2';
                     }
+
+                    // detect Xeon W 210x
+                    if (brandString[17] == 'W' && brandString[21] == '0') return false;
+                    // detect Xeon D 2xxx
+                    return brandString[17] != 'D' || brandString[19] != '2' || brandString[20] != '1';
+                }
                 // Cannon Lake client
                 case 0x66:
                     return false;

@@ -12,19 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
-using Xunit;
+using System.Runtime.InteropServices;
+using static CpuFeaturesDotNet.Native.Library;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.X86
 {
-    public sealed class FactX64Attribute : FactAttribute
+    internal static class NativeX86
     {
-        public FactX64Attribute()
-        {
-            if (!Architecture.IsArchX64())
-            {
-                Skip = "Ignored on unsupported X64 architecture";
-            }
-        }
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "uarch")]
+        public static extern MicroarchitectureX86 GetMicroarchitectureX86(LeafX86 leaf, int family, int model, int stepping);
+
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "xcr0_eax")]
+        public static extern uint GetXCR0Eax();
     }
 }

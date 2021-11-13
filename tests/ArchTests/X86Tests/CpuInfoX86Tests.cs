@@ -29,7 +29,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.X86Tests
         [FactX64]
         public void IsArchX64_True()
         {
-            Assert.True(Architecture.IsArchX86_64());
+            Assert.True(Architecture.IsArchX64());
         }
 
         [FactX86Any]

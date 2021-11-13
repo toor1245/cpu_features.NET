@@ -12,25 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
-using CpuFeaturesDotNet.Native;
-
 namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
-    public static unsafe class CpuInfoAarch64
+    public sealed class CpuInfoAarch64 : ICpuInfoAarch64
     {
-        public static CpuImplementorAarch64 Implementer { get; }
-        public static int Variant { get; }
-        public static CpuPartNumberAarch64 Part { get; }
-        public static int Revision { get; }
+        public CpuImplementorAarch64 Implementer { get; }
+        public CpuPartNumberAarch64 Part { get; }
+        public int Variant { get; }
+        public int Revision { get; }
 
-        static CpuInfoAarch64()
+        public CpuInfoAarch64()
         {
-            if (!Architecture.IsArchAarch64())
-            {
-                throw new NotSupportedException();
-            }
-
             Implementer = CpuInfoUtilsAarch64.GetImplementorAarch64();
             Part = CpuInfoUtilsAarch64.GetPartNumberAarch64();
         }

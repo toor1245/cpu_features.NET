@@ -1,32 +1,11 @@
-// Copyright (c) 2021 Nikolay Hohsadze 
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+using System.Collections.Generic;
+using CpuFeaturesDotNet.Utils;
+using CpuFeaturesDotNet.X86.Parser;
 
-using System.Runtime.InteropServices;
-using static CpuFeaturesDotNet.Native.Library;
-using static CpuFeaturesDotNet.Utils.BitUtils;
-using static CpuFeaturesDotNet.X86.CpuInfoX86;
-
-namespace CpuFeaturesDotNet.X86
+namespace CpuFeaturesDotNet.X86.Helpers
 {
-    internal static class UtilsX86
+    internal static class CacheInfoHelperX86
     {
-        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "uarch")]
-        public static extern MicroarchitectureX86 GetMicroarchitectureX86(LeafX86 leaf, int family, int model, int stepping);
-
-        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "xcr0_eax")]
-        public static extern uint GetXCR0Eax();
-
         public static CacheLevelInfoX86 GetCacheLevelInfo(uint reg)
         {
             const int UNDEF = -1;
@@ -143,13 +122,30 @@ namespace CpuFeaturesDotNet.X86
                 _ => new CacheLevelInfoX86()
             };
         }
-
-        // If CPUID Fn8000_0001_ECX[bit]==0 then CPUID Fn8000_00XX_E[D,C,B,A]X is
-        // reserved. https://www.amd.com/system/files/TechDocs/25481.pdf
-        public static bool IsReservedAMD(uint maxExtended, int bit)
+        
+        // For newer Intel CPUs uses "CPUID, eax=0x00000004".
+        // https://www.felixcloutier.com/x86/cpuid#input-eax-=-04h--returns-deterministic-cache-parameters-for-each-level
+        // For newer AMD CPUs uses "CPUID, eax=0x8000001D"
+        public static List<CacheLevelInfoX86> ParseCacheInfo(uint maxCpuidLeaf, uint leafId)
         {
-            var cpuidExt = LeafX86.SafeCpuId(maxExtended, 0x80000001).ecx;
-            return !IsBitSet(cpuidExt, bit);
+            var levels = new List<CacheLevelInfoX86>();
+            for (var cacheId = 0; cacheId < CacheInfoParserX86.LEVELS_SIZE; cacheId++)
+            {
+                var leaf = LeafX86.SafeCpuId(maxCpuidLeaf, leafId, cacheId);
+                var cacheType = (CacheTypeX86) BitUtils.ExtractBitRange(leaf.eax, 4, 0);
+
+                if (cacheType == CacheTypeX86.NULL)
+                    break;
+
+                var level = (int) BitUtils.ExtractBitRange(leaf.eax, 7, 5);
+                var lineSize = (int) BitUtils.ExtractBitRange(leaf.ebx, 11, 0) + 1;
+                var partitioning = (int) BitUtils.ExtractBitRange(leaf.ebx, 21, 12) + 1;
+                var ways = (int) BitUtils.ExtractBitRange(leaf.ebx, 31, 22) + 1;
+                var tlbEntries = (int) (leaf.ecx + 1);
+                var cacheSize = ways * partitioning * lineSize * tlbEntries;
+                levels.Add(new CacheLevelInfoX86(level, cacheType, cacheSize, ways, lineSize, tlbEntries, partitioning));
+            }
+            return levels;
         }
     }
 }
