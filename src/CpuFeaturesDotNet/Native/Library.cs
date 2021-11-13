@@ -29,8 +29,8 @@ namespace CpuFeaturesDotNet.Native
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet_shared.x64.dll";
         public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x64.dll";
 #elif X64 && OS_MAC
-        public const string SHARED_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet_shared.x64.so";
-        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet.x64.so";
+        public const string SHARED_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet_shared.x64.dylib";
+        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet.x64.dylib";
 #elif ARM32 && OS_WINDOWS
         public const string SHARED_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet_shared.aarch32.dll";
         public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet.aarch32.dll";
