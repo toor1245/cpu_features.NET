@@ -1,4 +1,4 @@
-name: .NET tests linux.x86-64
+name: .NET 5 linux.amd64
 
 on:
   pull_request:
