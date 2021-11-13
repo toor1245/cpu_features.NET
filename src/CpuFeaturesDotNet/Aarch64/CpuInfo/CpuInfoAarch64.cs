@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using CpuFeaturesDotNet.Native;
+
 namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
     public sealed class CpuInfoAarch64 : ICpuInfoAarch64
@@ -23,6 +25,8 @@ namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 
         public CpuInfoAarch64()
         {
+            if (!Architecture.IsArchAarch64())
+                return;
             Implementer = CpuInfoUtilsAarch64.GetImplementorAarch64();
             Part = CpuInfoUtilsAarch64.GetPartNumberAarch64();
         }

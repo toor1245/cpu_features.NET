@@ -13,16 +13,22 @@
 // limitations under the License.
 
 using System.Collections.Generic;
+using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.X86.Parser;
 
 namespace CpuFeaturesDotNet.X86
 {
-    public class CacheInfoX86
+    public class CacheInfoX86 : ICacheInfoX86
     {
         public List<CacheLevelInfoX86> CacheLevelInfo { get; }
 
         public CacheInfoX86()
         {
+            if (!Architecture.IsArchX86())
+            {
+                CacheLevelInfo = new List<CacheLevelInfoX86>();
+                return;
+            }
             CacheLevelInfo = CacheInfoParserX86.GetCacheInfoParserX86().Parse();
         }
     }

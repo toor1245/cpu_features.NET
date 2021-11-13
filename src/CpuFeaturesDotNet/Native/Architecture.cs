@@ -19,19 +19,19 @@ namespace CpuFeaturesDotNet.Native
     public static class Architecture
     {
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86")]
-        public static extern bool IsArchX86Any();
+        public static extern bool IsArchX86();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86_32")]
-        public static extern bool IsArchX86_32();
+        public static extern bool IsArchI386();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_X86_64")]
         public static extern bool IsArchX64();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_arm_any")]
-        public static extern bool IsArchArmAny();
+        public static extern bool IsArchArm();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_arm")]
-        public static extern bool IsArchArm32();
+        public static extern bool IsArchAarch32();
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_arch_aarch64")]
         public static extern bool IsArchAarch64();

@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
-using System.Runtime.Intrinsics.X86;
-using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.Samples.Extensions;
 using CpuFeaturesDotNet.X86;
 using Xunit.Abstractions;
@@ -23,21 +20,19 @@ namespace CpuFeaturesDotNet.Samples
 {
     public class CpuFeaturesListX64 : Runner
     {
+        private readonly ITestOutputHelper _output;
+
         public CpuFeaturesListX64(ITestOutputHelper output)
-            : base(output)
         {
-            if (!Architecture.IsArchX64())
-            {
-                throw new NotSupportedException("Your target CPU architecture is not X86");
-            }
+            _output = output;
         }
 
         protected override void Run()
         {
             var cpuInfoX86 = new CpuInfoX86();
             var cacheInfoX86 = new CacheInfoX86();
-            OutputHelper.WriteLine(cpuInfoX86.ToJsonPretty());
-            OutputHelper.WriteLine(cacheInfoX86.ToJsonPretty());
+            _output.WriteLine(cpuInfoX86.ToJsonPretty());
+            _output.WriteLine(cacheInfoX86.ToJsonPretty());
         }
     }
 }
