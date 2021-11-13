@@ -12,30 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
-using CpuFeaturesDotNet.UnitTesting.Attributes;
-using Xunit;
+using System.Runtime.InteropServices;
+using static CpuFeaturesDotNet.Native.Library;
 
-namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
+namespace CpuFeaturesDotNet.X86
 {
-    public class CpuInfoArmTests
+    internal static class NativeX86
     {
-        [FactArmAny]
-        public void IsArchArmAny_True()
-        {
-            Assert.True(Architecture.IsArchArmAny());
-        }
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "uarch")]
+        public static extern MicroarchitectureX86 GetMicroarchitectureX86(LeafX86 leaf, int family, int model, int stepping);
 
-        [FactArm32]
-        public void IsArchArm32_True()
-        {
-            Assert.True(Architecture.IsArchArm32());
-        }
-
-        [FactArm64]
-        public void IsArchArm64_True()
-        {
-            Assert.True(Architecture.IsArchAarch64());
-        }
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "xcr0_eax")]
+        public static extern uint GetXCR0Eax();
     }
 }

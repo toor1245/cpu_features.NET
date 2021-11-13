@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Nikolay Hohsadze 
+// Copyright (c) 2021 Nikolay Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,26 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit;
+using System;
+using CpuFeaturesDotNet.Aarch64.CpuInfo;
+using CpuFeaturesDotNet.Native;
+using CpuFeaturesDotNet.Samples.Extensions;
 using Xunit.Abstractions;
 
 namespace CpuFeaturesDotNet.Samples
 {
-    public class Runner
+    public class CpuFeaturesListAarch64 : Runner
     {
-        protected readonly ITestOutputHelper OutputHelper;
-
-        public Runner(ITestOutputHelper output)
+        public CpuFeaturesListAarch64(ITestOutputHelper output) : base(output)
         {
-            OutputHelper = output;
+            if (!Architecture.IsArchAarch64())
+            {
+                throw new NotSupportedException("Your target CPU architecture is not AArch64");
+            }
         }
 
-        [Fact]
-        public void StartRunner()
+        protected override void Run()
         {
-            Run();
+            var cpuInfoAarch64 = new CpuInfoAarch64();
+            OutputHelper.WriteLine(cpuInfoAarch64.ToJsonPretty());
         }
-
-        protected virtual void Run() { }
     }
 }

@@ -20,17 +20,6 @@ bool is_os_freebsd() {
   return CPU_FEATURES_DOTNET_OS_FREEBSD;
 }
 
-bool darwin_sysctlbyname(char* name) {
-#if CPU_FEATURES_DOTNET_OS_DARWIN
-  int enabled;
-  size_t enabled_len = sizeof(enabled);
-  const int failure = sysctlbyname(name, &enabled, &enabled_len, NULL, 0);
-  return failure ? false : enabled;
-#else
-  return false;
-#endif
-}
-
 bool windows_is_processor_feature_present(int32_t ProcessorFeature) {
 #if CPU_FEATURES_DOTNET_OS_WINDOWS
   return IsProcessorFeaturePresent(ProcessorFeature);

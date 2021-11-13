@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Nikolay Hohsadze 
+// Copyright (c) 2021 Nikolay Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,26 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit;
-using Xunit.Abstractions;
+using System.Collections.Generic;
 
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet.X86.Parser
 {
-    public class Runner
+    internal sealed class AmdLegacyCacheInfoParserX86 : CacheInfoParserX86
     {
-        protected readonly ITestOutputHelper OutputHelper;
-
-        public Runner(ITestOutputHelper output)
+        public AmdLegacyCacheInfoParserX86(uint maxExt)
+            : base(maxExt)
         {
-            OutputHelper = output;
         }
 
-        [Fact]
-        public void StartRunner()
+        /// <summary>
+        /// Gets cache information for old AMD CPUs by 0x00000005 and 0x00000006.
+        /// </summary>
+        public override List<CacheLevelInfoX86> Parse()
         {
-            Run();
+            throw new System.NotImplementedException();
         }
-
-        protected virtual void Run() { }
     }
 }

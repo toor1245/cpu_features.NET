@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Nikolay Hohsadze 
+// Copyright (c) 2021 Nikolay Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,26 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit;
-using Xunit.Abstractions;
-
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet.Aarch64.CpuInfo
 {
-    public class Runner
+    public interface ICpuInfoAarch64
     {
-        protected readonly ITestOutputHelper OutputHelper;
-
-        public Runner(ITestOutputHelper output)
-        {
-            OutputHelper = output;
-        }
-
-        [Fact]
-        public void StartRunner()
-        {
-            Run();
-        }
-
-        protected virtual void Run() { }
+        public CpuImplementorAarch64 Implementer { get; }
+        public CpuPartNumberAarch64 Part { get; }
+        public int Variant { get; }
+        public int Revision { get; }
     }
 }

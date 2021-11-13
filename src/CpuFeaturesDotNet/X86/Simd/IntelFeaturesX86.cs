@@ -12,24 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
+using CpuFeaturesDotNet.X86.Simd;
 
-namespace CpuFeaturesDotNet.X86.Simd
+namespace CpuFeaturesDotNet.X86
 {
     internal sealed class IntelFeaturesX86 : BaseSimdFeaturesX86
     {
         private readonly int _model;
+        private readonly string _brandString;
 
-        public IntelFeaturesX86(in LeafSimdX86 leafSimd, int model)
-            : base(leafSimd)
+        public IntelFeaturesX86(in LeafSimdX86 leafSimd, int model,
+            string brandString, FeaturesX86 featuresX86)
+            : base(leafSimd, featuresX86)
         {
             _model = model;
+            _brandString = brandString;
         }
 
         protected override void SetAvx512Registers()
         {
             base.SetAvx512Registers();
-            IsSupportedAVX512SecondFMA = FeaturesUtilsX86.HasSecondFMA(_model);
+            _featuresX86.IsSupportedAVX512SecondFMA = FeaturesHelperX86.HasSecondFMA(_model, _brandString);
         }
     }
 }

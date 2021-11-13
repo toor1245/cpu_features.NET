@@ -13,13 +13,16 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.IO;
-using CpuFeaturesDotNet.Utils;
-using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
 
 namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
     internal unsafe class FreeBsdFeaturesX86 : OsBaseFeaturesX86
     {
+        public FreeBsdFeaturesX86(FeaturesX86 featuresX86)
+            : base(featuresX86)
+        {
+        }
+
         public override void SetRegistersXcr0NotAvailable()
         {
             var fileDescriptor = FileSystem.OpenFile("/var/run/dmesg.boot");
@@ -79,20 +82,22 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
 
                     if (isFeature)
                     {
-                        IsSupportedSSE = StringView.HasWord(in line, sse);
-                        IsSupportedSSE2 = StringView.HasWord(in line, sse2);
+                        _featuresX86.IsSupportedSSE = StringView.HasWord(in line, sse);
+                        _featuresX86.IsSupportedSSE2 = StringView.HasWord(in line, sse2);
                     }
 
                     if (isFeature2)
                     {
-                        IsSupportedSSE3 = StringView.HasWord(in line, sse3);
-                        IsSupportedSSE3 = StringView.HasWord(in line, ssse3);
-                        IsSupportedSSE41 = StringView.HasWord(in line, sse41);
-                        IsSupportedSSE42 = StringView.HasWord(in line, sse42);
+                        _featuresX86.IsSupportedSSE3 = StringView.HasWord(in line, sse3);
+                        _featuresX86.IsSupportedSSE3 = StringView.HasWord(in line, ssse3);
+                        _featuresX86.IsSupportedSSE41 = StringView.HasWord(in line, sse41);
+                        _featuresX86.IsSupportedSSE42 = StringView.HasWord(in line, sse42);
                     }
                 }
+
                 if (result.eof) break;
             }
+
             FileSystem.CloseFile(fileDescriptor);
         }
     }

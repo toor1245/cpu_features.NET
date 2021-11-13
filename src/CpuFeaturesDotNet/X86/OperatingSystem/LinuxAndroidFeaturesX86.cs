@@ -13,12 +13,16 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.IO;
-using static CpuFeaturesDotNet.X86.CpuInfoX86.FeaturesX86;
 
 namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
     internal class LinuxAndroidFeaturesX86 : OsBaseFeaturesX86
     {
+        public LinuxAndroidFeaturesX86(FeaturesX86 featuresX86)
+            : base(featuresX86)
+        {
+        }
+
         public override unsafe void SetRegistersXcr0NotAvailable()
         {
             var fileDescriptor = FileSystem.OpenFile("/proc/cpuinfo");
@@ -26,6 +30,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
             {
                 return;
             }
+
             StackLineReader.Initialize(out var reader, fileDescriptor);
             var flagsInBytes = stackalloc byte[]
             {
@@ -51,12 +56,12 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                     continue;
                 }
 
-                IsSupportedSSE = HasSse(in value);
-                IsSupportedSSE2 = HasSse2(in value);
-                IsSupportedSSE3 = HasSse3(in value);
-                IsSupportedSSSE3 = HasSsse3(in value);
-                IsSupportedSSE41 = HasSse41(in value);
-                IsSupportedSSE42 = HasSse42(in value);
+                _featuresX86.IsSupportedSSE = HasSse(in value);
+                _featuresX86.IsSupportedSSE2 = HasSse2(in value);
+                _featuresX86.IsSupportedSSE3 = HasSse3(in value);
+                _featuresX86.IsSupportedSSSE3 = HasSsse3(in value);
+                _featuresX86.IsSupportedSSE41 = HasSse41(in value);
+                _featuresX86.IsSupportedSSE42 = HasSse42(in value);
                 break;
             }
         }
@@ -67,31 +72,31 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
             return StringView.HasWord(value, sse);
         }
 
-        private unsafe bool HasSse2(in StringView value)
+        private static unsafe bool HasSse2(in StringView value)
         {
             var sse2 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x32 };
             return StringView.HasWord(value, sse2);
         }
 
-        private unsafe bool HasSse3(in StringView value)
+        private static unsafe bool HasSse3(in StringView value)
         {
             var sse3 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x33 };
             return StringView.HasWord(value, sse3);
         }
 
-        private unsafe bool HasSsse3(in StringView value)
+        private static unsafe bool HasSsse3(in StringView value)
         {
             var ssse3 = stackalloc byte[] { 0x73, 0x73, 0x73, 0x65, 0x33 };
             return StringView.HasWord(value, ssse3);
         }
 
-        private unsafe bool HasSse41(in StringView value)
+        private static unsafe bool HasSse41(in StringView value)
         {
             var sse41 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x31 };
             return StringView.HasWord(value, sse41);
         }
 
-        private unsafe bool HasSse42(in StringView value)
+        private static unsafe bool HasSse42(in StringView value)
         {
             var sse42 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x32 };
             return StringView.HasWord(value, sse42);

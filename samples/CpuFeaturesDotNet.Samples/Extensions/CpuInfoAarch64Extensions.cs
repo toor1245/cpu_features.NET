@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Nikolay Hohsadze 
+// Copyright (c) 2021 Nikolay Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,26 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit;
-using Xunit.Abstractions;
 
-namespace CpuFeaturesDotNet.Samples
+using CpuFeaturesDotNet.Aarch64.CpuInfo;
+using CpuFeaturesDotNet.Samples.Settings;
+using Newtonsoft.Json;
+
+namespace CpuFeaturesDotNet.Samples.Extensions
 {
-    public class Runner
+    public static class CpuInfoAarch64Extensions
     {
-        protected readonly ITestOutputHelper OutputHelper;
-
-        public Runner(ITestOutputHelper output)
+        public static string ToJsonPretty(this CpuInfoAarch64 cpuInfoAarch64)
         {
-            OutputHelper = output;
+            return JsonConvert.SerializeObject(cpuInfoAarch64, JsonSerializerCpuInfoSettings.Settings);
         }
-
-        [Fact]
-        public void StartRunner()
-        {
-            Run();
-        }
-
-        protected virtual void Run() { }
     }
 }

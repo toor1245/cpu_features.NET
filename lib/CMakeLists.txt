@@ -4,10 +4,10 @@ include(GNUInstallDirs)
 
 macro(setup_include_and_definitions TARGET_NAME)
     target_include_directories(${TARGET_NAME}
-            PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64>
-            PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32>
-            PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/shared>
-            PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64>
+            PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64>
+            PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32>
+            PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/shared>
+            PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64>
             )
     target_compile_definitions(${TARGET_NAME}
             PUBLIC STACK_LINE_READER_BUFFER_SIZE=1024
@@ -24,26 +24,26 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
     list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/os.c)
     list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/filesystem.c)
     list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/arch.c)
-    if(PROCESSOR_IS_X86)
+    if (PROCESSOR_IS_X86)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64/cpuinfo_x86.h)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64/cpuid_x86.h)
 
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuid_x86.c)
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_x86.c)
-    elseif(PROCESSOR_IS_ARM)
+    elseif (PROCESSOR_IS_ARM)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32/cpuinfo_arm.h)
 
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_arm.c)
-    elseif(PROCESSOR_IS_AARCH64)
+    elseif (PROCESSOR_IS_AARCH64)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cpureg_aarch64.h)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cputype_aarch64.h)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cpuinfo_aarch64.h)
 
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/aarch64/cputype_aarch64.c)
         list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/aarch64/cpuinfo_aarch64.c)
-    else()
+    else ()
         message(FATAL_ERROR "Unsupported architectures ${CMAKE_SYSTEM_PROCESSOR}")
-    endif()
+    endif ()
 endmacro()
 
 macro(copy_to_CpuFeaturesDotNet TARGET_NAME)
@@ -90,11 +90,6 @@ set_property(TARGET ${CPU_FEATURES_DOTNET} PROPERTY POSITION_INDEPENDENT_CODE ${
 target_include_directories(${CPU_FEATURES_DOTNET}
         PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${CPU_FEATURES_DOTNET}>
         )
-if(PROCESSOR_IS_X86)
-    if(APPLE)
-        target_compile_definitions(${CPU_FEATURES_DOTNET} PRIVATE HAVE_SYSCTLBYNAME)
-    endif()
-endif()
 add_library(CpuFeature::${CPU_FEATURES_DOTNET} ALIAS ${CPU_FEATURES_DOTNET})
 
 #

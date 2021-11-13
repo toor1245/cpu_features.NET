@@ -23,12 +23,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
-      <ProjectReference Include="..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
+      <Folder Include="ArchTests" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ArchTests" />
+      <ProjectReference Include="..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
     </ItemGroup>
 
 </Project>

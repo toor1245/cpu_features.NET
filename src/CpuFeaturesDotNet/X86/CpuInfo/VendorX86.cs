@@ -28,7 +28,7 @@ namespace CpuFeaturesDotNet.X86
         private static extern bool IsVendor(LeafX86 leaf, string name);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAMDVendor(LeafX86 leaf)
+        public static bool IsAmdVendor(LeafX86 leaf)
         {
             return IsVendor(leaf, AUTHENTIC_AMD) ||
                    IsVendor(leaf, HYGON_GENUINE);

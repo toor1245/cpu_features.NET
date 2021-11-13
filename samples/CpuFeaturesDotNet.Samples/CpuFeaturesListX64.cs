@@ -12,19 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using System.Runtime.Intrinsics.X86;
 using CpuFeaturesDotNet.Native;
-using Xunit;
+using CpuFeaturesDotNet.Samples.Extensions;
+using CpuFeaturesDotNet.X86;
+using Xunit.Abstractions;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.Samples
 {
-    public sealed class FactX64Attribute : FactAttribute
+    public class CpuFeaturesListX64 : Runner
     {
-        public FactX64Attribute()
+        public CpuFeaturesListX64(ITestOutputHelper output)
+            : base(output)
         {
             if (!Architecture.IsArchX64())
             {
-                Skip = "Ignored on unsupported X64 architecture";
+                throw new NotSupportedException("Your target CPU architecture is not X86");
             }
+        }
+
+        protected override void Run()
+        {
+            var cpuInfoX86 = new CpuInfoX86();
+            var cacheInfoX86 = new CacheInfoX86();
+            OutputHelper.WriteLine(cpuInfoX86.ToJsonPretty());
+            OutputHelper.WriteLine(cacheInfoX86.ToJsonPretty());
         }
     }
 }
