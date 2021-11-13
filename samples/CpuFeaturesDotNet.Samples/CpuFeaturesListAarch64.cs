@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
 using CpuFeaturesDotNet.Aarch64.CpuInfo;
-using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.Samples.Extensions;
 using Xunit.Abstractions;
 
@@ -22,18 +20,17 @@ namespace CpuFeaturesDotNet.Samples
 {
     public class CpuFeaturesListAarch64 : Runner
     {
-        public CpuFeaturesListAarch64(ITestOutputHelper output) : base(output)
+        private readonly ITestOutputHelper _output;
+
+        public CpuFeaturesListAarch64(ITestOutputHelper output)
         {
-            if (!Architecture.IsArchAarch64())
-            {
-                throw new NotSupportedException("Your target CPU architecture is not AArch64");
-            }
+            _output = output;
         }
 
         protected override void Run()
         {
             var cpuInfoAarch64 = new CpuInfoAarch64();
-            OutputHelper.WriteLine(cpuInfoAarch64.ToJsonPretty());
+            _output.WriteLine(cpuInfoAarch64.ToJsonPretty());
         }
     }
 }

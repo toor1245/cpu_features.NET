@@ -51,6 +51,10 @@ namespace CpuFeaturesDotNet.X86
         public bool IsSupportedSS { get; }
         public bool IsSupportedADX { get; }
 
+        internal FeaturesX86()
+        {
+        }
+
         internal FeaturesX86(in LeafX86 leaf, in LeafX86 leaf1, int model, string brandString)
         {
             var maxCpuidLeaf = leaf.eax;

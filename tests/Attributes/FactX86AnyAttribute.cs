@@ -21,7 +21,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Attributes
     {
         public FactX86AnyAttribute()
         {
-            if (!Architecture.IsArchX86Any())
+            if (!Architecture.IsArchX86())
             {
                 Skip = "Ignored on unsupported X86-64 architecture";
             }

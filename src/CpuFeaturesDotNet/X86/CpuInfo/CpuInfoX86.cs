@@ -14,6 +14,7 @@
 
 using System.Runtime.CompilerServices;
 using System.Text;
+using CpuFeaturesDotNet.Native;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -28,6 +29,11 @@ namespace CpuFeaturesDotNet.X86
 
         public CpuInfoX86()
         {
+            if (!Architecture.IsArchX86())
+            {
+                Features = new FeaturesX86();
+                return;
+            }
             var leaf = LeafX86.CpuId(0);
             var maxCpuidLeaf = leaf.eax;
             var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);

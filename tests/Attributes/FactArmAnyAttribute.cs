@@ -21,7 +21,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Attributes
     {
         public FactArmAnyAttribute()
         {
-            if (!Architecture.IsArchArmAny())
+            if (!Architecture.IsArchArm())
             {
                 Skip = "Ignored on unsupported ARM architecture";
             }
