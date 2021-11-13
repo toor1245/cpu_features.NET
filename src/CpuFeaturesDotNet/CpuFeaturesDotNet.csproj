@@ -72,9 +72,6 @@
       <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
-    </ItemGroup>
-    <ItemGroup>
       <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll" />
       <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
