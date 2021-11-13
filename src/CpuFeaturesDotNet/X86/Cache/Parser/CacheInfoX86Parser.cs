@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using CpuFeaturesDotNet.Utils;
 
 namespace CpuFeaturesDotNet.X86.Parser
 {
@@ -29,9 +28,9 @@ namespace CpuFeaturesDotNet.X86.Parser
             _maxExt = maxExt;
             Levels = new List<CacheLevelInfoX86>();
         }
-        
+
         public abstract List<CacheLevelInfoX86> Parse();
-        
+
         internal static CacheInfoParserX86 GetCacheInfoParserX86()
         {
             var leaf = LeafX86.CpuId(0);

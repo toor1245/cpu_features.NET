@@ -25,7 +25,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
         {
             _featuresX86 = featuresX86;
         }
-        
+
         public abstract void SetRegistersXcr0NotAvailable();
 
         public virtual bool HasAvx512Registers(uint xcr0Eax)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CpuFeaturesDotNet.Utils;
 using CpuFeaturesDotNet.X86.Parser;
 
 namespace CpuFeaturesDotNet.X86.Helpers
@@ -122,7 +121,7 @@ namespace CpuFeaturesDotNet.X86.Helpers
                 _ => new CacheLevelInfoX86()
             };
         }
-        
+
         // For newer Intel CPUs uses "CPUID, eax=0x00000004".
         // https://www.felixcloutier.com/x86/cpuid#input-eax-=-04h--returns-deterministic-cache-parameters-for-each-level
         // For newer AMD CPUs uses "CPUID, eax=0x8000001D"
@@ -132,16 +131,16 @@ namespace CpuFeaturesDotNet.X86.Helpers
             for (var cacheId = 0; cacheId < CacheInfoParserX86.LEVELS_SIZE; cacheId++)
             {
                 var leaf = LeafX86.SafeCpuId(maxCpuidLeaf, leafId, cacheId);
-                var cacheType = (CacheTypeX86) BitUtils.ExtractBitRange(leaf.eax, 4, 0);
+                var cacheType = (CacheTypeX86)BitUtils.ExtractBitRange(leaf.eax, 4, 0);
 
                 if (cacheType == CacheTypeX86.NULL)
                     break;
 
-                var level = (int) BitUtils.ExtractBitRange(leaf.eax, 7, 5);
-                var lineSize = (int) BitUtils.ExtractBitRange(leaf.ebx, 11, 0) + 1;
-                var partitioning = (int) BitUtils.ExtractBitRange(leaf.ebx, 21, 12) + 1;
-                var ways = (int) BitUtils.ExtractBitRange(leaf.ebx, 31, 22) + 1;
-                var tlbEntries = (int) (leaf.ecx + 1);
+                var level = (int)BitUtils.ExtractBitRange(leaf.eax, 7, 5);
+                var lineSize = (int)BitUtils.ExtractBitRange(leaf.ebx, 11, 0) + 1;
+                var partitioning = (int)BitUtils.ExtractBitRange(leaf.ebx, 21, 12) + 1;
+                var ways = (int)BitUtils.ExtractBitRange(leaf.ebx, 31, 22) + 1;
+                var tlbEntries = (int)(leaf.ecx + 1);
                 var cacheSize = ways * partitioning * lineSize * tlbEntries;
                 levels.Add(new CacheLevelInfoX86(level, cacheType, cacheSize, ways, lineSize, tlbEntries, partitioning));
             }

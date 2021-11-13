@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.UnitTesting.Attributes;
 using Xunit;
-using Architecture = CpuFeaturesDotNet.Native.Architecture;
 
 namespace CpuFeaturesDotNet.UnitTesting.ArchTests.ArmTests
 {

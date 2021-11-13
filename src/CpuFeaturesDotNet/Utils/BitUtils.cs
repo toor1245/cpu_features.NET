@@ -14,7 +14,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace CpuFeaturesDotNet.Utils
+namespace CpuFeaturesDotNet
 {
     internal static unsafe class BitUtils
     {

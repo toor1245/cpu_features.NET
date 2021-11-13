@@ -14,7 +14,6 @@
 
 using System.Runtime.CompilerServices;
 using System.Text;
-using static CpuFeaturesDotNet.Utils.BitUtils;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -33,19 +32,19 @@ namespace CpuFeaturesDotNet.X86
             var maxCpuidLeaf = leaf.eax;
             var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);
 
-            var family = ExtractBitRange(leaf1.eax, 11, 8);
-            var extendedFamily = ExtractBitRange(leaf1.eax, 27, 20);
-            var model = ExtractBitRange(leaf1.eax, 7, 4);
-            var extendedModel = ExtractBitRange(leaf1.eax, 19, 16);
+            var family = BitUtils.ExtractBitRange(leaf1.eax, 11, 8);
+            var extendedFamily = BitUtils.ExtractBitRange(leaf1.eax, 27, 20);
+            var model = BitUtils.ExtractBitRange(leaf1.eax, 7, 4);
+            var extendedModel = BitUtils.ExtractBitRange(leaf1.eax, 19, 16);
 
             Family = (int)(extendedFamily + family);
             Model = (int)((extendedModel << 4) + model);
-            Stepping = (int)ExtractBitRange(leaf1.eax, 3, 0);
+            Stepping = (int)BitUtils.ExtractBitRange(leaf1.eax, 3, 0);
             BrandString = GetBrandString();
             Microarchitecture = NativeX86.GetMicroarchitectureX86(leaf, Family, Model, Stepping);
             Features = new FeaturesX86(in leaf, in leaf1, Model, BrandString);
         }
-        
+
         private static unsafe string GetBrandString()
         {
             var brandString = stackalloc byte[49];
@@ -58,7 +57,7 @@ namespace CpuFeaturesDotNet.X86
             brandString[48] = (byte)'\0';
             return Encoding.ASCII.GetString(brandString, 49);
         }
-        
+
         private static unsafe void SetString(uint max_cpuid_ext_leaf, uint leaf_id, byte* buffer)
         {
             var leaf = LeafX86.SafeCpuId(max_cpuid_ext_leaf, leaf_id);

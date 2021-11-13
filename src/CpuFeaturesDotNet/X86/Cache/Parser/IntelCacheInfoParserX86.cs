@@ -14,7 +14,6 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using CpuFeaturesDotNet.Utils;
 using CpuFeaturesDotNet.X86.Helpers;
 
 namespace CpuFeaturesDotNet.X86.Parser
@@ -41,7 +40,7 @@ namespace CpuFeaturesDotNet.X86.Parser
             if (BitUtils.IsBitSet(leaf.edx, 31)) leaf.edx = 0;
 
             var data = stackalloc byte[16];
-            Unsafe.CopyBlock(data, (byte*) Unsafe.AsPointer(ref leaf), 16);
+            Unsafe.CopyBlock(data, (byte*)Unsafe.AsPointer(ref leaf), 16);
             for (var i = 0; i < 16; i++)
             {
                 var descriptor = data[i];

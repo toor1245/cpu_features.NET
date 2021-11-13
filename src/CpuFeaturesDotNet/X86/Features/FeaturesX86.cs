@@ -14,7 +14,6 @@
 
 using CpuFeaturesDotNet.X86.OperatingSystem;
 using CpuFeaturesDotNet.X86.Simd;
-using static CpuFeaturesDotNet.Utils.BitUtils;
 
 namespace CpuFeaturesDotNet.X86
 {
@@ -58,37 +57,37 @@ namespace CpuFeaturesDotNet.X86
             var leaf7 = LeafX86.SafeCpuId(maxCpuidLeaf, 7);
             var leaf7_1 = LeafX86.SafeCpuId(maxCpuidLeaf, 7, 1);
 
-            IsSupportedFPU = IsBitSet(leaf1.edx, 0);
-            IsSupportedTSC = IsBitSet(leaf1.edx, 4);
-            IsSupportedCX8 = IsBitSet(leaf1.edx, 8);
-            IsSupportedCLFSH = IsBitSet(leaf1.edx, 19);
-            IsSupportedMMX = IsBitSet(leaf1.edx, 23);
-            IsSupportedSS = IsBitSet(leaf1.edx, 27);
-            IsSupportedPCLMULQDQ = IsBitSet(leaf1.ecx, 1);
-            IsSupportedSMX = IsBitSet(leaf1.ecx, 6);
-            IsSupportedCX16 = IsBitSet(leaf1.ecx, 13);
-            IsSupportedDCA = IsBitSet(leaf1.ecx, 18);
-            IsSupportedMOVBE = IsBitSet(leaf1.ecx, 22);
-            IsSupportedPOPCNT = IsBitSet(leaf1.ecx, 23);
-            IsSupportedAES = IsBitSet(leaf1.ecx, 25);
-            IsSupportedF16C = IsBitSet(leaf1.ecx, 29);
-            IsSupportedRDRND = IsBitSet(leaf1.ecx, 30);
-            IsSupportedSGX = IsBitSet(leaf7.ebx, 2);
-            IsSupportedBMI1 = IsBitSet(leaf7.ebx, 3);
-            IsSupportedHLE = IsBitSet(leaf7.ebx, 4);
-            IsSupportedBMI2 = IsBitSet(leaf7.ebx, 8);
-            IsSupportedERMS = IsBitSet(leaf7.ebx, 9);
-            IsSupportedRTM = IsBitSet(leaf7.ebx, 11);
-            IsSupportedRDSEED = IsBitSet(leaf7.ebx, 18);
-            IsSupportedCLFLUSHOPT = IsBitSet(leaf7.ebx, 23);
-            IsSupportedCLWB = IsBitSet(leaf7.ebx, 24);
-            IsSupportedSHA = IsBitSet(leaf7.ebx, 29);
-            IsSupportedVAES = IsBitSet(leaf7.ecx, 9);
-            IsSupportedVPCLMULQDQ = IsBitSet(leaf7.ecx, 10);
-            IsSupportedADX = IsBitSet(leaf7.ebx, 19);
+            IsSupportedFPU = BitUtils.IsBitSet(leaf1.edx, 0);
+            IsSupportedTSC = BitUtils.IsBitSet(leaf1.edx, 4);
+            IsSupportedCX8 = BitUtils.IsBitSet(leaf1.edx, 8);
+            IsSupportedCLFSH = BitUtils.IsBitSet(leaf1.edx, 19);
+            IsSupportedMMX = BitUtils.IsBitSet(leaf1.edx, 23);
+            IsSupportedSS = BitUtils.IsBitSet(leaf1.edx, 27);
+            IsSupportedPCLMULQDQ = BitUtils.IsBitSet(leaf1.ecx, 1);
+            IsSupportedSMX = BitUtils.IsBitSet(leaf1.ecx, 6);
+            IsSupportedCX16 = BitUtils.IsBitSet(leaf1.ecx, 13);
+            IsSupportedDCA = BitUtils.IsBitSet(leaf1.ecx, 18);
+            IsSupportedMOVBE = BitUtils.IsBitSet(leaf1.ecx, 22);
+            IsSupportedPOPCNT = BitUtils.IsBitSet(leaf1.ecx, 23);
+            IsSupportedAES = BitUtils.IsBitSet(leaf1.ecx, 25);
+            IsSupportedF16C = BitUtils.IsBitSet(leaf1.ecx, 29);
+            IsSupportedRDRND = BitUtils.IsBitSet(leaf1.ecx, 30);
+            IsSupportedSGX = BitUtils.IsBitSet(leaf7.ebx, 2);
+            IsSupportedBMI1 = BitUtils.IsBitSet(leaf7.ebx, 3);
+            IsSupportedHLE = BitUtils.IsBitSet(leaf7.ebx, 4);
+            IsSupportedBMI2 = BitUtils.IsBitSet(leaf7.ebx, 8);
+            IsSupportedERMS = BitUtils.IsBitSet(leaf7.ebx, 9);
+            IsSupportedRTM = BitUtils.IsBitSet(leaf7.ebx, 11);
+            IsSupportedRDSEED = BitUtils.IsBitSet(leaf7.ebx, 18);
+            IsSupportedCLFLUSHOPT = BitUtils.IsBitSet(leaf7.ebx, 23);
+            IsSupportedCLWB = BitUtils.IsBitSet(leaf7.ebx, 24);
+            IsSupportedSHA = BitUtils.IsBitSet(leaf7.ebx, 29);
+            IsSupportedVAES = BitUtils.IsBitSet(leaf7.ecx, 9);
+            IsSupportedVPCLMULQDQ = BitUtils.IsBitSet(leaf7.ecx, 10);
+            IsSupportedADX = BitUtils.IsBitSet(leaf7.ebx, 19);
 
-            var haveXsave = IsBitSet(leaf1.ecx, 26);
-            var haveOsxsave = IsBitSet(leaf1.ecx, 27);
+            var haveXsave = BitUtils.IsBitSet(leaf1.ecx, 26);
+            var haveOsxsave = BitUtils.IsBitSet(leaf1.ecx, 27);
             var haveXcr0 = haveXsave && haveOsxsave;
 
             var osFeatures = OsBaseFeaturesX86.GetFeaturesX86(this);

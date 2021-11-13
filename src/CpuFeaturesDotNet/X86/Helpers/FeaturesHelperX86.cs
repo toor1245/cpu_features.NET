@@ -65,25 +65,25 @@ namespace CpuFeaturesDotNet.X86
             {
                 // Skylake server
                 case 0x55:
-                {
-                    // detect Xeon
-                    if (brandString[9] != 'X') return true;
-                    switch (brandString[17])
                     {
-                        // detect Silver or Bronze
-                        case 'S':
-                        case 'B':
-                            return false;
-                        // detect Gold 5_20 and below, except for Gold 53__
-                        case 'G' when brandString[22] == '5':
-                            return brandString[23] == '3' || brandString[24] == '2' && brandString[25] == '2';
-                    }
+                        // detect Xeon
+                        if (brandString[9] != 'X') return true;
+                        switch (brandString[17])
+                        {
+                            // detect Silver or Bronze
+                            case 'S':
+                            case 'B':
+                                return false;
+                            // detect Gold 5_20 and below, except for Gold 53__
+                            case 'G' when brandString[22] == '5':
+                                return brandString[23] == '3' || brandString[24] == '2' && brandString[25] == '2';
+                        }
 
-                    // detect Xeon W 210x
-                    if (brandString[17] == 'W' && brandString[21] == '0') return false;
-                    // detect Xeon D 2xxx
-                    return brandString[17] != 'D' || brandString[19] != '2' || brandString[20] != '1';
-                }
+                        // detect Xeon W 210x
+                        if (brandString[17] == 'W' && brandString[21] == '0') return false;
+                        // detect Xeon D 2xxx
+                        return brandString[17] != 'D' || brandString[19] != '2' || brandString[20] != '1';
+                    }
                 // Cannon Lake client
                 case 0x66:
                     return false;

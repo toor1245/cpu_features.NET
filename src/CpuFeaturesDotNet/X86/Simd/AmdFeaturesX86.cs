@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Utils;
 using CpuFeaturesDotNet.X86.Simd;
 
 namespace CpuFeaturesDotNet.X86

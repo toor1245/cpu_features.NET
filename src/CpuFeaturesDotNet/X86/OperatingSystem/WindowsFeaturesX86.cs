@@ -18,11 +18,11 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
     internal sealed class WindowsFeaturesX86 : OsBaseFeaturesX86
     {
-        public WindowsFeaturesX86(FeaturesX86 featuresX86) 
+        public WindowsFeaturesX86(FeaturesX86 featuresX86)
             : base(featuresX86)
         {
         }
-        
+
         public override void SetRegistersXcr0NotAvailable()
         {
             _featuresX86.IsSupportedSSE = WindowsNative.GetWindowsIsProcessorFeaturePresent(WindowsNative.PF_XMMI_INSTRUCTIONS_AVAILABLE);

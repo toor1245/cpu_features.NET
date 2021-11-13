@@ -13,8 +13,6 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.IO;
-using CpuFeaturesDotNet.Utils;
-using static CpuFeaturesDotNet.X86.CpuInfoX86;
 
 namespace CpuFeaturesDotNet.X86.OperatingSystem
 {
@@ -76,10 +74,10 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
 
                 if (isFeature || isFeature2)
                 {
-                    for (var i = 0; i < (int) line.Size; i++)
+                    for (var i = 0; i < (int)line.Size; i++)
                     {
                         var b = &line.Ptr[i];
-                        if (*b == '<' || *b == '>' || *b == ',') *b = (byte) ' ';
+                        if (*b == '<' || *b == '>' || *b == ',') *b = (byte)' ';
                     }
 
                     if (isFeature)

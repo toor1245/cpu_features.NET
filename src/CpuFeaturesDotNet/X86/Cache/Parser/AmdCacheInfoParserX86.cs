@@ -23,7 +23,7 @@ namespace CpuFeaturesDotNet.X86.Parser
             : base(maxExt)
         {
         }
-        
+
         /// <summary>
         /// Gets cache information newer AMD CPUs by 0x8000001D.
         /// </summary>
