@@ -1,4 +1,4 @@
-name: .NET 5 amd64 Linux
+name: .NET 5 amd64 Linux 
 
 on:
   pull_request:
