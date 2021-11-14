@@ -4,17 +4,17 @@
 [![Macos Status][macos_svg]][macos_link]
 [![Windows Status][windows_svg]][windows_link]
 
-[linux_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/linux_x86-64.yml/badge.svg?branch=master
+[linux_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_linux.yml/badge.svg?branch=master
 
-[linux_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/linux_x86-64.yml
+[linux_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_linux.yml
 
-[macos_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/osx_x86-64.yml/badge.svg?branch=master
+[macos_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_macos.yml/badge.svg?branch=master
 
-[macos_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/osx_x86-64.yml
+[macos_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_macos.yml
 
-[windows_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/win_x86-64.yml/badge.svg?branch=master
+[windows_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_windows.yml/badge.svg?branch=master
 
-[windows_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/win_x86-64.yml
+[windows_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_windows.yml
 
 .NET version of [google/cpu_features](https://github.com/google/cpu_features) for getting cpu info at runtime.
 
