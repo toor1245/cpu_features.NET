@@ -1,4 +1,4 @@
-name: .NET 5 linux.amd64
+name: .NET 5 amd64 macOS
 
 on:
   pull_request:
@@ -14,17 +14,19 @@ env:
 
 jobs:
   make-x86:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Check cmake
-        run: cmake --version
-      - name: Configure
-        run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
-      - name: Build
-        run: cmake --build cmake-build-release --target all -v
+      - name: Install ninja-build tool
+        uses: seanmiddleditch/gha-setup-ninja@v3
+
+      - name: CMake Build
+        run: cmake -S. -Bcmake-build-release -GNinja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Ninja
+        run: ninja -Ccmake-build-release
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
@@ -32,7 +34,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Debug --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: dotnet test "tests" -c Debug
