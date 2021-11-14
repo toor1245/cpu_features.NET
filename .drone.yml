@@ -75,7 +75,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: linux-x86_64-gcc
+name: linux-amd64-gcc
 
 platform:
   os: linux
