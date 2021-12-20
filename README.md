@@ -244,6 +244,19 @@ cmake --build cmake-build-release --target all -v
 | Windows | yes²    | not yet | not yet |
 | FreeBSD | not yet | not yet | not yet |
 
+| Runtime / OS           | x86³    | ARM     | AArch64 |
+|------------------------|:-------:|:-------:|:-------:|
+| .NET Framework Windows | yes²    | N/A     | N/A     |
+| .NET Core Windows      | yes²    | not yet | not yet |
+| .NET Core Linux        | yes²    | not yet | not yet |
+| .NET Core macOS        | yes²    | not yet | not yet |
+| Mono Windows           | not yet | not yet | not yet |
+| Mono Linux             | not yet | not yet | not yet |
+| Mono macOS             | not yet | not yet | not yet |
+| Mono FreeBSD           | not yet | not yet | not yet |
+| Mono Android           | not yet | not yet | not yet |
+| Mono iOS               | N/A     | not yet | not yet |
+
 1. **Features revealed from Linux.** We gather data from several sources depending on availability:
     + from glibc's
       [getauxval](https://www.gnu.org/software/libc/manual/html_node/Auxiliary-Vector.html)
