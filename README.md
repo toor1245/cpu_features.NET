@@ -235,15 +235,6 @@ cmake --build cmake-build-release --target all -v
 
 ## What's supported
 
-|         | x86³    | ARM     | AArch64 |
-|---------|:-------:|:-------:|:-------:|
-| Android | not yet | not yet | not yet |
-| iOS     | N/A     | not yet | not yet |
-| Linux   | yes²    | not yet | not yet |
-| MacOs   | yes²    | N/A     | not yet |
-| Windows | yes²    | not yet | not yet |
-| FreeBSD | not yet | not yet | not yet |
-
 | Runtime / OS           | x86³    | ARM     | AArch64 |
 |------------------------|:-------:|:-------:|:-------:|
 | .NET Framework Windows | yes²    | N/A     | N/A     |
