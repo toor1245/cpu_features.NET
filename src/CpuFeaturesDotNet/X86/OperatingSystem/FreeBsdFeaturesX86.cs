@@ -29,7 +29,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
             if (fileDescriptor < 0) return;
 
             StackLineReader.Initialize(out var reader, fileDescriptor);
-            var features = stackalloc byte[]
+            var features = new sbyte[]
             {
                 0x14,
                 0x14,
@@ -43,7 +43,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                 0x49,
                 0x3D
             };
-            var features2 = stackalloc byte[]
+            var features2 = new sbyte[]
             {
                 0x14,
                 0x14,
@@ -58,12 +58,12 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                 0x20,
                 0x3D
             };
-            var sse = StringUtils.GetAsciiBytes("SSE");
-            var sse2 = StringUtils.GetAsciiBytes("SSE2");
-            var sse3 = StringUtils.GetAsciiBytes("SSE3");
-            var ssse3 = StringUtils.GetAsciiBytes("SSSE3");
-            var sse41 = StringUtils.GetAsciiBytes("SSE4.1");
-            var sse42 = StringUtils.GetAsciiBytes("SSE4.2");
+            var sse = EncodingAsciiUtils.GetAsciiBytes("SSE");
+            var sse2 = EncodingAsciiUtils.GetAsciiBytes("SSE2");
+            var sse3 = EncodingAsciiUtils.GetAsciiBytes("SSE3");
+            var ssse3 = EncodingAsciiUtils.GetAsciiBytes("SSSE3");
+            var sse41 = EncodingAsciiUtils.GetAsciiBytes("SSE4.1");
+            var sse42 = EncodingAsciiUtils.GetAsciiBytes("SSE4.2");
 
             while (true)
             {
@@ -77,7 +77,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
                     for (var i = 0; i < (int)line.Size; i++)
                     {
                         var b = &line.Ptr[i];
-                        if (*b == '<' || *b == '>' || *b == ',') *b = (byte)' ';
+                        if (*b == '<' || *b == '>' || *b == ',') *b = (sbyte)' ';
                     }
 
                     if (isFeature)

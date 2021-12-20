@@ -12,25 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Aarch64.CpuInfo;
-using CpuFeaturesDotNet.Samples.Extensions;
-using Xunit.Abstractions;
 
-namespace CpuFeaturesDotNet.Samples
+using CpuFeaturesDotNet.AArch64.CpuInfo;
+using CpuFeaturesDotNet.Samples.Settings;
+using Newtonsoft.Json;
+
+namespace CpuFeaturesDotNet.Samples.Extensions
 {
-    public class CpuFeaturesListAarch64 : Runner
+    public static class CpuInfoAarch64Extensions
     {
-        private readonly ITestOutputHelper _output;
-
-        public CpuFeaturesListAarch64(ITestOutputHelper output)
+        public static string ToJsonPretty(this CpuInfoAArch64 cpuInfoAArch64)
         {
-            _output = output;
-        }
-
-        protected override void Run()
-        {
-            var cpuInfoAarch64 = new CpuInfoAarch64();
-            _output.WriteLine(cpuInfoAarch64.ToJsonPretty());
+            return JsonConvert.SerializeObject(cpuInfoAArch64, JsonSerializerCpuInfoSettings.Settings);
         }
     }
 }

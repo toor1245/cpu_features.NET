@@ -12,39 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native.OperatingSystem;
 using Xunit;
 
 namespace CpuFeaturesDotNet.UnitTesting.Utils
 {
-    public class BitUtilsTests
+    public unsafe class StringUtilsTests
     {
         [Fact]
-        public void ExtractBitRange_ShouldGetLsb3Bits_AssertMustBeEqual4()
+        public void Strlen_GetLengthOfString_ReturnsSix()
         {
             // Arrange
-            const uint register = 0b00001100;
-            const uint expected = 0b00000100;
+            var sse41 = stackalloc sbyte[]
+            {
+                0x49,
+                0x49,
+                0x41,
+                0x22,
+                0x5F,
+                0x1F
+            };
+            const int expected = 6;
 
             // Act
-            var actual = BitUtils.ExtractBitRange(register, 2, 0);
+            var actual = NativeString.Strlen(sse41);
 
             // Assert
             Assert.Equal(expected, actual);
         }
 
-        [Theory]
-        [InlineData(0b00001101U, 3, true)]
-        [InlineData(0b00000101U, 3, false)]
-        [InlineData(0b00001101U, 0, true)]
-        [InlineData(0b10001101U, 7, true)]
-        public void IsBitSet_CheckMiddleBit_True(uint register, int bit, bool expected)
+        [Fact]
+        public void Strlen_GetLengthOfString_ReturnsLength()
         {
+            // Arrange
+            const int expected = 4;
+            var sse3 = new sbyte[]
+            {
+                0x49,
+                0x49,
+                0x41,
+                0x21
+            };
+
             // Act
-            var actual = BitUtils.IsBitSet(register, bit);
+            var actual = NativeString.Strlen(ref sse3[0]);
 
             // Assert
             Assert.Equal(expected, actual);
+
         }
     }
 }

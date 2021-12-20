@@ -20,14 +20,22 @@ namespace CpuFeaturesDotNet.X86
     [StructLayout(LayoutKind.Sequential)]
     internal struct LeafX86
     {
-        public uint eax, ebx, ecx, edx;
+        public uint Eax, Ebx, Ecx, Edx;
 
-        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
-        public static extern LeafX86 CpuId(uint leafId, int ecx = 0);
+        private LeafX86(uint eax, uint ebx, uint ecx, uint edx)
+        {
+            Eax = eax;
+            Ebx = ebx;
+            Ecx = ecx;
+            Edx = edx;
+        }
 
         public static LeafX86 SafeCpuId(uint maxExtensionCpuId, uint leafId, int ecx = 0)
         {
             return leafId <= maxExtensionCpuId ? CpuId(leafId, ecx) : new LeafX86();
         }
+
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cpuid")]
+        public static extern LeafX86 CpuId(uint leafId, int ecx = 0);
     }
 }

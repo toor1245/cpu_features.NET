@@ -15,25 +15,24 @@ macro(setup_include_and_definitions TARGET_NAME)
 endmacro()
 
 macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
-    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/macros.h)
-    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/arch.h)
-    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/os.h)
+    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/cpu_features_macros.h)
+    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/architecture.h)
+    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/operating_system_utils.h)
     list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/filesystem.h)
-    list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/cpu_utils.h)
 
-    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/os.c)
-    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/filesystem.c)
-    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/arch.c)
+    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/operating_system_utils.c)
+    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/filesystem.c)
+    list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/architecture.c)
     if (PROCESSOR_IS_X86)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64/cpuinfo_x86.h)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/x86-64/cpuid_x86.h)
 
-        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuid_x86.c)
-        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_x86.c)
+        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/x86-64/cpuid_x86.c)
+        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/x86-64/cpuinfo_x86.c)
     elseif (PROCESSOR_IS_ARM)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch32/cpuinfo_arm.h)
 
-        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/cpuinfo_arm.c)
+        list(APPEND ${SRCS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/aarch32/cpuinfo_arm.c)
     elseif (PROCESSOR_IS_AARCH64)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cpureg_aarch64.h)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64/cputype_aarch64.h)
@@ -60,14 +59,18 @@ endmacro()
 #
 
 add_library(${CPU_FEATURES_DOTNET_SHARED} SHARED
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/arch.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/architecture.h
         ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/filesystem.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/macros.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/os.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/cpu_features_macros.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/operating_system_utils.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/memory_utils.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/shared/string_utils.h
 
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/arch.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/filesystem.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/os.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/architecture.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/filesystem.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/string_utils.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/memory_utils.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared/operating_system_utils.c
         )
 set_target_properties(${CPU_FEATURES_DOTNET_SHARED} PROPERTIES PREFIX "")
 set_target_properties(${CPU_FEATURES_DOTNET_SHARED} PROPERTIES OUTPUT_NAME "${CPU_FEATURES_DOTNET_SHARED}.${PROCESSOR_OUTPUT_NAME}")

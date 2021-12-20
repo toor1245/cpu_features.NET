@@ -23,7 +23,7 @@ namespace CpuFeaturesDotNet.IO
         public static extern int OpenFile(string fileName);
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "read_file")]
-        public static extern int ReadFile(int fileDescriptor, byte* buffer, ulong bufferSize);
+        public static extern int ReadFile(int fileDescriptor, sbyte* buffer, ulong bufferSize);
 
         [DllImport(Library.SHARED_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "close_file")]
         public static extern void CloseFile(int fileDescriptor);

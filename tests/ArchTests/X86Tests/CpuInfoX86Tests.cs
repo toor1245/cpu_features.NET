@@ -20,7 +20,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.X86Tests
 {
     public class CpuInfoX86Tests
     {
-        [FactX86]
+        [FactI386]
         public void IsArchX86_32_True()
         {
             Assert.True(Architecture.IsArchI386());
@@ -32,7 +32,7 @@ namespace CpuFeaturesDotNet.UnitTesting.ArchTests.X86Tests
             Assert.True(Architecture.IsArchX64());
         }
 
-        [FactX86Any]
+        [FactX86]
         public void IsArchX86Any_True()
         {
             Assert.True(Architecture.IsArchX86());

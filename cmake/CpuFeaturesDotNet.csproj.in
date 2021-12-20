@@ -10,7 +10,7 @@
         <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
         <LangVersion>8</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <TargetFramework>netstandard1.3</TargetFramework>
+        <TargetFramework>netstandard1.1</TargetFramework>
         <Architectures>x86;x64;arm;arm64</Architectures>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
@@ -71,9 +71,7 @@
       </PackageReference>
       <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\CpuFeaturesDotNet.Utils\CpuFeaturesDotNet.Utils.csproj" />
-    </ItemGroup>
+
     <ItemGroup>
       <None Remove="@NATIVE_LIB_SHARED_PATH@" />
       <EmbeddedResource Include="@NATIVE_LIB_SHARED_PATH@">

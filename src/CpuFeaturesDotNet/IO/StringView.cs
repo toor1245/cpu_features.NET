@@ -22,10 +22,10 @@ namespace CpuFeaturesDotNet.IO
     internal unsafe struct StringView
     {
         public ulong Size;
-        public byte* Ptr;
+        public sbyte* Ptr;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static StringView GetView(byte* str, ulong size)
+        public static StringView GetView(sbyte* str, ulong size)
         {
             StringView view;
             view.Ptr = str;
@@ -34,36 +34,67 @@ namespace CpuFeaturesDotNet.IO
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static StringView GetString(byte* str)
+        public static StringView GetString(sbyte[] str)
         {
-            return GetView(str, StringUtils.str_len(str));
+            Debug.Assert(str != null);
+            Debug.Assert(str.Length != 0);
+            fixed (sbyte* ptr = &str[0])
+            {
+                return GetView(ptr, (ulong)str.Length);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static StringView GetString(ref sbyte str, ulong length)
+        {
+            Debug.Assert(length != 0);
+            fixed (sbyte* ptr = &str)
+            {
+                return GetView(ptr, length);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static StringView GetString(ref sbyte str)
+        {
+            fixed (sbyte* ptr = &str)
+            {
+                return GetView(ptr, (ulong)NativeString.Strlen(ptr));
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static StringView GetString(sbyte* str)
+        {
+            return GetView(str, (ulong)NativeString.Strlen(str));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static StringView GetString(string str)
         {
-            var bytes = StringUtils.GetAsciiBytes(str);
-            return GetView(bytes, StringUtils.str_len(bytes));
+            var bytes = EncodingAsciiUtils.GetAsciiBytes(str);
+            return GetView(bytes, (ulong)NativeString.Strlen(bytes));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static StringView GetString(byte* str, uint length)
+        public static StringView GetString(sbyte* str, uint length)
         {
-            if (length > StringUtils.str_len(str))
+            if (length > NativeString.Strlen(str))
             {
                 throw new ArgumentException();
             }
+
             return GetView(str, length);
         }
 
-        public readonly int IndexOfChar(byte c)
+        public readonly int IndexOfChar(sbyte c)
         {
             if (Ptr == null || Size == 0)
             {
                 return -1;
             }
 
-            var found = (byte*)MemoryUtils.memchr(Ptr, c, (uint)Size);
+            var found = (sbyte*)NativeMemory.Memchr(Ptr, c, Size);
             if (found != null)
             {
                 return (int)(found - Ptr);
@@ -104,7 +135,7 @@ namespace CpuFeaturesDotNet.IO
         {
             if (arg1.Size == arg2.Size)
             {
-                return arg1.Ptr == arg2.Ptr || MemoryUtils.memcmp(arg1.Ptr, arg2.Ptr, (uint)arg2.Size) == 0;
+                return arg1.Ptr == arg2.Ptr || NativeMemory.Memcmp(arg1.Ptr, arg2.Ptr, (uint)arg2.Size) == 0;
             }
 
             return false;
@@ -116,7 +147,7 @@ namespace CpuFeaturesDotNet.IO
                    arg2.Ptr != null &&
                    arg1.Size >= arg2.Size &&
                    arg2.Size != 0 &&
-                   MemoryUtils.memcmp(arg1.Ptr, arg2.Ptr, (uint)arg2.Size) == 0;
+                   NativeMemory.Memcmp(arg1.Ptr, arg2.Ptr, (uint)arg2.Size) == 0;
         }
 
         public readonly StringView PopFront(ulong count)
@@ -134,14 +165,14 @@ namespace CpuFeaturesDotNet.IO
             return count <= Size ? GetView(Ptr, count) : this;
         }
 
-        public readonly byte Front()
+        public readonly sbyte Front()
         {
             Debug.Assert(Size != 0);
             Debug.Assert(Ptr != null);
             return Ptr[0];
         }
 
-        public readonly byte Back()
+        public readonly sbyte Back()
         {
             Debug.Assert(Size != 0);
             return Ptr[Size - 1];
@@ -149,12 +180,12 @@ namespace CpuFeaturesDotNet.IO
 
         public static StringView TrimWhiteSpace(ref StringView view)
         {
-            while (view.Size != 0 && StringUtils.is_space(view.Front()))
+            while (view.Size != 0 && NativeString.IsSpace(view.Front()))
             {
                 view = view.PopFront(1);
             }
 
-            while (view.Size != 0 && StringUtils.is_space(view.Back()))
+            while (view.Size != 0 && NativeString.IsSpace(view.Back()))
             {
                 view = view.PopBack(1);
             }
@@ -170,7 +201,7 @@ namespace CpuFeaturesDotNet.IO
 
             for (; remainder.Size != 0; remainder = remainder.PopFront(1))
             {
-                var value = StringUtils.hex_value(remainder.Front());
+                var value = NativeString.GetHexValue(remainder.Front());
                 if (value < 0 || value >= @base)
                 {
                     return -1;
@@ -189,7 +220,7 @@ namespace CpuFeaturesDotNet.IO
                 return -1;
             }
 
-            var bytes = stackalloc byte[] { (byte)'0', (byte)'x' };
+            var bytes = stackalloc sbyte[] { (sbyte)'0', (sbyte)'x' };
             var hexPrefix = GetString(bytes);
 
             if (!StartsWith(view, hexPrefix))
@@ -201,13 +232,19 @@ namespace CpuFeaturesDotNet.IO
             return ParsePositiveNumberWithBase(spanNoPrefix, 16);
         }
 
-        public static bool HasWord(in StringView line, byte* wordString)
+        public static bool HasWord(in StringView line, sbyte* wordString)
         {
             var word = GetString(wordString);
             return HasWordSoftwareFallback(in line, in word);
         }
 
-        public static bool HasWord(in StringView line, byte* wordString, uint length)
+        public static bool HasWord(in StringView line, sbyte[] wordString)
+        {
+            var word = GetString(wordString);
+            return HasWordSoftwareFallback(in line, in word);
+        }
+
+        public static bool HasWord(in StringView line, sbyte* wordString, uint length)
         {
             var word = GetString(wordString, length);
             return HasWordSoftwareFallback(in line, in word);
@@ -240,7 +277,7 @@ namespace CpuFeaturesDotNet.IO
         public static bool GetAttributeKeyValue(in StringView line, ref StringView key,
             ref StringView value)
         {
-            var str = stackalloc byte[] { 0x3A, 0x20 };
+            var str = stackalloc sbyte[] { 0x3A, 0x20 };
             var sep = GetString(str);
             var indexOfSeparator = line.IndexOf(sep);
             if (indexOfSeparator < 0)
@@ -263,6 +300,7 @@ namespace CpuFeaturesDotNet.IO
             {
                 result.Append((char)*(Ptr + i));
             }
+
             return result.ToString();
         }
     }

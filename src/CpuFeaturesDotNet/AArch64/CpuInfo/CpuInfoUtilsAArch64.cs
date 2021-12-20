@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Runtime.InteropServices;
 using CpuFeaturesDotNet.Native;
-using Xunit;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.AArch64.CpuInfo
 {
-    public sealed class FactArmAnyAttribute : FactAttribute
+    internal static class CpuInfoUtilsAArch64
     {
-        public FactArmAnyAttribute()
-        {
-            if (!Architecture.IsArchArm())
-            {
-                Skip = "Ignored on unsupported ARM architecture";
-            }
-        }
+        [DllImport(Library.NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl,
+            EntryPoint = "get_aarch64_impl")]
+        public static extern CpuImplementorAArch64 GetImplementorAArch64();
+
+        [DllImport(Library.NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl,
+            EntryPoint = "get_aarch64_part_num")]
+        public static extern CpuPartNumberAArch64 GetPartNumberAArch64();
     }
 }

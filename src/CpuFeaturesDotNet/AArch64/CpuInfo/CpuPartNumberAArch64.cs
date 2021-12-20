@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace CpuFeaturesDotNet.Aarch64.CpuInfo
+namespace CpuFeaturesDotNet.AArch64.CpuInfo
 {
-    public enum CpuPartNumberAarch64
+    public enum CpuPartNumberAArch64
     {
         UNKNOWN_PART_NUMBER_AARCH64,
 

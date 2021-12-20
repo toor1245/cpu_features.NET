@@ -34,10 +34,10 @@ namespace CpuFeaturesDotNet.X86.Parser
         internal static CacheInfoParserX86 GetCacheInfoParserX86()
         {
             var leaf = LeafX86.CpuId(0);
-            var maxExt = LeafX86.CpuId(0x80000000).eax;
+            var maxExt = LeafX86.CpuId(0x80000000).Eax;
             if (VendorX86.IsAmdVendor(leaf))
             {
-                var cpuidExt = LeafX86.SafeCpuId(maxExt, 0x80000001).ecx;
+                var cpuidExt = LeafX86.SafeCpuId(maxExt, 0x80000001).Ecx;
 
                 // If CPUID Fn8000_0001_ECX[TopologyExtensions]==0
                 // then CPUID Fn8000_0001_E[D,C,B,A]X is reserved.

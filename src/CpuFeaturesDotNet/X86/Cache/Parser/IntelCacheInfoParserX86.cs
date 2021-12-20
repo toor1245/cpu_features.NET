@@ -31,13 +31,13 @@ namespace CpuFeaturesDotNet.X86.Parser
             // The least-significant byte in register EAX (register AL) will always return
             // 01H. Software should ignore this value and not interpret it as an
             // informational descriptor.
-            leaf.eax &= 0xFFFFFF00; // Zeroing out AL. 0 is the empty descriptor.
+            leaf.Eax &= 0xFFFFFF00; // Zeroing out AL. 0 is the empty descriptor.
             // The most significant bit (bit 31) of each register indicates whether the
             // register contains valid information (set to 0) or is reserved (set to 1).
-            if (BitUtils.IsBitSet(leaf.eax, 31)) leaf.eax = 0;
-            if (BitUtils.IsBitSet(leaf.ebx, 31)) leaf.ebx = 0;
-            if (BitUtils.IsBitSet(leaf.ecx, 31)) leaf.ecx = 0;
-            if (BitUtils.IsBitSet(leaf.edx, 31)) leaf.edx = 0;
+            if (BitUtils.IsBitSet(leaf.Eax, 31)) leaf.Eax = 0;
+            if (BitUtils.IsBitSet(leaf.Ebx, 31)) leaf.Ebx = 0;
+            if (BitUtils.IsBitSet(leaf.Ecx, 31)) leaf.Ecx = 0;
+            if (BitUtils.IsBitSet(leaf.Edx, 31)) leaf.Edx = 0;
 
             var data = stackalloc byte[16];
             Unsafe.CopyBlock(data, (byte*)Unsafe.AsPointer(ref leaf), 16);

@@ -29,8 +29,8 @@ namespace CpuFeaturesDotNet.X86
         protected override void SetAvxRegisters()
         {
             base.SetAvxRegisters();
-            _featuresX86.IsSupportedFMA4 = BitUtils.IsBitSet(_leafExtFeatures.ecx, 16);
-            _featuresX86.IsSupportedSSE4A = BitUtils.IsBitSet(_leafExtFeatures.ecx, 6);
+            _featuresX86.IsSupportedFMA4 = BitUtils.IsBitSet(_leafExtFeatures.Ecx, 16);
+            _featuresX86.IsSupportedSSE4A = BitUtils.IsBitSet(_leafExtFeatures.Ecx, 6);
         }
     }
 }

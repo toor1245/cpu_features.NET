@@ -13,22 +13,23 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.Native;
+using Xunit;
+#pragma warning disable 162
 
-namespace CpuFeaturesDotNet.Aarch64.CpuInfo
+namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public sealed class CpuInfoAarch64 : ICpuInfoAarch64
+    public sealed class FactAarch64Attribute : FactAttribute
     {
-        public CpuImplementorAarch64 Implementer { get; }
-        public CpuPartNumberAarch64 Part { get; }
-        public int Variant { get; }
-        public int Revision { get; }
-
-        public CpuInfoAarch64()
+        public FactAarch64Attribute()
         {
-            if (!Architecture.IsArchAarch64())
-                return;
-            Implementer = CpuInfoUtilsAarch64.GetImplementorAarch64();
-            Part = CpuInfoUtilsAarch64.GetPartNumberAarch64();
+#if NETFRAMEWORK
+            Skip = "Ignored on unsupported AArch64 architecture for .NET Framework";
+            return;
+#endif
+            if (!Architecture.IsArchAArch64())
+            {
+                Skip = "Ignored on unsupported AArch64 architecture";
+            }
         }
     }
 }

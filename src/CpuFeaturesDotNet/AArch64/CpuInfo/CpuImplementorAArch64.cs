@@ -12,13 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace CpuFeaturesDotNet.Aarch64.CpuInfo
+namespace CpuFeaturesDotNet.AArch64.CpuInfo
 {
-    public interface ICpuInfoAarch64
+    public enum CpuImplementorAArch64
     {
-        public CpuImplementorAarch64 Implementer { get; }
-        public CpuPartNumberAarch64 Part { get; }
-        public int Variant { get; }
-        public int Revision { get; }
+        UNKNOWN_AARCH64,
+        ARM,
+        APM,
+        CAVIUM,
+        BRCM,
+        QCOM,
+        NVIDIA,
+        FUJITSU,
+        HISI,
+        APPLE
     }
 }

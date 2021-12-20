@@ -22,7 +22,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
         public void memchr_FindCharacter_True()
         {
             // Arrange
-            var sse41 = stackalloc byte[]
+            var sse41 = stackalloc sbyte[]
             {
                 0x49,
                 0x49,
@@ -34,8 +34,8 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             const int expected = 0x41;
 
             // Act
-            var length = (uint)StringUtils.str_len(sse41);
-            var actual = (byte*)MemoryUtils.memchr(sse41, 0x41, length);
+            var length = (uint)NativeString.Strlen(sse41);
+            var actual = (byte*)NativeMemory.Memchr(sse41, 0x41, length);
 
             // Assert
             Assert.Equal(expected, *actual);
@@ -56,7 +56,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             };
 
             // Act
-            var actual = (byte*)MemoryUtils.memchr(sse41, 0x41, 0);
+            var actual = (byte*)NativeMemory.Memchr(sse41, 0x41, 0);
 
             // Assert
             Assert.True(actual == null);
@@ -66,7 +66,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
         public void memcmp_CompareStrings_True()
         {
             // Arrange
-            var sse41 = stackalloc byte[]
+            var sse41 = stackalloc sbyte[]
             {
                 0x49,
                 0x49,
@@ -76,7 +76,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
                 0x1F
             };
 
-            var sse42 = stackalloc byte[]
+            var sse42 = stackalloc sbyte[]
             {
                 0x49,
                 0x49,
@@ -88,7 +88,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             var expected = -1;
 
             // Act
-            var actual = MemoryUtils.memcmp(sse41, sse42, (uint)StringUtils.str_len(sse41));
+            var actual = NativeMemory.Memcmp(sse41, sse42, (ulong)NativeString.Strlen(sse41));
 
             // Assert
             Assert.Equal(expected, actual);
@@ -98,7 +98,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
         public void memcmp_CompareStrings_False()
         {
             // Arrange
-            var sse41 = stackalloc byte[]
+            var sse41 = stackalloc sbyte[]
             {
                 0x49,
                 0x49,
@@ -108,7 +108,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
                 0x1F
             };
 
-            var sse42 = stackalloc byte[]
+            var sse42 = stackalloc sbyte[]
             {
                 0x49,
                 0x49,
@@ -120,7 +120,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Utils
             var expected = 0;
 
             // Act
-            var actual = MemoryUtils.memcmp(sse41, sse42, (uint)StringUtils.str_len(sse41));
+            var actual = NativeMemory.Memcmp(sse41, sse42, (ulong)NativeString.Strlen(sse41));
 
             // Assert
             Assert.Equal(expected, actual);
