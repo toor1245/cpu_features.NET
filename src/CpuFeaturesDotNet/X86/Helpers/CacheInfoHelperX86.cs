@@ -131,16 +131,16 @@ namespace CpuFeaturesDotNet.X86.Helpers
             for (var cacheId = 0; cacheId < CacheInfoParserX86.LEVELS_SIZE; cacheId++)
             {
                 var leaf = LeafX86.SafeCpuId(maxCpuidLeaf, leafId, cacheId);
-                var cacheType = (CacheTypeX86)BitUtils.ExtractBitRange(leaf.eax, 4, 0);
+                var cacheType = (CacheTypeX86)BitUtils.ExtractBitRange(leaf.Eax, 4, 0);
 
                 if (cacheType == CacheTypeX86.NULL)
                     break;
 
-                var level = (int)BitUtils.ExtractBitRange(leaf.eax, 7, 5);
-                var lineSize = (int)BitUtils.ExtractBitRange(leaf.ebx, 11, 0) + 1;
-                var partitioning = (int)BitUtils.ExtractBitRange(leaf.ebx, 21, 12) + 1;
-                var ways = (int)BitUtils.ExtractBitRange(leaf.ebx, 31, 22) + 1;
-                var tlbEntries = (int)(leaf.ecx + 1);
+                var level = (int)BitUtils.ExtractBitRange(leaf.Eax, 7, 5);
+                var lineSize = (int)BitUtils.ExtractBitRange(leaf.Ebx, 11, 0) + 1;
+                var partitioning = (int)BitUtils.ExtractBitRange(leaf.Ebx, 21, 12) + 1;
+                var ways = (int)BitUtils.ExtractBitRange(leaf.Ebx, 31, 22) + 1;
+                var tlbEntries = (int)(leaf.Ecx + 1);
                 var cacheSize = ways * partitioning * lineSize * tlbEntries;
                 levels.Add(new CacheLevelInfoX86(level, cacheType, cacheSize, ways, lineSize, tlbEntries, partitioning));
             }

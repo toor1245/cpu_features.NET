@@ -15,15 +15,15 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable 649
+
 namespace CpuFeaturesDotNet.IO
 {
     internal unsafe ref struct StackLineReader
     {
         private const short STACK_LINE_READER_BUFFER_SIZE = 1024;
 
-#pragma warning disable 649
-        private fixed byte Buffer[STACK_LINE_READER_BUFFER_SIZE];
-#pragma warning restore 649
+        private fixed sbyte Buffer[STACK_LINE_READER_BUFFER_SIZE];
 
         public int FileDescriptor;
         public StringView StringView;
@@ -34,7 +34,7 @@ namespace CpuFeaturesDotNet.IO
             reader.FileDescriptor = fileDescriptor;
             reader.StringView.Size = 0;
             reader.SkipMode = false;
-            fixed (byte* ptr = reader.Buffer)
+            fixed (sbyte* ptr = reader.Buffer)
             {
                 reader.StringView.Ptr = ptr;
             }
@@ -43,7 +43,7 @@ namespace CpuFeaturesDotNet.IO
         // Replaces the content of buffer with bytes from the file.
         public static int LoadFullBuffer(ref StackLineReader reader)
         {
-            fixed (byte* ptr = reader.Buffer)
+            fixed (sbyte* ptr = reader.Buffer)
             {
                 var read = FileSystem.ReadFile(reader.FileDescriptor, ptr, (ulong)STACK_LINE_READER_BUFFER_SIZE);
                 Debug.Assert(read >= 0);
@@ -56,7 +56,7 @@ namespace CpuFeaturesDotNet.IO
         // Appends with bytes from the file to buffer, filling the remaining space.
         public static int LoadMore(ref StackLineReader reader)
         {
-            fixed (byte* bufferPtr = reader.Buffer)
+            fixed (sbyte* bufferPtr = reader.Buffer)
             {
                 var ptr = bufferPtr + reader.StringView.Size;
                 var sizeToRead = (ulong)STACK_LINE_READER_BUFFER_SIZE - reader.StringView.Size;
@@ -70,7 +70,7 @@ namespace CpuFeaturesDotNet.IO
 
         public static int IndexOfEol(in StackLineReader reader)
         {
-            return reader.StringView.IndexOfChar((byte)'\n');
+            return reader.StringView.IndexOfChar((sbyte)'\n');
         }
 
 
@@ -78,7 +78,7 @@ namespace CpuFeaturesDotNet.IO
         // remaining space with bytes from the file.
         public static int BringToFrontAndLoadMore(ref StackLineReader reader)
         {
-            fixed (byte* bufferPtr = reader.Buffer)
+            fixed (sbyte* bufferPtr = reader.Buffer)
             {
                 if (reader.StringView.Size != 0 && reader.StringView.Ptr != bufferPtr)
                 {
@@ -141,6 +141,7 @@ namespace CpuFeaturesDotNet.IO
                 SkipToNextLine(ref reader);
                 reader.SkipMode = false;
             }
+
             {
                 var can_load_more = reader.StringView.Size < (ulong)STACK_LINE_READER_BUFFER_SIZE;
                 var eol_index = IndexOfEol(reader);

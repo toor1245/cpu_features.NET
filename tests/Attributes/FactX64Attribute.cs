@@ -23,7 +23,7 @@ namespace CpuFeaturesDotNet.UnitTesting.Attributes
         {
             if (!Architecture.IsArchX64())
             {
-                Skip = "Ignored on unsupported X64 architecture";
+                Skip = "Ignored on unsupported x64 architecture";
             }
         }
     }

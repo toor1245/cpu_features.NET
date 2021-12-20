@@ -12,19 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
-using Xunit;
+using System.Runtime.CompilerServices;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet
 {
-    public sealed class FactArm32Attribute : FactAttribute
+    internal static class BitUtils
     {
-        public FactArm32Attribute()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsBitSet(uint register, int bit)
         {
-            if (!Architecture.IsArchAarch32())
-            {
-                Skip = "Ignored on unsupported ARM32 architecture";
-            }
+            return ((register >> bit) & 0x1) != 0;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint ExtractBitRange(uint register, uint msb, uint lsb)
+        {
+            var bits = msb - lsb + 1UL;
+            var mask = (1UL << (int)bits) - 1UL;
+            return (uint)((register >> (int)lsb) & mask);
         }
     }
 }

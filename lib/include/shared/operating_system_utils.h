@@ -1,7 +1,7 @@
 #ifndef CPU_FEATURES_DOTNET_OS_H
 #define CPU_FEATURES_DOTNET_OS_H
 
-#include "macros.h"
+#include "cpu_features_macros.h"
 
 #include <stdint.h>
 #include <stdbool.h>

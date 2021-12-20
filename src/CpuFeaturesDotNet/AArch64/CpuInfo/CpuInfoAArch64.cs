@@ -13,18 +13,22 @@
 // limitations under the License.
 
 using CpuFeaturesDotNet.Native;
-using Xunit;
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.AArch64.CpuInfo
 {
-    public sealed class FactArm64Attribute : FactAttribute
+    public sealed class CpuInfoAArch64 : ICpuInfoAArch64
     {
-        public FactArm64Attribute()
+        public CpuImplementorAArch64 Implementer { get; }
+        public CpuPartNumberAArch64 Part { get; }
+        public int Variant { get; }
+        public int Revision { get; }
+
+        public CpuInfoAArch64()
         {
-            if (!Architecture.IsArchAarch64())
-            {
-                Skip = "Ignored on unsupported ARM64 architecture";
-            }
+            if (!Architecture.IsArchAArch64())
+                return;
+            Implementer = CpuInfoUtilsAArch64.GetImplementorAArch64();
+            Part = CpuInfoUtilsAArch64.GetPartNumberAArch64();
         }
     }
 }

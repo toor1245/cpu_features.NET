@@ -23,7 +23,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
         {
         }
 
-        public override unsafe void SetRegistersXcr0NotAvailable()
+        public override void SetRegistersXcr0NotAvailable()
         {
             var fileDescriptor = FileSystem.OpenFile("/proc/cpuinfo");
             if (fileDescriptor < 0)
@@ -32,7 +32,7 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
             }
 
             StackLineReader.Initialize(out var reader, fileDescriptor);
-            var flagsInBytes = stackalloc byte[]
+            var flagsInBytes = new sbyte[]
             {
                 0x66,
                 0x6C,
@@ -68,37 +68,37 @@ namespace CpuFeaturesDotNet.X86.OperatingSystem
 
         private static unsafe bool HasSse(in StringView value)
         {
-            var sse = stackalloc byte[] { 0x73, 0x73, 0x65 };
+            var sse = stackalloc sbyte[] { 0x73, 0x73, 0x65 };
             return StringView.HasWord(value, sse);
         }
 
         private static unsafe bool HasSse2(in StringView value)
         {
-            var sse2 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x32 };
+            var sse2 = stackalloc sbyte[] { 0x73, 0x73, 0x65, 0x32 };
             return StringView.HasWord(value, sse2);
         }
 
         private static unsafe bool HasSse3(in StringView value)
         {
-            var sse3 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x33 };
+            var sse3 = stackalloc sbyte[] { 0x73, 0x73, 0x65, 0x33 };
             return StringView.HasWord(value, sse3);
         }
 
         private static unsafe bool HasSsse3(in StringView value)
         {
-            var ssse3 = stackalloc byte[] { 0x73, 0x73, 0x73, 0x65, 0x33 };
+            var ssse3 = stackalloc sbyte[] { 0x73, 0x73, 0x73, 0x65, 0x33 };
             return StringView.HasWord(value, ssse3);
         }
 
         private static unsafe bool HasSse41(in StringView value)
         {
-            var sse41 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x31 };
+            var sse41 = stackalloc sbyte[] { 0x73, 0x73, 0x65, 0x34, 0x31 };
             return StringView.HasWord(value, sse41);
         }
 
         private static unsafe bool HasSse42(in StringView value)
         {
-            var sse42 = stackalloc byte[] { 0x73, 0x73, 0x65, 0x34, 0x32 };
+            var sse42 = stackalloc sbyte[] { 0x73, 0x73, 0x65, 0x34, 0x32 };
             return StringView.HasWord(value, sse42);
         }
     }

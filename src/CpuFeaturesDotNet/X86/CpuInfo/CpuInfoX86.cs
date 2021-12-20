@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System.Runtime.CompilerServices;
-using System.Text;
 using CpuFeaturesDotNet.Native;
 
 namespace CpuFeaturesDotNet.X86
@@ -34,18 +33,19 @@ namespace CpuFeaturesDotNet.X86
                 Features = new FeaturesX86();
                 return;
             }
+
             var leaf = LeafX86.CpuId(0);
-            var maxCpuidLeaf = leaf.eax;
+            var maxCpuidLeaf = leaf.Eax;
             var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);
 
-            var family = BitUtils.ExtractBitRange(leaf1.eax, 11, 8);
-            var extendedFamily = BitUtils.ExtractBitRange(leaf1.eax, 27, 20);
-            var model = BitUtils.ExtractBitRange(leaf1.eax, 7, 4);
-            var extendedModel = BitUtils.ExtractBitRange(leaf1.eax, 19, 16);
+            var family = BitUtils.ExtractBitRange(leaf1.Eax, 11, 8);
+            var extendedFamily = BitUtils.ExtractBitRange(leaf1.Eax, 27, 20);
+            var model = BitUtils.ExtractBitRange(leaf1.Eax, 7, 4);
+            var extendedModel = BitUtils.ExtractBitRange(leaf1.Eax, 19, 16);
 
             Family = (int)(extendedFamily + family);
             Model = (int)((extendedModel << 4) + model);
-            Stepping = (int)BitUtils.ExtractBitRange(leaf1.eax, 3, 0);
+            Stepping = (int)BitUtils.ExtractBitRange(leaf1.Eax, 3, 0);
             BrandString = GetBrandString();
             Microarchitecture = NativeX86.GetMicroarchitectureX86(leaf, Family, Model, Stepping);
             Features = new FeaturesX86(in leaf, in leaf1, Model, BrandString);
@@ -53,18 +53,18 @@ namespace CpuFeaturesDotNet.X86
 
         private static unsafe string GetBrandString()
         {
-            var brandString = stackalloc byte[49];
+            var brandString = stackalloc sbyte[49];
             var leafExt = LeafX86.CpuId(0x80000000);
-            var maxCpuidLeafExt = leafExt.eax;
+            var maxCpuidLeafExt = leafExt.Eax;
 
             SetString(maxCpuidLeafExt, 0x80000002, brandString);
             SetString(maxCpuidLeafExt, 0x80000003, brandString + 16);
             SetString(maxCpuidLeafExt, 0x80000004, brandString + 32);
-            brandString[48] = (byte)'\0';
-            return Encoding.ASCII.GetString(brandString, 49);
+            brandString[48] = (sbyte)'\0';
+            return EncodingAsciiUtils.GetString(brandString, 49);
         }
 
-        private static unsafe void SetString(uint max_cpuid_ext_leaf, uint leaf_id, byte* buffer)
+        private static unsafe void SetString(uint max_cpuid_ext_leaf, uint leaf_id, sbyte* buffer)
         {
             var leaf = LeafX86.SafeCpuId(max_cpuid_ext_leaf, leaf_id);
             Unsafe.CopyBlockUnaligned(buffer, &leaf, (uint)sizeof(LeafX86));

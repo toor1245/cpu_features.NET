@@ -28,9 +28,6 @@ jobs:
 
       - name: Check CpuFeaturesDotNet
         run: dotnet format "src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj" --check --verbosity diagnostic
-
-      - name: Check CpuFeaturesDotNet.Utils
-        run: dotnet format "src/CpuFeaturesDotNet.Utils/CpuFeaturesDotNet.Utils.csproj" --check --verbosity diagnostic
         
       - name: Check CpuFeaturesDotNet.UnitTesting
         run: dotnet format "tests/CpuFeaturesDotNet.UnitTesting.csproj" --check --verbosity diagnostic

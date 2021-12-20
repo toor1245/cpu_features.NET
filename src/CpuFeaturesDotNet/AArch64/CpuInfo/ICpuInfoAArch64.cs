@@ -12,18 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using CpuFeaturesDotNet.Aarch64.CpuInfo;
-using CpuFeaturesDotNet.Samples.Settings;
-using Newtonsoft.Json;
-
-namespace CpuFeaturesDotNet.Samples.Extensions
+namespace CpuFeaturesDotNet.AArch64.CpuInfo
 {
-    public static class CpuInfoAarch64Extensions
+    public interface ICpuInfoAArch64
     {
-        public static string ToJsonPretty(this CpuInfoAarch64 cpuInfoAarch64)
-        {
-            return JsonConvert.SerializeObject(cpuInfoAarch64, JsonSerializerCpuInfoSettings.Settings);
-        }
+        public CpuImplementorAArch64 Implementer { get; }
+        public CpuPartNumberAArch64 Part { get; }
+        public int Variant { get; }
+        public int Revision { get; }
     }
 }

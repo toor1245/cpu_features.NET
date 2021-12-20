@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace CpuFeaturesDotNet.Aarch64.CpuInfo
+using CpuFeaturesDotNet.Native;
+using Xunit;
+
+namespace CpuFeaturesDotNet.UnitTesting.Attributes
 {
-    public enum CpuImplementorAarch64
+    public sealed class FactArmAttribute : FactAttribute
     {
-        UNKNOWN_AARCH64,
-        ARM,
-        APM,
-        CAVIUM,
-        BRCM,
-        QCOM,
-        NVIDIA,
-        FUJITSU,
-        HISI,
-        APPLE
+        public FactArmAttribute()
+        {
+            if (!Architecture.IsArchArm())
+            {
+                Skip = "Ignored on unsupported ARM architecture";
+            }
+        }
     }
 }
