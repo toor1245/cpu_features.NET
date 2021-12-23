@@ -246,7 +246,7 @@ cmake --build cmake-build-release --target all -v
 | Mono macOS             | not yet | not yet | not yet |
 | Mono FreeBSD           | not yet | not yet | not yet |
 | Mono Android           | not yet | not yet | not yet |
-| Mono iOS               | N/A     | not yet | not yet |
+| Mono iOS               | N/A     | N/A     | not yet |
 
 1. **Features revealed from Linux.** We gather data from several sources depending on availability:
     + from glibc's
