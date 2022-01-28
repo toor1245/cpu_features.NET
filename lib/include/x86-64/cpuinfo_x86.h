@@ -56,7 +56,9 @@ CPU_FEATURES_DOTNET_DLL_EXPORT x86_microarchitecture uarch(leaf_t leaf,
                                                             int family,
                                                             int model,
                                                             int stepping);
-CPU_FEATURES_DOTNET_DLL_EXPORT bool is_vendor(leaf_t leaf, const char* name);
+CPU_FEATURES_DOTNET_DLL_EXPORT int is_amd(leaf_t leaf);
+CPU_FEATURES_DOTNET_DLL_EXPORT int is_intel(leaf_t leaf);
+CPU_FEATURES_DOTNET_DLL_EXPORT int is_hygon(leaf_t leaf);
 
 CPU_FEATURES_DOTNET_END_CPP_NAMESPACE
 

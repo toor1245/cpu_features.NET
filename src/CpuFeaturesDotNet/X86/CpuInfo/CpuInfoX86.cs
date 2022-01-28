@@ -35,6 +35,7 @@ namespace CpuFeaturesDotNet.X86
             }
 
             var leaf = LeafX86.CpuId(0);
+            VendorX86.IsAmd(leaf);
             var maxCpuidLeaf = leaf.Eax;
             var leaf1 = LeafX86.SafeCpuId(maxCpuidLeaf, 1);
 

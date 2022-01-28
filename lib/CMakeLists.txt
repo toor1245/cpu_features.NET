@@ -1,7 +1,3 @@
-include(CheckIncludeFile)
-include(CheckSymbolExists)
-include(GNUInstallDirs)
-
 macro(setup_include_and_definitions TARGET_NAME)
     target_include_directories(${TARGET_NAME}
             PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aarch64>

@@ -31,11 +31,12 @@ namespace CpuFeaturesDotNet.X86.Parser
 
         public abstract List<CacheLevelInfoX86> Parse();
 
-        internal static CacheInfoParserX86 GetCacheInfoParserX86()
+        internal static unsafe CacheInfoParserX86 GetCacheInfoParserX86()
         {
             var leaf = LeafX86.CpuId(0);
             var maxExt = LeafX86.CpuId(0x80000000).Eax;
-            if (VendorX86.IsAmdVendor(leaf))
+            var value = sizeof(LeafX86);
+            if (VendorX86.IsAmd(leaf) || VendorX86.IsHygon(leaf))
             {
                 var cpuidExt = LeafX86.SafeCpuId(maxExt, 0x80000001).Ecx;
 
@@ -49,7 +50,7 @@ namespace CpuFeaturesDotNet.X86.Parser
                 return new AmdLegacyCacheInfoParserX86(maxExt);
             }
 
-            if (VendorX86.IsIntelVendor(leaf))
+            if (VendorX86.IsIntel(leaf))
             {
                 return new IntelCacheInfoParserX86(maxExt);
             }
