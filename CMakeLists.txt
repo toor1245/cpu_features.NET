@@ -111,5 +111,9 @@ else()
     message(FATAL_ERROR "Unsupported Operating System !")
 endif()
 
+include(CheckIncludeFile)
+include(CheckSymbolExists)
+include(GNUInstallDirs)
+
 add_subdirectory(lib)
 add_subdirectory(src)

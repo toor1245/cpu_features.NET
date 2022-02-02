@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static CpuFeaturesDotNet.Native.Library;
 
@@ -20,24 +19,14 @@ namespace CpuFeaturesDotNet.X86
 {
     internal static class VendorX86
     {
-        private const string GENUINE_INTEL = "GenuineIntel";
-        private const string AUTHENTIC_AMD = "AuthenticAMD";
-        private const string HYGON_GENUINE = "HygonGenuine";
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_amd")]
+        public static extern bool IsAmd(LeafX86 leaf);
 
-        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_vendor")]
-        private static extern bool IsVendor(LeafX86 leaf, string name);
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_intel")]
+        public static extern bool IsIntel(LeafX86 leaf);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAmdVendor(LeafX86 leaf)
-        {
-            return IsVendor(leaf, AUTHENTIC_AMD) ||
-                   IsVendor(leaf, HYGON_GENUINE);
-        }
+        [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_hygon")]
+        public static extern bool IsHygon(LeafX86 leaf);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIntelVendor(LeafX86 leaf)
-        {
-            return IsVendor(leaf, GENUINE_INTEL);
-        }
     }
 }

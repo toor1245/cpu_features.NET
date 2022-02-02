@@ -83,11 +83,11 @@ namespace CpuFeaturesDotNet.X86
 
         public static BaseSimdFeaturesX86 GetSimdResolver(in LeafSimdX86 leafSimd, FeaturesX86 featuresX86, int model, string brandString)
         {
-            if (VendorX86.IsIntelVendor(leafSimd.leaf))
+            if (VendorX86.IsIntel(leafSimd.leaf))
             {
                 return new IntelFeaturesX86(leafSimd, model, brandString, featuresX86);
             }
-            if (VendorX86.IsAmdVendor(leafSimd.leaf))
+            if (VendorX86.IsAmd(leafSimd.leaf))
             {
                 var leafMaxExt = LeafX86.CpuId(0x80000000);
                 var maxExtendedCpuid = leafMaxExt.Eax;

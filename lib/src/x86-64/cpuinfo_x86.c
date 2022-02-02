@@ -1,10 +1,22 @@
 #include <cpuinfo_x86.h>
 
-bool is_vendor(leaf_t leaf, const char* name) {
+static int is_vendor(leaf_t leaf, const char* name) {
   const uint32_t ebx = *(const uint32_t*)(name);
   const uint32_t edx = *(const uint32_t*)(name + 4);
   const uint32_t ecx = *(const uint32_t*)(name + 8);
   return leaf.ebx == ebx && leaf.ecx == ecx && leaf.edx == edx;
+}
+
+int is_amd(leaf_t leaf) {
+  return is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_AUTHENTIC_AMD);
+}
+
+int is_intel(leaf_t leaf) {
+  return is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_GENUINE_INTEL);
+}
+
+int is_hygon(leaf_t leaf) {
+  return is_vendor(leaf, CPU_FEATURES_DOTNET_VENDOR_HYGON_GENUINE);
 }
 
 #define CPUID(FAMILY, MODEL) ((((FAMILY)&0xFF) << 8) | ((MODEL)&0xFF))
