@@ -21,10 +21,10 @@ namespace CpuFeaturesDotNet.X86
     {
         [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_amd")]
         public static extern bool IsAmd(LeafX86 leaf);
-        
+
         [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_intel")]
         public static extern bool IsIntel(LeafX86 leaf);
-        
+
         [DllImport(NATIVE_LIBRARY, CallingConvention = CallingConvention.Cdecl, EntryPoint = "is_hygon")]
         public static extern bool IsHygon(LeafX86 leaf);
 
