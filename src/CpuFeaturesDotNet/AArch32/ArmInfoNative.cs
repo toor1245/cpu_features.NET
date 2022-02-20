@@ -20,7 +20,7 @@ namespace CpuFeaturesDotNet.AArch32
     {
         [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetArmInfoPort")]
         public static extern ArmInfo _GetArmInfo();
-        
+
         [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetArmCpuIdPort")]
         public static extern uint _GetArmCpuId(in ArmInfo info);
     }

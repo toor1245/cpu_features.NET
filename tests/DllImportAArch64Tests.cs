@@ -27,7 +27,7 @@ namespace CpuFeaturesDotNet.Testing
         {
             Aarch64Info.GetAarch64Info();
         }
-        
+
         [FactAArch64]
         public void DllImportAArch64_GetX86Info_Throws()
         {
