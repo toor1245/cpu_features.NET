@@ -46,7 +46,6 @@ Here's a simple example that executes a codepath if the CPU supports SSE4A instr
 
 ```cs
 using System;
-using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.X86;
 
 namespace CpuFeaturesDotNet.Samples
@@ -55,18 +54,15 @@ namespace CpuFeaturesDotNet.Samples
     {
         public static void Main(string[] args) 
         {
-            if (Architecture.IsArchX86())
+            X86Info x86Info = X86Info.GetX86Info();
+            bool sse4a = x86Info.Features.IsSupportedSSE4A;
+            if (sse4a) 
             {
-                ICpuInfoX86 cpuInfoX86 = new CpuInfoX86();
-                bool sse4a = cpuInfoX86.Features.IsSupportedSSE4A;
-                if (sse4a) 
-                {
-                    // Run optimized code.
-                }
-                else 
-                {
-                    // Run standard code.
-                }
+                // Run optimized code.
+            }
+            else 
+            {
+                // Run standard code.
             }
         }
     }
@@ -87,7 +83,6 @@ Below, `hasFastAvx` is set to 1 if the CPU supports the AVX instruction set&mdas
 
 ```cs
 using System;
-using CpuFeaturesDotNet.Native;
 using CpuFeaturesDotNet.X86;
 
 namespace CpuFeaturesDotNet.Samples
@@ -96,9 +91,9 @@ namespace CpuFeaturesDotNet.Samples
     {
         public static void Main(string[] args) 
         {
-            ICpuInfoX86 info = new CpuInfoX86();
-            MicroarchitectureX86 uarch = info.Microarchitecture;
-            bool hasFastAvx = info.Features.IsSupportedAVX && uarch != MicroarchitectureX86.INTEL_SANDYBRIDGE;
+            X86Info info = X86Info.GetX86Info();
+            X86Microarchitecture uarch = X86Info.GetX86Microarchitecture(info);
+            bool hasFastAvx = info.Features.IsSupportedAVX && uarch != X86Microarchitecture.INTEL_SANDYBRIDGE;
         }
     }
 }
@@ -113,44 +108,10 @@ This feature is currently available only for x86 microarchitectures.
 Use `CpuFeaturesDotNet.Samples` for detection your CPU.
 
 ```shell
+CpuFeaturesDotNet.Samples.CpuFeaturesListX64.StartRunner
+
 {
-  "Family": 6,
-  "Model": 142,
-  "Stepping": 10,
-  "BrandString": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
-  "Microarchitecture": "INTEL_COFFEE_LAKE",
   "Features": {
-    "IsSupportedAMX_BF16": false,
-    "IsSupportedAMX_TILE": false,
-    "IsSupportedAMX_INT8": false,
-    "IsSupportedAVX": true,
-    "IsSupportedAVX2": true,
-    "IsSupportedAVX512F": false,
-    "IsSupportedAVX512CD": false,
-    "IsSupportedAVX512ER": false,
-    "IsSupportedAVX512PF": false,
-    "IsSupportedAVX512BW": false,
-    "IsSupportedAVX512DQ": false,
-    "IsSupportedAVX512VL": false,
-    "IsSupportedAVX512IFMA": false,
-    "IsSupportedAVX512VBMI": false,
-    "IsSupportedAVX512VBMI2": false,
-    "IsSupportedAVX512VNNI": false,
-    "IsSupportedAVX512BITALG": false,
-    "IsSupportedAVX512VPOPCNTDQ": false,
-    "IsSupportedAVX512_4VNNIW": false,
-    "IsSupportedAVX512_4VBMI2": false,
-    "IsSupportedAVX512SecondFMA": false,
-    "IsSupportedAVX512_4FMAPS": false,
-    "IsSupportedAVX512_BF16": false,
-    "IsSupportedAVX512_VP2INTERSECT": false,
-    "IsSupportedSSE": true,
-    "IsSupportedSSE2": true,
-    "IsSupportedSSE3": true,
-    "IsSupportedSSSE3": true,
-    "IsSupportedSSE41": true,
-    "IsSupportedSSE42": true,
-    "IsSupportedSSE4A": false,
     "IsSupportedFPU": true,
     "IsSupportedTSC": true,
     "IsSupportedCX8": true,
@@ -170,24 +131,61 @@ Use `CpuFeaturesDotNet.Samples` for detection your CPU.
     "IsSupportedRDSEED": true,
     "IsSupportedCLFLUSHOPT": true,
     "IsSupportedCLWB": false,
+    "IsSupportedSSE": true,
+    "IsSupportedSSE2": true,
+    "IsSupportedSSE3": true,
+    "IsSupportedSSSE3": true,
+    "IsSupportedSSE4_1": true,
+    "IsSupportedSSE4_2": true,
+    "IsSupportedSSE4A": false,
+    "IsSupportedAVX": true,
+    "IsSupportedAVX2": true,
+    "IsSupportedAVX512F": false,
+    "IsSupportedAVX512CD": false,
+    "IsSupportedAVX512ER": false,
+    "IsSupportedAVX512PF": false,
+    "IsSupportedAVX512BW": false,
+    "IsSupportedAVX512DQ": false,
+    "IsSupportedAVX512VL": false,
+    "IsSupportedAVX512IFMA": false,
+    "IsSupportedAVX512VBMI": false,
+    "IsSupportedAVX512VBMI2": false,
+    "IsSupportedAVX512VNNI": false,
+    "IsSupportedAVX512BITALG": false,
+    "IsSupportedAVX512VPOPCNTDQ": false,
+    "IsSupportedAVX512_4VNNIW": false,
+    "IsSupportedAVX512_4VBMI2": false,
+    "IsSupportedAVX512_SECOND_FMA": false,
+    "IsSupportedAVX512_4FMAPS": false,
+    "IsSupportedAVX512_BF16": false,
+    "IsSupportedAVX512_VP2INTERSECT": false,
+    "IsSupportedAMX_BF16": false,
+    "IsSupportedAMX_TILE": false,
+    "IsSupportedAMX_INT8": false,
     "IsSupportedPCLMULQDQ": true,
     "IsSupportedSMX": false,
     "IsSupportedSGX": false,
     "IsSupportedCX16": true,
     "IsSupportedSHA": false,
-    "IsSupportedPOPCNT": true,
-    "IsSupportedMOVBE": true,
-    "IsSupportedRDRND": true,
+    "IsSupportedDPOPCNT": true,
+    "IsSupportedDMOVBE": true,
+    "IsSupportedDRDRND": true,
     "IsSupportedDCA": false,
     "IsSupportedSS": true,
     "IsSupportedADX": true
-  }
+  },
+  "Family": 6,
+  "Model": 142,
+  "Stepping": 10,
+  "Vendor": "GenuineIntel",
+  "BrandString": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz"
 }
 {
-  "CacheLevelInfo": [
+  "Size": 4,
+  "Levels": [
     {
       "Level": 1,
-      "Type": "DATA",
+      "CacheType": "CPU_FEATURE_CACHE_DATA",
       "CacheSize": 32768,
       "Ways": 8,
       "LineSize": 64,
@@ -196,7 +194,7 @@ Use `CpuFeaturesDotNet.Samples` for detection your CPU.
     },
     {
       "Level": 1,
-      "Type": "INSTRUCTION",
+      "CacheType": "CPU_FEATURE_CACHE_INSTRUCTION",
       "CacheSize": 32768,
       "Ways": 8,
       "LineSize": 64,
@@ -205,7 +203,7 @@ Use `CpuFeaturesDotNet.Samples` for detection your CPU.
     },
     {
       "Level": 2,
-      "Type": "UNIFIED",
+      "CacheType": "CPU_FEATURE_CACHE_UNIFIED",
       "CacheSize": 262144,
       "Ways": 4,
       "LineSize": 64,
@@ -214,12 +212,66 @@ Use `CpuFeaturesDotNet.Samples` for detection your CPU.
     },
     {
       "Level": 3,
-      "Type": "UNIFIED",
+      "CacheType": "CPU_FEATURE_CACHE_UNIFIED",
       "CacheSize": 6291456,
       "Ways": 12,
       "LineSize": 64,
       "TlbEntries": 8192,
       "Partitioning": 1
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
+    },
+    {
+      "Level": 0,
+      "CacheType": "CPU_FEATURE_CACHE_NULL",
+      "CacheSize": 0,
+      "Ways": 0,
+      "LineSize": 0,
+      "TlbEntries": 0,
+      "Partitioning": 0
     }
   ]
 }
@@ -239,7 +291,7 @@ cmake --build cmake-build-release --target all -v
 |------------------------|:-------:|:-------:|:-------:|
 | .NET Framework Windows | yes²    | N/A     | N/A     |
 | .NET Core Windows      | yes²    | not yet | not yet |
-| .NET Core Linux        | yes²    | not yet | not yet |
+| .NET Core Linux        | yes²    | yes     | yes     |
 | .NET Core macOS        | yes²    | not yet | not yet |
 | Mono Windows           | not yet | not yet | not yet |
 | Mono Linux             | not yet | not yet | not yet |
