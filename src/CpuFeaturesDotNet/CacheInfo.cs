@@ -13,26 +13,25 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using CpuFeaturesDotNet.AArch64;
-using CpuFeaturesDotNet.Samples.Extensions;
-using Xunit.Abstractions;
 
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet
 {
-    public class CpuFeaturesListAArch64 : Runner
+    [StructLayout(LayoutKind.Sequential)]
+    public readonly struct CacheInfo
     {
-        private readonly ITestOutputHelper _output;
+        public readonly int Size;
 
-        public CpuFeaturesListAArch64(ITestOutputHelper output)
-        {
-            _output = output;
-        }
+        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.Struct, SizeConst = 10)]
+        public readonly CacheLevelInfo[] Levels;
 
-        protected override void Run()
-        {
-            if (RuntimeInformation.OSArchitecture != Architecture.Arm64) return;
-            var aarch64Info = Aarch64Info.GetAarch64Info();
-            _output.WriteLine(aarch64Info.ToJsonPretty());
-        }
+        /// <summary>
+        /// Returns cache hierarchy informations.
+        /// Can call cpuid multiple times.
+        /// </summary>
+#if (X64 || X86)
+        public static CacheInfo GetX86CacheInfo() => CacheInfoNative._GetX86CacheInfoPort();
+#else
+        public static CacheInfo GetX86CacheInfo() => throw new System.PlatformNotSupportedException();
+#endif
     }
 }

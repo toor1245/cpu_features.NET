@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022 Mykola Hohsadze 
+// Copyright (c) 2022 Mykola Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit;
+using System.Runtime.InteropServices;
 
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet.AArch32
 {
-    public class Runner
+    internal static class ArmInfoNative
     {
-        [Fact]
-        public void StartRunner()
-        {
-            Run();
-        }
-
-        protected virtual void Run() { }
+        [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetArmInfoPort")]
+        public static extern ArmInfo _GetArmInfo();
+        
+        [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetArmCpuIdPort")]
+        public static extern uint _GetArmCpuId(in ArmInfo info);
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022 Mykola Hohsadze 
+// Copyright (c) 2022 Mykola Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using CpuFeaturesDotNet.AArch64;
+using CpuFeaturesDotNet.Testing.Attributes;
+using CpuFeaturesDotNet.X86;
 using Xunit;
 
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet.Testing
 {
-    public class Runner
+    public class DllImportAArch64Tests
     {
-        [Fact]
-        public void StartRunner()
+        [FactAArch64]
+        public void DllImportAArch64_GetAarch64Info_Success()
         {
-            Run();
+            Aarch64Info.GetAarch64Info();
         }
-
-        protected virtual void Run() { }
+        
+        [FactAArch64]
+        public void DllImportAArch64_GetX86Info_Throws()
+        {
+            Assert.Throws<PlatformNotSupportedException>(() => X86Info.GetX86Info());
+        }
     }
 }

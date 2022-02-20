@@ -27,7 +27,7 @@ jobs:
         run: dotnet tool install --global dotnet-format --version 4.1.131201
 
       - name: Check CpuFeaturesDotNet
-        run: dotnet format "src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj" --check --verbosity diagnostic
+        run: dotnet format "src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj" --verify-no-changes --verbosity diagnostic
         
       - name: Check CpuFeaturesDotNet.UnitTesting
-        run: dotnet format "tests/CpuFeaturesDotNet.UnitTesting.csproj" --check --verbosity diagnostic
+        run: dotnet format "tests/CpuFeaturesDotNet.Testing.csproj" --verify-no-changes --verbosity diagnostic

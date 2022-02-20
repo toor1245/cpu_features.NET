@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CCE61351-3C7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DF347911-98C5-4E98-BB7E-8B30093DFE0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuFeaturesDotNet.UnitTesting", "tests\CpuFeaturesDotNet.UnitTesting.csproj", "{D3E62383-FA2D-44BD-8486-6A2751368DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuFeaturesDotNet.Testing", "tests\CpuFeaturesDotNet.Testing.csproj", "{D3E62383-FA2D-44BD-8486-6A2751368DF6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuFeaturesDotNet", "src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj", "{2F72A79A-EE80-4515-8BD1-5D4FEDBDFB93}"
 EndProject

@@ -73,10 +73,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll" />
-      <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet_shared.x64.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll" />
       <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -85,7 +81,7 @@
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-            <_Parameter1>CpuFeaturesDotNet.UnitTesting</_Parameter1>
+            <_Parameter1>CpuFeaturesDotNet.Testing</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
 </Project>

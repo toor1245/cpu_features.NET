@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Nikolay Hohsadze 
+// Copyright (c) 2022 Mykola Hohsadze 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,23 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CpuFeaturesDotNet.Native;
+using System.Runtime.InteropServices;
 using Xunit;
-#pragma warning disable 162
 
-namespace CpuFeaturesDotNet.UnitTesting.Attributes
+namespace CpuFeaturesDotNet.Testing.Attributes
 {
-    public sealed class FactAarch64Attribute : FactAttribute
+    public sealed class FactAArch64Attribute : FactAttribute
     {
-        public FactAarch64Attribute()
+        public FactAArch64Attribute()
         {
-#if NETFRAMEWORK
-            Skip = "Ignored on unsupported AArch64 architecture for .NET Framework";
-            return;
-#endif
-            if (!Architecture.IsArchAArch64())
+            if (RuntimeInformation.OSArchitecture is not Architecture.Arm64)
             {
-                Skip = "Ignored on unsupported AArch64 architecture";
+                Skip = "Ignored on unsupported Arm64 architecture";
             }
         }
     }

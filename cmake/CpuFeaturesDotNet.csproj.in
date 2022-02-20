@@ -73,10 +73,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="@NATIVE_LIB_SHARED_PATH@" />
-      <EmbeddedResource Include="@NATIVE_LIB_SHARED_PATH@">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="@NATIVE_LIB_PATH@" />
       <EmbeddedResource Include="@NATIVE_LIB_PATH@">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -85,7 +81,7 @@
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-            <_Parameter1>CpuFeaturesDotNet.UnitTesting</_Parameter1>
+            <_Parameter1>CpuFeaturesDotNet.Testing</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
 </Project>
