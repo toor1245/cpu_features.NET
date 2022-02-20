@@ -295,7 +295,7 @@ cmake --build cmake-build-release --target all -v
 | .NET Core macOS        | yes²    | not yet | not yet |
 | Mono Windows           | not yet | not yet | not yet |
 | Mono Linux             | not yet | not yet | not yet |
-| Mono macOS             | not yet | not yet | not yet |
+| Mono macOS             | not yet | N/A     | not yet |
 | Mono FreeBSD           | not yet | not yet | not yet |
 | Mono Android           | not yet | not yet | not yet |
 | Mono iOS               | N/A     | N/A     | not yet |
