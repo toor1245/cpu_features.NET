@@ -40,7 +40,7 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release
 
-  visual-studio-x86-2022:
+  visual-studio-17-x86:
     runs-on:  windows-2022
     steps:
       - name: Checkout repository
@@ -63,7 +63,7 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release
 
-  visual-studio-x86-2019:
+  visual-studio-16-x86:
     runs-on:  windows-2019
     steps:
       - name: Checkout repository
@@ -86,14 +86,14 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test "tests" -c Release
 
-  visual-studio-x86-2016:
+  visual-studio-15-x86:
     runs-on:  windows-2016
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: CMake Config
-        run: cmake -S. -Bcmake-build-release -G"Visual Studio 15 2017" -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S. -Bcmake-build-release -G"Visual Studio 15 2017" -A x64 -DCMAKE_BUILD_TYPE=Release
 
       - name: Cmake Build
         run: cmake --build cmake-build-release --target all_build -v --config Release
@@ -104,7 +104,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force --runtime win10-x64
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: dotnet test "tests" -c Release --runtime win10-x64
