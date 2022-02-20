@@ -74,6 +74,25 @@ namespace CpuFeaturesDotNet.Samples
 If you wish, you can read all the features at once into a global variable, and then query for the specific features you
 care about.
 
+```cs
+using System;
+using CpuFeaturesDotNet.X86;
+
+namespace CpuFeaturesDotNet.Samples
+{
+    public class Program
+    {
+        public static X86Info X86Info = X86Info.GetX86Info();
+        
+        public static void Main(string[] args) 
+        {
+            X86Microarchitecture uarch = X86Info.GetX86Microarchitecture(info);
+            bool hasFastAvx = info.Features.IsSupportedAVX && uarch != X86Microarchitecture.INTEL_SANDYBRIDGE;
+        }
+    }
+}
+```
+
 ### Rejecting poor hardware implementations based on microarchitecture
 
 On x86, the first incarnation of a feature in a microarchitecture might not be the most efficient (e.g. AVX on Sandy
