@@ -32,9 +32,7 @@
 
 - **.NET Standard 1.1**
 - **Simple to use.** See the snippets below for examples.
-- **Extensible.** Easy to add missing features or architectures.
 - **cpu_features.NET is suitable for implementing lib functions.**
-- **Unit tested.**
 
 <a name="codesample"></a>
 
