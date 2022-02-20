@@ -13,28 +13,28 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
+using CpuFeaturesDotNet.AArch32;
 using CpuFeaturesDotNet.Samples.Extensions;
-using CpuFeaturesDotNet.X86;
 using Xunit.Abstractions;
 
 namespace CpuFeaturesDotNet.Samples
 {
-    public class CpuFeaturesListX64 : Runner
+    public class CpuFeaturesListArm : Runner
     {
         private readonly ITestOutputHelper _output;
 
-        public CpuFeaturesListX64(ITestOutputHelper output)
+        public CpuFeaturesListArm(ITestOutputHelper output)
         {
             _output = output;
         }
 
         protected override void Run()
         {
-            if (RuntimeInformation.OSArchitecture != Architecture.X64) return;
-            var x86Info = X86Info.GetX86Info();
-            var cacheInfo = CacheInfo.GetX86CacheInfo();
-            _output.WriteLine(x86Info.ToJsonPretty());
-            _output.WriteLine(cacheInfo.ToJsonPretty());
+            if (RuntimeInformation.OSArchitecture != Architecture.Arm) return;
+            var armInfo = ArmInfo.GetArmInfo();
+            var armCpuId = ArmInfo.GetArmCpuId(armInfo);
+            _output.WriteLine(armInfo.ToJsonPretty());
+            _output.WriteLine(armCpuId.ToString());
         }
     }
 }

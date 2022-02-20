@@ -11,8 +11,10 @@ steps:
     image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
     commands:
       - apt-get update && apt-get -y install cmake
+      - gcc --version
+      - apt -y install g++
       - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build
       - dotnet test
@@ -36,8 +38,10 @@ steps:
     image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm64v8
     commands:
       - apt-get update && apt-get -y install cmake
+      - gcc --version
+      - apt -y install g++
       - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build
       - dotnet test
@@ -61,8 +65,10 @@ steps:
     image: mcr.microsoft.com/dotnet/sdk:5.0
     commands:
       - apt-get update && apt-get -y install cmake
+      - gcc --version
+      - apt -y install g++
       - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build
       - dotnet test
@@ -86,8 +92,10 @@ steps:
     image: mcr.microsoft.com/dotnet/sdk:5.0
     commands:
       - apt-get update && apt-get -y install cmake
+      - gcc --version
+      - apt -y install g++
       - cmake --version
-      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build
       - dotnet test

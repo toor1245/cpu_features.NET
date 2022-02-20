@@ -20,11 +20,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check cmake
-        run: cmake --version
+        run: sudo cmake --version
       - name: Configure
-        run: cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+        run: sudo cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
       - name: Build
-        run: cmake --build cmake-build-release --target all -v
+        run: sudo cmake --build cmake-build-release --target all -v
 
       - name: Setup .NET 5.0 @ Latest
         uses: actions/setup-dotnet@v1.7.2
@@ -32,7 +32,7 @@ jobs:
           dotnet-version: '5.0.x'
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: sudo dotnet build "src/CpuFeaturesDotNet" -c Release --force
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: sudo dotnet test "tests" -c Release

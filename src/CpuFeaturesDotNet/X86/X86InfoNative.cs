@@ -13,18 +13,19 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using Xunit;
+using System.Text;
 
-namespace CpuFeaturesDotNet.Testing.Attributes
+namespace CpuFeaturesDotNet.X86
 {
-    public sealed class FactX64Attribute : FactAttribute
+    internal static class X86InfoNative
     {
-        public FactX64Attribute()
-        {
-            if (RuntimeInformation.OSArchitecture is not Architecture.X64)
-            {
-                Skip = "Ignored on unsupported x86 architecture";
-            }
-        }
+        [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetX86InfoPort")]
+        public static extern X86Info _GetX86Info();
+
+        [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetX86MicroarchitecturePort")]
+        public static extern X86Microarchitecture _GetX86Microarchitecture(in X86Info info);
+
+        [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "FillX86BrandStringPort")]
+        public static extern X86Microarchitecture _FillX86BrandString(StringBuilder brandString);
     }
 }
