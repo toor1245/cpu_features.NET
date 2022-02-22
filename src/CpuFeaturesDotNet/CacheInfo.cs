@@ -38,14 +38,13 @@ namespace CpuFeaturesDotNet
         private static unsafe CacheInfo _GetX86CacheInfo()
         {
             int size;
-            var ptrSize = &size;
             var cacheLevelInfo = new CacheLevelInfo[10];
             fixed (CacheLevelInfo* ptrLevels = cacheLevelInfo)
             {
-                CacheInfoNative.__GetX86CacheInfo(ptrSize, ptrLevels);
+                CacheInfoNative.__GetX86CacheInfo(&size, ptrLevels);
             }
 
-            return new CacheInfo(*ptrSize, cacheLevelInfo);
+            return new CacheInfo(size, cacheLevelInfo);
         }
 #else
         /// <summary>

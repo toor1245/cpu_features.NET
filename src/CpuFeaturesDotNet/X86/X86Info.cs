@@ -48,17 +48,12 @@ namespace CpuFeaturesDotNet.X86
             var brandString = new System.Text.StringBuilder(48);
             var vendor = new System.Text.StringBuilder(12);
             int model, stepping, family, featuresRaw1, featuresRaw2;
-            var ptrModel = &model;
-            var ptrStepping = &stepping;
-            var ptrFamily = &family;
-            var ptrFeaturesRaw1 = &featuresRaw1;
-            var ptrFeaturesRaw2 = &featuresRaw2;
 
-            X86InfoNative.__GetX86Info(brandString, vendor, ptrModel, ptrStepping, ptrFamily,
-                ptrFeaturesRaw1, ptrFeaturesRaw2);
+            X86InfoNative.__GetX86Info(brandString, vendor, &model, &stepping, &family,
+                &featuresRaw1, &featuresRaw2);
 
-            var features = new X86Features(*ptrFeaturesRaw1, *ptrFeaturesRaw2);
-            return new X86Info(features, *ptrFamily, *ptrModel, *ptrStepping, vendor.ToString(),
+            var features = new X86Features(featuresRaw1, featuresRaw2);
+            return new X86Info(features, family, model, stepping, vendor.ToString(),
                 brandString.ToString());
         }
 
