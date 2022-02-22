@@ -21,7 +21,7 @@
 CPU_FEATURES_DOTNET_DLL_EXPORT void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping,
                                                    int *family, int *features_raw1, int *features_raw2);
 
-CPU_FEATURES_DOTNET_DLL_EXPORT CacheInfo GetX86CacheInfoPort(void);
+CPU_FEATURES_DOTNET_DLL_EXPORT void GetX86CacheInfoPort(int *size, CacheLevelInfo *levels);
 
 CPU_FEATURES_DOTNET_DLL_EXPORT X86Microarchitecture GetX86MicroarchitecturePort(const X86Info *info);
 

@@ -20,17 +20,38 @@ namespace CpuFeaturesDotNet
     public readonly struct CacheInfo
     {
         public readonly int Size;
-
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.Struct, SizeConst = 10)]
         public readonly CacheLevelInfo[] Levels;
 
+        private CacheInfo(int size, CacheLevelInfo[] levels)
+        {
+            Size = size;
+            Levels = levels;
+        }
+
+#if (X64 || X86)
         /// <summary>
         /// Returns cache hierarchy informations.
         /// Can call cpuid multiple times.
         /// </summary>
-#if (X64 || X86)
-        public static CacheInfo GetX86CacheInfo() => CacheInfoNative._GetX86CacheInfoPort();
+        public static CacheInfo GetX86CacheInfo() => _GetX86CacheInfo();
+
+        private static unsafe CacheInfo _GetX86CacheInfo()
+        {
+            int size;
+            var ptrSize = &size;
+            var cacheLevelInfo = new CacheLevelInfo[10];
+            fixed (CacheLevelInfo* ptrLevels = cacheLevelInfo)
+            {
+                CacheInfoNative.__GetX86CacheInfo(ptrSize, ptrLevels);
+            }
+
+            return new CacheInfo(*ptrSize, cacheLevelInfo);
+        }
 #else
+        /// <summary>
+        /// Returns cache hierarchy informations.
+        /// Can call cpuid multiple times.
+        /// </summary>
         public static CacheInfo GetX86CacheInfo() => throw new System.PlatformNotSupportedException();
 #endif
     }

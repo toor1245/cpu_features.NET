@@ -42,7 +42,9 @@ void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *ste
     vendor[12] = '\0';
 }
 
-CacheInfo GetX86CacheInfoPort(void) {
-    return GetX86CacheInfo();
+void GetX86CacheInfoPort(int *size, CacheLevelInfo *levels) {
+    CacheInfo cacheInfo = GetX86CacheInfo();
+    *size = cacheInfo.size;
+    Copy((char *) levels, (const char *) cacheInfo.levels, sizeof(CacheLevelInfo) * 10);
 }
 #endif  // CPU_FEATURES_ARCH_X86
