@@ -29,6 +29,13 @@ namespace CpuFeaturesDotNet.Testing
         }
 
         [FactArm]
+        public void DllImportArm_GetArmCpuId_Success()
+        {
+            var info = ArmInfo.GetArmInfo();
+            ArmInfo.GetArmCpuId(info);
+        }
+
+        [FactArm]
         public void DllImportArm_GetArmInfo_Throws()
         {
             Assert.Throws<PlatformNotSupportedException>(() => X86Info.GetX86Info());

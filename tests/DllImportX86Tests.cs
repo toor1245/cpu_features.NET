@@ -29,6 +29,19 @@ namespace CpuFeaturesDotNet.Testing
         }
 
         [FactX64]
+        public void DllImportX86_GetX86Microarchitecture_Success()
+        {
+            var x86Info = X86Info.GetX86Info();
+            X86Info.GetX86Microarchitecture(x86Info);
+        }
+
+        [FactX64]
+        public void DllImportX86_GetX86BrandString_Success()
+        {
+            X86Info.GetX86BrandString();
+        }
+
+        [FactX64]
         public void DllImportX86_GetAarch64Info_Throws()
         {
             Assert.Throws<PlatformNotSupportedException>(() => Aarch64Info.GetAarch64Info());
