@@ -16,8 +16,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+      - dotnet test "tests" -c Release -f net5.0
       
 trigger:
   branch:
@@ -43,8 +43,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+      - dotnet test "tests" -c Release -f net5.0
 
 trigger:
   branch:
@@ -70,8 +70,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+      - dotnet test "tests" -c Release -f net5.0
 
 trigger:
   branch:
@@ -97,8 +97,8 @@ steps:
       - cmake --version
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
-      - dotnet build
-      - dotnet test
+      - dotnet build "src/CpuFeaturesDotNet" -c Release --force
+      - dotnet test "tests" -c Release -f net5.0
 
 trigger:
   branch:
