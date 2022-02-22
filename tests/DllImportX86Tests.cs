@@ -36,6 +36,12 @@ namespace CpuFeaturesDotNet.Testing
         }
 
         [FactX64]
+        public void DllImportX86_GetX86CacheInfo_Success()
+        {
+            CacheInfo.GetX86CacheInfo();
+        }
+
+        [FactX64]
         public void DllImportX86_GetX86BrandString_Success()
         {
             X86Info.GetX86BrandString();

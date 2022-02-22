@@ -19,6 +19,6 @@ namespace CpuFeaturesDotNet
     internal static class CacheInfoNative
     {
         [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetX86CacheInfoPort")]
-        public static extern CacheInfo _GetX86CacheInfoPort();
+        public static extern unsafe void __GetX86CacheInfo(int* size, CacheLevelInfo* levels);
     }
 }
