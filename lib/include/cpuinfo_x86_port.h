@@ -19,7 +19,7 @@
 #include "cpuinfo_x86.h"
 
 CPU_FEATURES_DOTNET_DLL_EXPORT void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping,
-                                                   int *family, int *features_raw1, int *features_raw2);
+                                                   int *family, X86Features *features);
 
 CPU_FEATURES_DOTNET_DLL_EXPORT void GetX86CacheInfoPort(int *size, CacheLevelInfo *levels);
 

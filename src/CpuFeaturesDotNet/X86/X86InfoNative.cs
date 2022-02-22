@@ -21,7 +21,7 @@ namespace CpuFeaturesDotNet.X86
     {
         [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetX86InfoPort")]
         public static extern unsafe void __GetX86Info(StringBuilder brandString, StringBuilder vendor, int* model,
-            int* stepping, int* family, int* featuresRaw1, int* featuresRaw2);
+            int* stepping, int* family, X86Features* features);
 
         [DllImport(Library.NATIVE_LIBRARY, EntryPoint = "GetX86MicroarchitecturePort")]
         public static extern X86Microarchitecture _GetX86Microarchitecture(in X86Info info);

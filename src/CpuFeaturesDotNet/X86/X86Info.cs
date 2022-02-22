@@ -13,9 +13,11 @@
 // limitations under the License.
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace CpuFeaturesDotNet.X86
 {
+    [StructLayout(LayoutKind.Sequential)]
     public readonly struct X86Info
     {
         public readonly X86Features Features;
@@ -45,12 +47,9 @@ namespace CpuFeaturesDotNet.X86
         {
             var brandString = new System.Text.StringBuilder(48);
             var vendor = new System.Text.StringBuilder(12);
-            int model, stepping, family, featuresRaw1, featuresRaw2;
-
-            X86InfoNative.__GetX86Info(brandString, vendor, &model, &stepping, &family,
-                &featuresRaw1, &featuresRaw2);
-
-            var features = new X86Features(featuresRaw1, featuresRaw2);
+            int model, stepping, family;
+            X86Features features;
+            X86InfoNative.__GetX86Info(brandString, vendor, &model, &stepping, &family, &features);
             return new X86Info(features, family, model, stepping, vendor.ToString(),
                 brandString.ToString());
         }

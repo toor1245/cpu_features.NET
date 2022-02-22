@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Runtime.InteropServices;
+
 namespace CpuFeaturesDotNet
 {
+    [StructLayout(LayoutKind.Sequential)]
     public readonly struct CacheInfo
     {
         public readonly int Size;

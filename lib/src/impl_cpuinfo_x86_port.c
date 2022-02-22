@@ -26,16 +26,13 @@ void FillX86BrandStringPort(char *brand_string) {
     FillX86BrandString(brand_string);
 }
 
-void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping, int *family,
-                    int *features_raw1,
-                    int *features_raw2) {
+void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping,
+                    int *family, X86Features *features) {
     X86Info info = GetX86Info();
     *model = info.model;
     *stepping = info.stepping;
     *family = info.family;
-    int *features = (int *) &info;
-    *features_raw1 = features[0];
-    *features_raw2 = features[1];
+    *features = info.features;
     Copy(brand_string, info.brand_string, 48);
     Copy(vendor, info.vendor, 12);
     brand_string[48] = '\0';
