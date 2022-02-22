@@ -12,11 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Runtime.InteropServices;
-
 namespace CpuFeaturesDotNet.X86
 {
-    [StructLayout(LayoutKind.Sequential)]
     public readonly struct X86Features
     {
         private readonly int featuresRaw1;
