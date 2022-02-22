@@ -27,7 +27,7 @@ namespace CpuFeaturesDotNet.Testing
         {
             ArmInfo.GetArmInfo();
         }
-        
+
         [FactArm]
         public void DllImportArm_GetArmCpuId_Success()
         {
