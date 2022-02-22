@@ -16,6 +16,7 @@
 
 #if defined(CPU_FEATURES_ARCH_X86)
 #include "cpuinfo_x86_port.h"
+#include "copy.inl"
 
 X86Microarchitecture GetX86MicroarchitecturePort(const X86Info *info) {
     return GetX86Microarchitecture(info);
@@ -25,8 +26,20 @@ void FillX86BrandStringPort(char *brand_string) {
     FillX86BrandString(brand_string);
 }
 
-X86Info GetX86InfoPort(void) {
-    return GetX86Info();
+void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping, int *family,
+                    int *features_raw1,
+                    int *features_raw2) {
+    X86Info info = GetX86Info();
+    *model = info.model;
+    *stepping = info.stepping;
+    *family = info.family;
+    int *features = (int *) &info;
+    *features_raw1 = features[0];
+    *features_raw2 = features[1];
+    Copy(brand_string, info.brand_string, 48);
+    Copy(vendor, info.vendor, 12);
+    brand_string[48] = '\0';
+    vendor[12] = '\0';
 }
 
 CacheInfo GetX86CacheInfoPort(void) {

@@ -24,18 +24,43 @@ namespace CpuFeaturesDotNet.X86
         public readonly int Family;
         public readonly int Model;
         public readonly int Stepping;
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 13)]
         public readonly string Vendor;
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 49)]
         public readonly string BrandString;
+
+        private X86Info(X86Features features, int family, int model, int stepping, string vendor, string brandString)
+        {
+            Features = features;
+            Family = family;
+            Model = model;
+            Stepping = stepping;
+            Vendor = vendor;
+            BrandString = brandString;
+        }
 
 #if X64
         /// <summary>
         /// Calls cpuid and returns an initialized X86info.
         /// </summary>
-        public static X86Info GetX86Info() => X86InfoNative._GetX86Info();
+        public static X86Info GetX86Info() => _GetX86Info();
+
+        private static unsafe X86Info _GetX86Info()
+        {
+            var brandString = new System.Text.StringBuilder(48);
+            var vendor = new System.Text.StringBuilder(12);
+            int model, stepping, family, featuresRaw1, featuresRaw2;
+            var ptrModel = &model;
+            var ptrStepping = &stepping;
+            var ptrFamily = &family;
+            var ptrFeaturesRaw1 = &featuresRaw1;
+            var ptrFeaturesRaw2 = &featuresRaw2;
+
+            X86InfoNative.__GetX86Info(brandString, vendor, ptrModel, ptrStepping, ptrFamily,
+                ptrFeaturesRaw1, ptrFeaturesRaw2);
+
+            var features = new X86Features(*ptrFeaturesRaw1, *ptrFeaturesRaw2);
+            return new X86Info(features, *ptrFamily, *ptrModel, *ptrStepping, vendor.ToString(),
+                brandString.ToString());
+        }
 
         /// <summary>
         /// Returns the underlying microarchitecture by looking at X86Info's vendor, family and model.

@@ -18,7 +18,8 @@
 #include "cpu_features_port_macros.h"
 #include "cpuinfo_x86.h"
 
-CPU_FEATURES_DOTNET_DLL_EXPORT X86Info GetX86InfoPort(void);
+CPU_FEATURES_DOTNET_DLL_EXPORT void GetX86InfoPort(char brand_string[49], char vendor[13], int *model, int *stepping,
+                                                   int *family, int *features_raw1, int *features_raw2);
 
 CPU_FEATURES_DOTNET_DLL_EXPORT CacheInfo GetX86CacheInfoPort(void);
 
