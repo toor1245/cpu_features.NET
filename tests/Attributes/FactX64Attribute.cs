@@ -21,7 +21,7 @@ namespace CpuFeaturesDotNet.Testing.Attributes
     {
         public FactX64Attribute()
         {
-            if (RuntimeInformation.OSArchitecture is not Architecture.X64)
+            if (!(RuntimeInformation.OSArchitecture is Architecture.X64))
             {
                 Skip = "Ignored on unsupported x86 architecture";
             }

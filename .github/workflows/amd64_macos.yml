@@ -1,4 +1,4 @@
-name: .NET 5 amd64 macOS
+name: .NET amd64 macOS
 
 on:
   pull_request:
@@ -28,13 +28,19 @@ jobs:
       - name: Ninja
         run: ninja -Ccmake-build-release
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
         run: dotnet build "src/CpuFeaturesDotNet" -c Debug --force
 
-      - name: Run Unit Tests
-        run: dotnet test "tests" -c Debug
+      - name: Run Unit Tests for .Net Core 2.1
+        run: dotnet test "tests" -c Debug -f netcoreapp2.1
+
+      - name: Run Unit Tests for .Net 5.0
+        run: dotnet test "tests" -c Debug -f net5.0

@@ -1,4 +1,4 @@
-name: .NET 5 amd64 Windows
+name: .NET amd64 Windows
 
 on:
   pull_request:
@@ -29,16 +29,19 @@ jobs:
       - name: Cmake Build
         run: cmake --build cmake-build-release --target all -v --config Release
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force --runtime win10-x64
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: dotnet test "tests" -c Release --runtime win10-x64
 
   visual-studio-17-x86:
     runs-on:  windows-2022
@@ -52,16 +55,19 @@ jobs:
       - name: Cmake Build
         run: cmake --build cmake-build-release --target all_build -v --config Release
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force --runtime win10-x64
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: dotnet test "tests" -c Release --runtime win10-x64
 
   visual-studio-16-x86:
     runs-on:  windows-2019
@@ -75,16 +81,19 @@ jobs:
       - name: Cmake Build
         run: cmake --build cmake-build-release --target all_build -v --config Release
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force --runtime win10-x64
 
       - name: Run Unit Tests
-        run: dotnet test "tests" -c Release
+        run: dotnet test "tests" -c Release --runtime win10-x64
 
   visual-studio-15-x86:
     runs-on:  windows-2016
@@ -98,10 +107,13 @@ jobs:
       - name: Cmake Build
         run: cmake --build cmake-build-release --target all_build -v --config Release
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
         run: dotnet build "src/CpuFeaturesDotNet" -c Release --force --runtime win10-x64

@@ -1,4 +1,4 @@
-name: .NET 5 amd64 Linux 
+name: .NET amd64 Linux 
 
 on:
   pull_request:
@@ -26,13 +26,19 @@ jobs:
       - name: Build
         run: sudo cmake --build cmake-build-release --target all -v
 
-      - name: Setup .NET 5.0 @ Latest
-        uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
 
       - name: Create build
-        run: sudo dotnet build "src/CpuFeaturesDotNet" -c Release --force
+        run: dotnet build "src/CpuFeaturesDotNet" -c Release --force
 
-      - name: Run Unit Tests
-        run: sudo dotnet test "tests" -c Release
+      - name: Run Unit Tests for .Net Core 2.1
+        run: dotnet test "tests" -c Release -f netcoreapp2.1
+
+      - name: Run Unit Tests for .Net 5.0
+        run: dotnet test "tests" -c Release -f net5.0
