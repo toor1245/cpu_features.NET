@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm32v7
+    image: mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim-arm32v7
     commands:
       - apt-get update && apt-get -y install cmake
       - gcc --version
@@ -17,7 +17,7 @@ steps:
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-      - dotnet test "tests" -c Release -f net5.0
+      - dotnet test "tests" -c Release -f net6.0
       
 trigger:
   branch:
@@ -35,7 +35,7 @@ platform:
 
 steps:
   - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-arm64v8
+    image: mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim-arm64v8
     commands:
       - apt-get update && apt-get -y install cmake
       - gcc --version
@@ -44,7 +44,7 @@ steps:
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-      - dotnet test "tests" -c Release -f net5.0
+      - dotnet test "tests" -c Release -f net6.0
 
 trigger:
   branch:
@@ -62,7 +62,7 @@ platform:
 
 steps:
   - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0
+    image: mcr.microsoft.com/dotnet/sdk:6.0
     commands:
       - apt-get update && apt-get -y install cmake
       - gcc --version
@@ -71,7 +71,7 @@ steps:
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-      - dotnet test "tests" -c Release -f net5.0
+      - dotnet test "tests" -c Release -f net6.0
 
 trigger:
   branch:
@@ -89,7 +89,7 @@ platform:
 
 steps:
   - name: Build and Test
-    image: mcr.microsoft.com/dotnet/sdk:5.0
+    image: mcr.microsoft.com/dotnet/sdk:6.0
     commands:
       - apt-get update && apt-get -y install cmake
       - gcc --version
@@ -98,7 +98,7 @@ steps:
       - cmake -S. -Bcmake-build-debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="g++"
       - cmake --build cmake-build-debug --target all
       - dotnet build "src/CpuFeaturesDotNet" -c Release --force
-      - dotnet test "tests" -c Release -f net5.0
+      - dotnet test "tests" -c Release -f net6.0
 
 trigger:
   branch:
