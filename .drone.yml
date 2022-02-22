@@ -21,7 +21,7 @@ steps:
       
 trigger:
   branch:
-    - master
+    - main
   event:
     - pull_request
 ---
@@ -48,7 +48,7 @@ steps:
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - pull_request
 ---
@@ -75,7 +75,7 @@ steps:
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - pull_request
 ---
@@ -102,6 +102,6 @@ steps:
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - pull_request

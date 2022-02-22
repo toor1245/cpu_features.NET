@@ -3,7 +3,7 @@ name: .NET 5 amd64 Linux
 on:
   pull_request:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 env:
