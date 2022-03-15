@@ -42,3 +42,6 @@ jobs:
 
       - name: Run Unit Tests for .Net 5.0
         run: dotnet test "tests" -c Release -f net5.0
+
+      - name: Run Unit Tests for .Net 6.0
+        run: dotnet test "tests" -c Release -f net6.0
