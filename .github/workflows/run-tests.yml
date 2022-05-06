@@ -41,11 +41,11 @@ jobs:
             os: windows-2019,
             cmake-flags: '-G"Visual Studio 16" -T"v142"'
           }
-        - { 
-            name: 'Windows VS v141 amd64',
-            os: windows-2019,
-            cmake-flags: '-G"Visual Studio 16" -T"v141"'
-          } 
+#        - { 
+#            name: 'Windows VS v141 amd64',
+#            os: windows-2019,
+#            cmake-flags: '-G"Visual Studio 16" -T"v141"'
+#          } 
 #        - { 
 #            name: 'Linux CLang amd64',
 #            os: ubuntu-latest,
