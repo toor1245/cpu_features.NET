@@ -17,21 +17,21 @@ namespace CpuFeaturesDotNet
     internal static class Library
     {
 #if X64 && OS_LINUX
-        public const string NATIVE_LIBRARY = "Native/Platforms/linux/x86-64/cpu_features_dotnet.x64.so";
+        public const string NATIVE_LIBRARY = "runtimes/linux-x64/native/cpu_features_dotnet.x64.so";
 #elif X64 && OS_WINDOWS
-        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\x86-64\\cpu_features_dotnet.x64.dll";
+        public const string NATIVE_LIBRARY = "runtimes/linux-x64/native/cpu_features_dotnet.x64.dll";
 #elif X64 && OS_MAC
-        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/x86-64/cpu_features_dotnet.x64.dylib";
+        public const string NATIVE_LIBRARY = "runtimes/osx-x64/native/cpu_features_dotnet.x64.dylib";
 #elif ARM32 && OS_WINDOWS
-        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\aarch32\\cpu_features_dotnet.aarch32.dll";
+        public const string NATIVE_LIBRARY = "runtimes\\win-arm\\native\\cpu_features_dotnet.aarch32.dll";
 #elif ARM32 && OS_LINUX
-        public const string NATIVE_LIBRARY = "Native/Platforms/linux/aarch32/cpu_features_dotnet.aarch32.so";
+        public const string NATIVE_LIBRARY = "runtimes/linux-arm/native/cpu_features_dotnet.aarch32.so";
 #elif ARM64 && OS_WINDOWS
-        public const string NATIVE_LIBRARY = "Native\\Platforms\\win\\aarch64\\cpu_features_dotnet.aarch64.dll";
+        public const string NATIVE_LIBRARY = "runtimes\\win-arm64\\native\\cpu_features_dotnet.aarch64.dll";
 #elif ARM64 && OS_LINUX
-        public const string NATIVE_LIBRARY = "Native/Platforms/linux/aarch64/cpu_features_dotnet.aarch64.so";
+        public const string NATIVE_LIBRARY = "runtimes/linux-arm64/native/cpu_features_dotnet.aarch64.so";
 #elif ARM64 && OS_MAC
-        public const string NATIVE_LIBRARY = "Native/Platforms/darwin/aarch64/cpu_features_dotnet.aarch64.dylib";
+        public const string NATIVE_LIBRARY = "runtimes/osx.11.0-arm64/native/cpu_features_dotnet.aarch64.dylib";
 #endif
     }
 }
