@@ -9,4 +9,4 @@ Console.WriteLine($"Revision: {aarch64Info.Revision}");
 Console.WriteLine($"Variant: {aarch64Info.Variant}");
 Console.WriteLine($"IsSupportedASIMD: {aarch64Info.Features.IsSupportedASIMD}");
 Console.WriteLine($"IsSupportedCPUID: {aarch64Info.Features.IsSupportedCPUID}");
-Console.WriteLine($"IsSupportedCPUID: {aarch64Info.Features.IsSupportedFP}");
+Console.WriteLine($"IsSupportedFP: {aarch64Info.Features.IsSupportedFP}");
