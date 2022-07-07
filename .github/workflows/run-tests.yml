@@ -1,0 +1,90 @@
+name: Run tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    name: ${{ matrix.platform.name }} ${{ matrix.build-type }}
+    runs-on: ${{ matrix.platform.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        build-type: [Debug, Release] 
+        platform: 
+        - { 
+            name: 'Windows GCC amd64',
+            os: windows-2022,
+            cmake-flags: '-GNinja'
+          }
+        - { 
+            name: 'Windows CLang amd64',
+            os: windows-2022,
+            cmake-flags: '-GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++'
+          }
+        - { 
+            name: 'Windows VS v143 amd64',
+            os: windows-2022,
+            cmake-flags: '-G"Visual Studio 17" -T"v143"'
+          } 
+        - { 
+            name: 'Windows VS v142 amd64',
+            os: windows-2019,
+            cmake-flags: '-G"Visual Studio 16" -T"v142"'
+          }
+#        - { 
+#            name: 'Windows VS v141 amd64',
+#            os: windows-2019,
+#            cmake-flags: '-G"Visual Studio 16" -T"v141"'
+#          } 
+#        - { 
+#            name: 'Linux CLang amd64',
+#            os: ubuntu-latest,
+#            cmake-flags: '-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++'
+#          }
+        - { 
+            name: 'Linux GCC amd64',
+            os: ubuntu-latest
+          } 
+        - { 
+            name: 'Mac OS amd64',
+            os: macos-latest
+          }
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+ 
+      - name: Configure Project
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake ${{ matrix.platform.cmake-flags }} -Bcmake-build-release -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} .
+
+      - name: Build Project
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.9.0
+        with:
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
+
+      - name: Create build
+        run: dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
+
+      - name: Run Unit Tests for .Net Core 2.1
+        run: dotnet test "tests" -c ${{ matrix.build-type }} -f netcoreapp2.1
+
+      - name: Run Unit Tests for .Net 5.0
+        run: dotnet test "tests" -c ${{ matrix.build-type }} -f net5.0
