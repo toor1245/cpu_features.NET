@@ -27,4 +27,5 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
+          committer: GitHub Actions Bot <>
           token: ${{secrets.TOKEN}}
