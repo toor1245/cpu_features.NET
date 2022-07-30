@@ -25,4 +25,4 @@ jobs:
         with:
           destination_branch: "main"
           pr_allow_empty: true
-          token: ${{secrets.TOKEN}}
+          github_token: ${{secrets.TOKEN}}
