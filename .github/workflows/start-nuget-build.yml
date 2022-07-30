@@ -18,10 +18,9 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { repo, owner } = context.repo;
             const result = await github.rest.pulls.create({
               title: '[Example] Simple demo',
-              owner,
+              owner: 'toor1245',
               repo: 'cpu-features-dotnet-storage',
               head: 'toor1245:test',
               base: 'main',
