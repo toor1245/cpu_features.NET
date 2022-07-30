@@ -19,9 +19,12 @@ jobs:
           repository: toor1245/cpu-features-dotnet-storage
 
       - name: Make some changes
-        run: echo "</br>New version" >> Readme.md
+        run: echo "some text" >> test.txt
 
+      # alt: https://github.com/marketplace/actions/github-pull-request-action
+      # alt: https://stackoverflow.com/questions/68057744/create-pull-request-with-github-action
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
+          token: ${{secrets.TOKEN}}
