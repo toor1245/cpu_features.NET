@@ -19,6 +19,7 @@ jobs:
         with:
           script: |
             const result = await github.rest.pulls.create({
+              auth: ${{secrets.TOKEN}}
               title: '[Example] Simple demo',
               owner: 'toor1245',
               repo: 'cpu-features-dotnet-storage',
