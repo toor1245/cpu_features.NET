@@ -1,6 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
     <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <LangVersion>8</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <TargetFramework>netstandard1.1</TargetFramework>
+        <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+        <Platforms>x64</Platforms>
+
+        <!-- Nuget Properties -->
+        <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
+        <PackageTags>native</PackageTags>
+        <PackageVersion>1.0.0</PackageVersion>
+
         <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>
         <X86 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">true</X86>
         <ARM32 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm'">true</ARM32>
@@ -8,11 +19,6 @@
         <OS_WINDOWS Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</OS_WINDOWS>
         <OS_MAC Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</OS_MAC>
         <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
-        <LangVersion>8</LangVersion>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <TargetFramework>netstandard1.1</TargetFramework>
-        <Architectures>x86;x64;arm;arm64</Architectures>
-        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     
     <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_WINDOWS)'=='true'">
@@ -62,21 +68,38 @@
         <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="runtime.win10-x64.Microsoft.Net.Native.SharedLibrary" Version="2.2.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+        <PackageReference Include="runtime.win10-x64.Microsoft.Net.Native.SharedLibrary" Version="2.2.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll" />
-      <EmbeddedResource Include="Native\Platforms\win\x86-64\cpu_features_dotnet.x64.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+        <Content Include="runtimes\win-x64\native\cpu_features_dotnet.x64.dll">
+            <PackagePath>runtimes\win-x64\native\cpu_features_dotnet.x64.dll</PackagePath>
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="runtimes\linux-x64\native\cpu_features_dotnet.x64.so">
+            <PackagePath>runtimes\linux-x64\native\cpu_features_dotnet.x64.so</PackagePath>
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="runtimes\osx-x64\native\cpu_features_dotnet.x64.dylib">
+            <PackagePath>runtimes\osx-x64\native\cpu_features_dotnet.x64.dylib</PackagePath>
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
