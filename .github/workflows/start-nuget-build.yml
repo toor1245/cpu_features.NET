@@ -10,12 +10,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          persist-credentials: false
           repository: toor1245/cpu-features-dotnet-storage
 
       - name: Set git credentials
         run: |
-          git config user.name "Dilorfin"# "GitHub Actions Bot"
-          git config user.email "pavlo_kuibida@epam.com"
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
       - name: Create branch
         run: git branch some-test
       - name: Add commit
