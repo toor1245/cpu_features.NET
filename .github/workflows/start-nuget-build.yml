@@ -20,8 +20,10 @@ jobs:
         run: git branch some-test
       - name: Add commit
         run: git commit --allow-empty -m "empty commit to create PR to start discussion"
-      - name: Push
-        run: git push 
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
  
       # alt: https://github.com/marketplace/actions/github-pull-request-action
       # alt: https://stackoverflow.com/questions/68057744/create-pull-request-with-github-action
