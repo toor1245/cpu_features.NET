@@ -14,8 +14,8 @@ jobs:
 
       - name: Set git credentials
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+          git config user.name "Dilorfin"# "GitHub Actions Bot"
+          git config user.email "pavlo_kuibida@epam.com"
       - name: Create branch
         run: git branch some-test
       - name: Add commit
