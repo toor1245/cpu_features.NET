@@ -26,6 +26,7 @@ jobs:
         with:
           repository: toor1245/cpu-features-dotnet-storage
           github_token: ${{ secrets.TOKEN }}
+          branch: some-test
  
       # alt: https://github.com/marketplace/actions/github-pull-request-action
       # alt: https://stackoverflow.com/questions/68057744/create-pull-request-with-github-action
