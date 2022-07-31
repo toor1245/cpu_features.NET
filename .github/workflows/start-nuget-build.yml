@@ -23,6 +23,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
+          repository: toor1245/cpu-features-dotnet-storage
           github_token: ${{ secrets.TOKEN }}
  
       # alt: https://github.com/marketplace/actions/github-pull-request-action
