@@ -18,7 +18,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
       - name: Create branch
-        run: git branch some-test
+        run: git checkout -b some-test
       - name: Add commit
         run: git commit --allow-empty -m "empty commit to create PR to start discussion"
       - name: Push changes
