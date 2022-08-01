@@ -8,6 +8,7 @@
 
         <!-- Nuget Properties -->
         <Title>cpu_features.NET</Title>
+        <PackageId>cpu_features.NET</PackageId>
 
         <PackageVersion>1.0.0</PackageVersion>
 
