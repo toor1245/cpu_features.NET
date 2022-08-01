@@ -124,4 +124,11 @@
             <_Parameter1>CpuFeaturesDotNet.Testing</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE" Link=".Nuget\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 </Project>
