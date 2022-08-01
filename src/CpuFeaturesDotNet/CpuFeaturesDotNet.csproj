@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <OutputType>Library</OutputType>
         <LangVersion>8</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <TargetFramework>netstandard1.1</TargetFramework>
@@ -8,9 +7,27 @@
         <Platforms>x64</Platforms>
 
         <!-- Nuget Properties -->
-        <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
-        <PackageTags>native</PackageTags>
+        <Title>cpu_features.NET</Title>
+
         <PackageVersion>1.0.0</PackageVersion>
+
+        <RepositoryType>Library</RepositoryType>
+        <OutputType>Library</OutputType>
+
+        <Copyright>cpu_features.NET</Copyright>
+        <Company>cpu_features.NET</Company>
+
+        <Authors>Mykola Hohsadze, Pavlo Kuibida</Authors>
+        
+        <NeutralLanguage>en</NeutralLanguage>
+        
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+        <PackageProjectUrl>https://github.com/toor1245/cpu_features.NET/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/toor1245/cpu_features.NET/</RepositoryUrl>
+
+        <Description>.NET version of google/cpu_features to get cpu info at runtime.</Description>
+        <PackageTags>native,android,windows,macos,linux,freebsd,ios,xamarin,cpu,cross-platform,dotnet,cpuid,net-standard,microarchitecture,x86,x64,amd64,x86-64,arm,arm64,aarch64,arm32v7</PackageTags>
 
         <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>
         <X86 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">true</X86>
