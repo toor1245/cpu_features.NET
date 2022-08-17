@@ -302,19 +302,19 @@ Detailed instruction see [Local-Nuget-package-building](https://github.com/toor1
 
 ## What's supported
 
-| Runtime / OS           | x86³        | ARM     | AArch64 |
-|------------------------|:-----------:|:-------:|:-------:|
-| .NET Framework Windows | in progress | N/A     | N/A     |
-| .NET Core Windows      | yes²        | not yet | not yet |
-| .NET Core Linux        | yes²        | yes     | yes     |
-| .NET Core macOS        | yes²        | not yet | not yet |
-| .NET Core FreeBSD      | not yet     | not yet | not yet |
-| Mono Windows           | not yet     | not yet | not yet |
-| Mono Linux             | not yet     | not yet | not yet |
-| Mono macOS             | not yet     | N/A     | not yet |
-| Mono FreeBSD           | not yet     | not yet | not yet |
-| Mono Android           | not yet     | not yet | not yet |
-| Mono iOS               | N/A         | N/A     | not yet |
+| Runtime / OS           | x86³        | ARM         | AArch64     |
+|------------------------|:-----------:|:-----------:|:-----------:|
+| .NET Framework Windows | in progress | N/A         | N/A         |
+| .NET Core Windows      | yes²        | not yet     | not yet     |
+| .NET Core Linux        | yes²        | in progress | in progress |
+| .NET Core macOS        | yes²        | not yet     | not yet     |
+| .NET Core FreeBSD      | not yet     | not yet     | not yet     |
+| Mono Windows           | not yet     | not yet     | not yet     |
+| Mono Linux             | not yet     | not yet     | not yet     |
+| Mono macOS             | not yet     | N/A         | not yet     |
+| Mono FreeBSD           | not yet     | not yet     | not yet     |
+| Mono Android           | not yet     | not yet     | not yet     |
+| Mono iOS               | N/A         | N/A         | not yet     |
 
 1. **Features revealed from Linux.** We gather data from several sources depending on availability:
     + from glibc's
