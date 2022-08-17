@@ -290,6 +290,8 @@ cmake -S. -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
 cmake --build cmake-build-release --target all -v
 ```
 
+Detailed instruction see [Local-Nuget-package-building](https://github.com/toor1245/cpu_features.NET/wiki/Local-Nuget-package-building#configure-c-project)
+
 <a name="support"></a>
 
 ## What's supported
