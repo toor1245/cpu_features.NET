@@ -1,20 +1,10 @@
 # cpu_features.NET
 
-[![Linux Status][linux_svg]][linux_link]
-[![Macos Status][macos_svg]][macos_link]
-[![Windows Status][windows_svg]][windows_link]
+[![Tests Status][run_tests_svg]][run_tests_link]
 
-[linux_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_linux.yml/badge.svg?branch=master
+[run_tests_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/run-tests.yml/badge.svg?branch=main
 
-[linux_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_linux.yml
-
-[macos_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_macos.yml/badge.svg?branch=master
-
-[macos_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_macos.yml
-
-[windows_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_windows.yml/badge.svg?branch=master
-
-[windows_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/amd64_windows.yml
+[run_tests_link]: https://github.com/toor1245/cpu_features.NET/actions/workflows/run-tests.yml
 
 .NET version of [google/cpu_features](https://github.com/google/cpu_features) for getting cpu info at runtime.
 
