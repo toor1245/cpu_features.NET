@@ -117,6 +117,16 @@ namespace CpuFeaturesDotNet.X86
         INTEL_ATOM_GMT,
 
         /// <summary>
+        /// GOLDMONT+
+        /// </summary>
+        INTEL_ATOM_GMT_PLUS,
+
+        /// <summary>
+        /// TREMONT
+        /// </summary>
+        INTEL_ATOM_TMT,
+
+        /// <summary>
         /// KABY LAKE
         /// </summary>
         INTEL_KBL,
@@ -130,6 +140,11 @@ namespace CpuFeaturesDotNet.X86
         /// WHISKEY LAKE
         /// </summary>
         INTEL_WHL,
+
+        /// <summary>
+        /// COMET LAKE
+        /// </summary>
+        INTEL_CML,
 
         /// <summary>
         /// CANNON LAKE
@@ -259,6 +274,11 @@ namespace CpuFeaturesDotNet.X86
         /// <summary>
         /// K19 ZEN 3
         /// </summary>
-        AMD_ZEN3
+        AMD_ZEN3,
+
+        /// <summary>
+        /// K19 ZEN 4
+        /// </summary>
+        AMD_ZEN4
     }
 }
