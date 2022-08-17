@@ -1,5 +1,11 @@
 # cpu_features.NET
 
+[![NuGet](https://img.shields.io/nuget/v/cpu_features.NET.svg)](https://www.nuget.org/packages/cpu_features.NET/) 
+[![Downloads](https://img.shields.io/nuget/dt/cpu_features.NET.svg)](https://www.nuget.org/packages/cpu_features.NET/)
+[![Stars](https://img.shields.io/github/stars/toor1245/cpu_features.NET?color=brightgreen)](https://github.com/toor1245/cpu_features.NET/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://www.nuget.org/packages/cpu_features.NET/)
+
+
 [![Tests Status][run_tests_svg]][run_tests_link]
 
 [run_tests_svg]: https://github.com/toor1245/cpu_features.NET/actions/workflows/run-tests.yml/badge.svg?branch=main
