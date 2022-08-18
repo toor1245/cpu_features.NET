@@ -51,44 +51,45 @@ namespace CpuFeaturesDotNet.X86
         public bool IsSupportedSSE4A => BitUtils.IsBitSet((ulong)featuresRaw1, 25);
 
         public bool IsSupportedAVX => BitUtils.IsBitSet((ulong)featuresRaw1, 26);
-        public bool IsSupportedAVX2 => BitUtils.IsBitSet((ulong)featuresRaw1, 27);
+        public bool IsSupportedAVX_VNNI => BitUtils.IsBitSet((ulong)featuresRaw1, 27);
+        public bool IsSupportedAVX2 => BitUtils.IsBitSet((ulong)featuresRaw1, 28);
 
-        public bool IsSupportedAVX512F => BitUtils.IsBitSet((ulong)featuresRaw1, 28);
-        public bool IsSupportedAVX512CD => BitUtils.IsBitSet((ulong)featuresRaw1, 29);
-        public bool IsSupportedAVX512ER => BitUtils.IsBitSet((ulong)featuresRaw1, 30);
-        public bool IsSupportedAVX512PF => BitUtils.IsBitSet((ulong)featuresRaw1, 31);
-        public bool IsSupportedAVX512BW => BitUtils.IsBitSet((ulong)featuresRaw2, 0);
-        public bool IsSupportedAVX512DQ => BitUtils.IsBitSet((ulong)featuresRaw2, 1);
-        public bool IsSupportedAVX512VL => BitUtils.IsBitSet((ulong)featuresRaw2, 2);
-        public bool IsSupportedAVX512IFMA => BitUtils.IsBitSet((ulong)featuresRaw2, 3);
-        public bool IsSupportedAVX512VBMI => BitUtils.IsBitSet((ulong)featuresRaw2, 4);
-        public bool IsSupportedAVX512VBMI2 => BitUtils.IsBitSet((ulong)featuresRaw2, 5);
-        public bool IsSupportedAVX512VNNI => BitUtils.IsBitSet((ulong)featuresRaw2, 6);
-        public bool IsSupportedAVX512BITALG => BitUtils.IsBitSet((ulong)featuresRaw2, 7);
-        public bool IsSupportedAVX512VPOPCNTDQ => BitUtils.IsBitSet((ulong)featuresRaw2, 8);
-        public bool IsSupportedAVX512_4VNNIW => BitUtils.IsBitSet((ulong)featuresRaw2, 9);
-        public bool IsSupportedAVX512_4VBMI2 => BitUtils.IsBitSet((ulong)featuresRaw2, 10);
-        public bool IsSupportedAVX512_SECOND_FMA => BitUtils.IsBitSet((ulong)featuresRaw2, 11);
-        public bool IsSupportedAVX512_4FMAPS => BitUtils.IsBitSet((ulong)featuresRaw2, 12);
-        public bool IsSupportedAVX512_BF16 => BitUtils.IsBitSet((ulong)featuresRaw2, 13);
-        public bool IsSupportedAVX512_VP2INTERSECT => BitUtils.IsBitSet((ulong)featuresRaw2, 14);
+        public bool IsSupportedAVX512F => BitUtils.IsBitSet((ulong)featuresRaw1, 29);
+        public bool IsSupportedAVX512CD => BitUtils.IsBitSet((ulong)featuresRaw1, 30);
+        public bool IsSupportedAVX512ER => BitUtils.IsBitSet((ulong)featuresRaw1, 31);
+        public bool IsSupportedAVX512PF => BitUtils.IsBitSet((ulong)featuresRaw1, 0);
+        public bool IsSupportedAVX512BW => BitUtils.IsBitSet((ulong)featuresRaw2, 1);
+        public bool IsSupportedAVX512DQ => BitUtils.IsBitSet((ulong)featuresRaw2, 2);
+        public bool IsSupportedAVX512VL => BitUtils.IsBitSet((ulong)featuresRaw2, 3);
+        public bool IsSupportedAVX512IFMA => BitUtils.IsBitSet((ulong)featuresRaw2, 4);
+        public bool IsSupportedAVX512VBMI => BitUtils.IsBitSet((ulong)featuresRaw2, 5);
+        public bool IsSupportedAVX512VBMI2 => BitUtils.IsBitSet((ulong)featuresRaw2, 6);
+        public bool IsSupportedAVX512VNNI => BitUtils.IsBitSet((ulong)featuresRaw2, 7);
+        public bool IsSupportedAVX512BITALG => BitUtils.IsBitSet((ulong)featuresRaw2, 8);
+        public bool IsSupportedAVX512VPOPCNTDQ => BitUtils.IsBitSet((ulong)featuresRaw2, 9);
+        public bool IsSupportedAVX512_4VNNIW => BitUtils.IsBitSet((ulong)featuresRaw2, 10);
+        public bool IsSupportedAVX512_4VBMI2 => BitUtils.IsBitSet((ulong)featuresRaw2, 11);
+        public bool IsSupportedAVX512_SECOND_FMA => BitUtils.IsBitSet((ulong)featuresRaw2, 12);
+        public bool IsSupportedAVX512_4FMAPS => BitUtils.IsBitSet((ulong)featuresRaw2, 13);
+        public bool IsSupportedAVX512_BF16 => BitUtils.IsBitSet((ulong)featuresRaw2, 14);
+        public bool IsSupportedAVX512_VP2INTERSECT => BitUtils.IsBitSet((ulong)featuresRaw2, 15);
 
-        public bool IsSupportedAMX_BF16 => BitUtils.IsBitSet((ulong)featuresRaw2, 15);
-        public bool IsSupportedAMX_TILE => BitUtils.IsBitSet((ulong)featuresRaw2, 16);
-        public bool IsSupportedAMX_INT8 => BitUtils.IsBitSet((ulong)featuresRaw2, 17);
+        public bool IsSupportedAMX_BF16 => BitUtils.IsBitSet((ulong)featuresRaw2, 16);
+        public bool IsSupportedAMX_TILE => BitUtils.IsBitSet((ulong)featuresRaw2, 17);
+        public bool IsSupportedAMX_INT8 => BitUtils.IsBitSet((ulong)featuresRaw2, 18);
 
-        public bool IsSupportedPCLMULQDQ => BitUtils.IsBitSet((ulong)featuresRaw2, 18);
-        public bool IsSupportedSMX => BitUtils.IsBitSet((ulong)featuresRaw2, 19);
-        public bool IsSupportedSGX => BitUtils.IsBitSet((ulong)featuresRaw2, 20);
-        public bool IsSupportedCX16 => BitUtils.IsBitSet((ulong)featuresRaw2, 21);
-        public bool IsSupportedSHA => BitUtils.IsBitSet((ulong)featuresRaw2, 22);
-        public bool IsSupportedDPOPCNT => BitUtils.IsBitSet((ulong)featuresRaw2, 23);
-        public bool IsSupportedDMOVBE => BitUtils.IsBitSet((ulong)featuresRaw2, 24);
-        public bool IsSupportedDRDRND => BitUtils.IsBitSet((ulong)featuresRaw2, 25);
+        public bool IsSupportedPCLMULQDQ => BitUtils.IsBitSet((ulong)featuresRaw2, 19);
+        public bool IsSupportedSMX => BitUtils.IsBitSet((ulong)featuresRaw2, 20);
+        public bool IsSupportedSGX => BitUtils.IsBitSet((ulong)featuresRaw2, 21);
+        public bool IsSupportedCX16 => BitUtils.IsBitSet((ulong)featuresRaw2, 22);
+        public bool IsSupportedSHA => BitUtils.IsBitSet((ulong)featuresRaw2, 23);
+        public bool IsSupportedDPOPCNT => BitUtils.IsBitSet((ulong)featuresRaw2, 24);
+        public bool IsSupportedDMOVBE => BitUtils.IsBitSet((ulong)featuresRaw2, 25);
+        public bool IsSupportedDRDRND => BitUtils.IsBitSet((ulong)featuresRaw2, 26);
 
-        public bool IsSupportedDCA => BitUtils.IsBitSet((ulong)featuresRaw2, 26);
-        public bool IsSupportedSS => BitUtils.IsBitSet((ulong)featuresRaw2, 27);
-        public bool IsSupportedADX => BitUtils.IsBitSet((ulong)featuresRaw2, 28);
+        public bool IsSupportedDCA => BitUtils.IsBitSet((ulong)featuresRaw2, 27);
+        public bool IsSupportedSS => BitUtils.IsBitSet((ulong)featuresRaw2, 28);
+        public bool IsSupportedADX => BitUtils.IsBitSet((ulong)featuresRaw2, 29);
 
         internal X86Features(int featuresRaw1, int featuresRaw2)
         {
