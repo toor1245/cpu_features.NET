@@ -6,10 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <PackageReference Include="cpu_features.NET" Version="1.0.0" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
       <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
