@@ -67,10 +67,16 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@master
  
       - name: Configure Project
-        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake ${{ matrix.platform.cmake-flags }} -Bcmake-build-release -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} .
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake ${{ matrix.platform.cmake-flags }} -Bcmake-build-release -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} .
 
       - name: Build Project
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }}
+
+      - name: Create NuGet package
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target cpu_features_dotnet_runtime_package
+
+      - name: Add NuGet package to tests
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target add_runtime_nuget_package_to_tests
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1.9.0
@@ -81,10 +87,10 @@ jobs:
             6.0.x
 
       - name: Create build
-        run: dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
 
-      - name: Run Unit Tests for .Net Core 2.1
-        run: dotnet test "tests" -c ${{ matrix.build-type }} -f netcoreapp2.1
+      #- name: Run Unit Tests for .Net Core 2.1
+      #  run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet test "tests" -c ${{ matrix.build-type }} -f netcoreapp2.1
 
       - name: Run Unit Tests for .Net 5.0
-        run: dotnet test "tests" -c ${{ matrix.build-type }} -f net5.0
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet test "tests" -c ${{ matrix.build-type }} -f net5.0

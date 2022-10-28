@@ -10,10 +10,9 @@
 
         <!-- Nuget Properties -->
         <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
-        <!-- <IncludeBuildOutput>false</IncludeBuildOutput> -->
         <PackageTags>native</PackageTags>
         <PackageOutputPath>@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@</PackageOutputPath>
-        <PackageVersion>2.0.0</PackageVersion>
+        <PackageVersion>1.0.0</PackageVersion>
 
         <!-- CpuFeaturesDotNet compile flags -->
         <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>

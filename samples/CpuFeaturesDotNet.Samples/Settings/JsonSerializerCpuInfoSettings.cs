@@ -19,7 +19,7 @@ namespace CpuFeaturesDotNet.Samples.Settings
 {
     public static class JsonSerializerCpuInfoSettings
     {
-        public static JsonSerializerSettings Settings { get; } = new();
+        public static JsonSerializerSettings Settings { get; } = new JsonSerializerSettings();
 
         static JsonSerializerCpuInfoSettings()
         {

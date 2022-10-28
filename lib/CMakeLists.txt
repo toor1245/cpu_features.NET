@@ -17,7 +17,6 @@ if(result)
     message(FATAL_ERROR "CMake step for cpu_features failed: ${result}")
 endif()
 
-set(BUILD_TESTING OFF)
 execute_process(
         COMMAND ${CMAKE_COMMAND} --build .
         RESULT_VARIABLE result
@@ -47,8 +46,8 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_x86_port.h)
     elseif (CPU_FEATURES_DOTNET_PROCESSOR_IS_ARM)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_arm_port.h)
-    elseif (CPU_FEATURES_DOTNET_PROCESSOR_IS_ACPU_FEATURES_DOTNET_ARCH64)
-        list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_aCPU_FEATURES_DOTNET_ARCH64_port.h)
+    elseif (CPU_FEATURES_DOTNET_PROCESSOR_IS_AARCH64)
+        list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_aarch64_port.h)
     else ()
         message(FATAL_ERROR "Unsupported CPU_FEATURES_DOTNET_ARCH ${CMAKE_SYSTEM_PROCESSOR}")
     endif ()
@@ -65,6 +64,8 @@ endmacro()
 # library : cpu_features_dotnet
 #
 
+set(CPU_FEATURES_DOTNET_HDRS)
+set(CPU_FEATURES_DOTNET_SRCS)
 add_cpu_features_headers_and_sources(CPU_FEATURES_DOTNET_HDRS CPU_FEATURES_DOTNET_SRCS)
 add_library(${CPU_FEATURES_DOTNET} SHARED ${CPU_FEATURES_DOTNET_HDRS} ${CPU_FEATURES_DOTNET_SRCS})
 set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES PREFIX "")
