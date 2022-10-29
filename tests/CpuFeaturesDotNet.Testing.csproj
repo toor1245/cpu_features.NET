@@ -6,7 +6,7 @@
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-        <TargetFrameworks>net5.0;netcoreapp2.1;net48</TargetFrameworks>
+        <TargetFrameworks>net5.0;netcoreapp3.1;net48</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
