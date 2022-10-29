@@ -61,7 +61,7 @@ jobs:
           }
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
@@ -79,7 +79,7 @@ jobs:
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target add_runtime_nuget_package_to_tests
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1.9.0
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
             2.1.x
