@@ -22,8 +22,4 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\src\CpuFeaturesDotNet\CpuFeaturesDotNet.csproj" />
-    </ItemGroup>
-
 </Project>

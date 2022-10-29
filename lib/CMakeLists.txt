@@ -4,7 +4,7 @@
 
 if(NOT TARGET cpu_features)
 configure_file(
-        ../cmake/cpu_features.CMakeLists.txt.in
+        ../cmake/templates/cpu_features.CMakeLists.txt.in
         ../cpu_features-download/CMakeLists.txt
 )
 
@@ -17,7 +17,6 @@ if(result)
     message(FATAL_ERROR "CMake step for cpu_features failed: ${result}")
 endif()
 
-set(BUILD_TESTING OFF)
 execute_process(
         COMMAND ${CMAKE_COMMAND} --build .
         RESULT_VARIABLE result
@@ -43,23 +42,21 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
     list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_arm_port.h)
     file(GLOB IMPL_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/impl_*.c")
     list(APPEND ${SRCS_LIST_NAME} ${IMPL_SOURCES})
-    if (PROCESSOR_IS_X86)
+    if (CPU_FEATURES_DOTNET_PROCESSOR_IS_X86)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_x86_port.h)
-    elseif (PROCESSOR_IS_ARM)
+    elseif (CPU_FEATURES_DOTNET_PROCESSOR_IS_ARM)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_arm_port.h)
-    elseif (PROCESSOR_IS_AARCH64)
+    elseif (CPU_FEATURES_DOTNET_PROCESSOR_IS_AARCH64)
         list(APPEND ${HDRS_LIST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/include/cpuinfo_aarch64_port.h)
     else ()
-        message(FATAL_ERROR "Unsupported architectures ${CMAKE_SYSTEM_PROCESSOR}")
+        message(FATAL_ERROR "Unsupported CPU_FEATURES_DOTNET_ARCH ${CMAKE_SYSTEM_PROCESSOR}")
     endif ()
 endmacro()
 
 macro(copy_to_CpuFeaturesDotNet TARGET_NAME)
-    message(${CMAKE_BINARY_DIR}/lib/${CONFIGURATION_BINARY_DIR}${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION})
-    message(${LIBRARY_ARCHITECTURE_PATH}/)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_BINARY_DIR}/lib/${CONFIGURATION_BINARY_DIR}${TARGET_NAME}.${PROCESSOR_OUTPUT_NAME}${LIBRARY_EXTENSION} ${LIBRARY_ARCHITECTURE_PATH}
+            ${CMAKE_BINARY_DIR}/lib/${CPU_FEATURES_DOTNET_CONFIG_BIN_DIR}${TARGET_NAME}.${CPU_FEATURES_DOTNET_PROCESSOR_OUTPUT_NAME}${CPU_FEATURES_DOTNET_LIBRARY_EXTENSION} ${CPU_FEATURES_DOTNET_NATIVE_DIR}
             )
 endmacro()
 
@@ -67,10 +64,12 @@ endmacro()
 # library : cpu_features_dotnet
 #
 
+set(CPU_FEATURES_DOTNET_HDRS)
+set(CPU_FEATURES_DOTNET_SRCS)
 add_cpu_features_headers_and_sources(CPU_FEATURES_DOTNET_HDRS CPU_FEATURES_DOTNET_SRCS)
 add_library(${CPU_FEATURES_DOTNET} SHARED ${CPU_FEATURES_DOTNET_HDRS} ${CPU_FEATURES_DOTNET_SRCS})
 set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES PREFIX "")
-set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES OUTPUT_NAME "${CPU_FEATURES_DOTNET}.${PROCESSOR_OUTPUT_NAME}")
+set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES OUTPUT_NAME "${CPU_FEATURES_DOTNET}.${CPU_FEATURES_DOTNET_PROCESSOR_OUTPUT_NAME}")
 set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES PUBLIC_HEADER "${CPU_FEATURES_DOTNET_HDRS}")
 setup_include_and_definitions(${CPU_FEATURES_DOTNET})
 target_link_libraries(${CPU_FEATURES_DOTNET} PUBLIC ${CMAKE_DL_LIBS})

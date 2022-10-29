@@ -1,18 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
     
     <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <LangVersion>8</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <TargetFramework>netstandard1.1</TargetFramework>
+        <RuntimeIdentifier>@CPU_FEATURES_DOTNET_RID@</RuntimeIdentifier>
+        <Platforms>x64</Platforms>
+
+        <!-- Nuget Properties -->
+        <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
+        <PackageTags>native</PackageTags>
+        <PackageOutputPath>@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@</PackageOutputPath>
+        <PackageVersion>1.0.0</PackageVersion>
+
+        <!-- CpuFeaturesDotNet compile flags -->
         <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>
         <X86 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">true</X86>
         <ARM32 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm'">true</ARM32>
         <ARM64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64'">true</ARM64>
-        <OS_WINDOWS Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</OS_WINDOWS>
         <OS_MAC Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</OS_MAC>
         <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
-        <LangVersion>8</LangVersion>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <TargetFramework>netstandard1.1</TargetFramework>
-        <Architectures>x86;x64;arm;arm64</Architectures>
-        <Platforms>AnyCPU</Platforms>
+        <OS_WINDOWS Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</OS_WINDOWS>
     </PropertyGroup>
     
     <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_WINDOWS)'=='true'">
@@ -73,10 +82,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="@NATIVE_LIB_PATH@" />
-      <EmbeddedResource Include="@NATIVE_LIB_PATH@">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+      <Content Include="@CPU_FEATURES_DOTNET_NATIVE_LIB_PATH@">
+        <PackagePath>@CPU_FEATURES_DOTNET_NATIVE_LIB_PATH@</PackagePath>
+        <Pack>true</Pack>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
