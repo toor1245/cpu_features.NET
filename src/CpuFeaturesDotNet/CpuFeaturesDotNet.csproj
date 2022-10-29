@@ -10,7 +10,7 @@
         <Title>cpu_features.NET</Title>
         <PackageId>cpu_features.NET</PackageId>
 
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.1</PackageVersion>
 
         <RepositoryType>Library</RepositoryType>
         <OutputType>Library</OutputType>
