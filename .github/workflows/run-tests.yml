@@ -91,6 +91,12 @@ jobs:
 
       - name: Clean build
         run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet clean
+        
+      - name: Search
+        run: cat src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj
+        
+      - name: Search
+        run: cat tests/CpuFeaturesDotNet.Testing.csproj
       
       - name: Create build
         run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
