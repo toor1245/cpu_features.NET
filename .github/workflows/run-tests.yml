@@ -84,7 +84,7 @@ jobs:
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target cpu_features_dotnet_runtime_package
 
       - name: Add NuGet package to tests
-        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target add_runtime_nuget_package_to_tests
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target add_nuget_package_to_tests
 
       - name: Create build
         run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
