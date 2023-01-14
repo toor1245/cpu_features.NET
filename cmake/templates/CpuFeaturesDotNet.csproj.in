@@ -1,0 +1,118 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <LangVersion>8.0</LangVersion>
+    <RuntimeIdentifiers>linux-x64;osx-x64;win-x64</RuntimeIdentifiers>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>@CPU_FEATURES_DOTNET_NAME@</AssemblyName>
+    <Version>@CPU_FEATURES_DOTNET_VERSION@</Version>
+
+    <!-- Nuget Properties -->
+    <PackageId>@CPU_FEATURES_DOTNET_NAME@</PackageId>
+    <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
+    <PackageOutputPath>@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@</PackageOutputPath>
+
+    <!-- Pack Option -->
+    <Title>@CPU_FEATURES_DOTNET_NAME@ v@CPU_FEATURES_DOTNET_VERSION@</Title>
+
+    <!-- Signing -->
+    <SignAssembly>false</SignAssembly>
+    <PublicSign>false</PublicSign>
+    <DelaySign>false</DelaySign>
+
+    <!-- CpuFeaturesDotNet compile flags -->
+    <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>
+    <X86 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">true</X86>
+    <ARM32 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm'">true</ARM32>
+    <ARM64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64'">true</ARM64>
+    <OS_MAC Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</OS_MAC>
+    <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
+    <OS_WINDOWS Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</OS_WINDOWS>
+  </PropertyGroup>
+
+    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_WINDOWS)'=='true'">
+      <DefineConstants>X86;OS_WINDOWS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_LINUX)'=='true'">
+      <DefineConstants>X86;OS_LINUX</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_MAC)'=='true'">
+      <DefineConstants>X86;OS_MAC</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_WINDOWS)'=='true'">
+      <DefineConstants>X64;OS_WINDOWS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_LINUX)'=='true'">
+      <DefineConstants>X64;OS_LINUX</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_MAC)'=='true'">
+      <DefineConstants>X64;OS_MAC</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_WINDOWS)'=='true'">
+      <DefineConstants>ARM32;OS_WINDOWS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_LINUX)'=='true'">
+      <DefineConstants>ARM32;OS_LINUX</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_MAC)'=='true'">
+      <DefineConstants>ARM32;OS_MAC</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_WINDOWS)'=='true'">
+      <DefineConstants>ARM64;OS_WINDOWS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_LINUX)'=='true'">
+      <DefineConstants>ARM64;OS_LINUX</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_MAC)'=='true'">
+      <DefineConstants>ARM64;OS_MAC</DefineConstants>
+    </PropertyGroup>
+
+  <!-- Validate at least one runtime package has been generated -->
+  <Target Name="ValidateRuntimePack" BeforeTargets="GenerateNuspec">
+    <ItemGroup>
+      <RuntimeLinuxX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.linux-x64.*.nupkg"/>
+      <RuntimeOsxX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.osx-x64.*.nupkg"/>
+      <RuntimeWinX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.win-x64.*.nupkg"/>
+    </ItemGroup>
+    <Message Importance="high" Text="Package CpuFeaturesDotNet.runtime.linux-x64: found" Condition="Exists('@(RuntimeLinuxX64)')"/>
+    <Message Importance="high" Text="-------  $(OS)  "/>
+    <Message Importance="high" Text="Package @CPU_FEATURES_DOTNET_NAME@.runtime.linux-x64: not found" Condition="!Exists('@(RuntimeLinuxX64)')"/>
+    <Message Importance="high" Text="Package @CPU_FEATURES_DOTNET_NAME@.runtime.osx-x64: found" Condition="Exists('@(RuntimeOsxX64)')"/>
+    <Message Importance="high" Text="Package @CPU_FEATURES_DOTNET_NAME@.runtime.osx-x64: not found" Condition="!Exists('@(RuntimeOsxX64)')"/>
+    <Message Importance="high" Text="Package @CPU_FEATURES_DOTNET_NAME@.runtime.win-x64: found" Condition="Exists('@(RuntimeWinX64)')"/>
+    <Message Importance="high" Text="Package @CPU_FEATURES_DOTNET_NAME@.runtime.win-x64: not found" Condition="!Exists('@(RuntimeWinX64)')"/>
+    <Error Text="You must locally 'dotnet pack' at least one CpuFeaturesDotNet.runtime.{rid} Project." Condition="!Exists('@(RuntimeLinuxX64)') AND !Exists('@(RuntimeOsxX64)') AND !Exists('@(RuntimeWinX64)')"/>
+  </Target>
+
+  <!-- Need to add required runtime dependencies so Meta-Project will pull runtime Nuget(s) -->
+  <PropertyGroup>
+    <RestoreSources>@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@;$(RestoreSources);https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>CpuFeaturesDotNet.Testing</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="runtime.win10-x64.Microsoft.Net.Native.SharedLibrary" Version="2.2.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <RuntimeLinuxX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.linux-x64.*.nupkg"/>
+    <RuntimeOsxX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.osx-x64.*.nupkg"/>
+    <RuntimeWinX64 Include="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@/@CPU_FEATURES_DOTNET_NAME@.runtime.win-x64.*.nupkg"/>
+    <PackageReference Include="@CPU_FEATURES_DOTNET_NAME@.runtime.linux-x64" Version="@CPU_FEATURES_DOTNET_VERSION@" Condition="Exists('@(RuntimeLinuxX64)')"/>
+    <PackageReference Include="@CPU_FEATURES_DOTNET_NAME@.runtime.osx-x64" Version="@CPU_FEATURES_DOTNET_VERSION@" Condition="Exists('@(RuntimeOsxX64)')"  />
+    <PackageReference Include="@CPU_FEATURES_DOTNET_NAME@.runtime.win-x64" Version="@CPU_FEATURES_DOTNET_VERSION@" Condition="Exists('@(RuntimeWinX64)')"  />
+  </ItemGroup>
+</Project>

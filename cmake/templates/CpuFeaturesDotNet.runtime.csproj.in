@@ -1,97 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <LangVersion>8</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <TargetFramework>netstandard1.1</TargetFramework>
         <RuntimeIdentifier>@CPU_FEATURES_DOTNET_RID@</RuntimeIdentifier>
-        <Platforms>x64</Platforms>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <Version>@CPU_FEATURES_DOTNET_VERSION@</Version>
+        <AssemblyName>@CPU_FEATURES_DOTNET_NAME@-native</AssemblyName>
 
         <!-- Nuget Properties -->
+        <PackageId>@CPU_FEATURES_DOTNET_RUNTIME@</PackageId>
         <Description>.NET version of google/cpu_features to get cpu info at runtime</Description>
         <PackageTags>native</PackageTags>
         <PackageOutputPath>@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@</PackageOutputPath>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>@CPU_FEATURES_DOTNET_VERSION@</PackageVersion>
 
-        <!-- CpuFeaturesDotNet compile flags -->
-        <X64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">true</X64>
-        <X86 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">true</X86>
-        <ARM32 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm'">true</ARM32>
-        <ARM64 Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64'">true</ARM64>
-        <OS_MAC Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</OS_MAC>
-        <OS_LINUX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</OS_LINUX>
-        <OS_WINDOWS Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</OS_WINDOWS>
+        <!-- Signing -->
+        <SignAssembly>false</SignAssembly>
+        <PublicSign>false</PublicSign>
+        <DelaySign>false</DelaySign>
     </PropertyGroup>
-    
-    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_WINDOWS)'=='true'">
-        <DefineConstants>X86;OS_WINDOWS</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_LINUX)'=='true'">
-        <DefineConstants>X86;OS_LINUX</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(X86)'=='true' AND '$(OS_MAC)'=='true'">
-        <DefineConstants>X86;OS_MAC</DefineConstants>
-    </PropertyGroup>
-    
-    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_WINDOWS)'=='true'">
-        <DefineConstants>X64;OS_WINDOWS</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_LINUX)'=='true'">
-        <DefineConstants>X64;OS_LINUX</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(X64)'=='true' AND '$(OS_MAC)'=='true'">
-        <DefineConstants>X64;OS_MAC</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_WINDOWS)'=='true'">
-        <DefineConstants>ARM32;OS_WINDOWS</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_LINUX)'=='true'">
-        <DefineConstants>ARM32;OS_LINUX</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(ARM32)'=='true' AND '$(OS_MAC)'=='true'">
-        <DefineConstants>ARM32;OS_MAC</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_WINDOWS)'=='true'">
-        <DefineConstants>ARM64;OS_WINDOWS</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_LINUX)'=='true'">
-        <DefineConstants>ARM64;OS_LINUX</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(ARM64)'=='true' AND '$(OS_MAC)'=='true'">
-        <DefineConstants>ARM64;OS_MAC</DefineConstants>
-    </PropertyGroup>
-    
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <Optimize>@IS_OPTIMIZE@</Optimize>
-        <PlatformTarget>@PLATFORM_TARGET@</PlatformTarget>
-        <Prefer32bit>@PREFER_32BIT@</Prefer32bit>
-        <DebugType>portable</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-      <DebugType>none</DebugType>
-    </PropertyGroup>
-    <ItemGroup>
-      <PackageReference Include="runtime.win10-x64.Microsoft.Net.Native.SharedLibrary" Version="2.2.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
-    </ItemGroup>
 
     <ItemGroup>
-      <Content Include="@CPU_FEATURES_DOTNET_NATIVE_LIB_PATH@">
-        <PackagePath>@CPU_FEATURES_DOTNET_NATIVE_LIB_PATH@</PackagePath>
+      <Content Include="
+       $<TARGET_FILE:cpu_features_dotnet>
+      ">
+        <PackagePath>runtimes/@CPU_FEATURES_DOTNET_RID@/native/%(Filename)%(Extension)</PackagePath>
         <Pack>true</Pack>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-            <_Parameter1>CpuFeaturesDotNet.Testing</_Parameter1>
-        </AssemblyAttribute>
     </ItemGroup>
 </Project>

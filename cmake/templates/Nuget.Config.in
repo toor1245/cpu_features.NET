@@ -3,7 +3,7 @@
     <!-- Default Package Sources; works like the 'packageSources' section of NuGet.Config files. -->
     <!-- This collection cannot be deleted or modified but can be disabled/enabled by users. -->
     <packageSources>
-        <add key="local" value="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@" />
+        <add key="cpu_features_local" value="@CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH@" />
         <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
     </packageSources>
 </configuration>
