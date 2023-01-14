@@ -79,6 +79,9 @@ jobs:
 
       - name: Build Project
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }}
+        
+      - name: Clear NuGet cache
+        run: dotnet nuget locals all --clear
 
       - name: Create NuGet package
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target cpu_features_dotnet_runtime_package
