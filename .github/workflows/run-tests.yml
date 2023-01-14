@@ -89,6 +89,9 @@ jobs:
       - name: Add NuGet package to tests
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }} --target add_nuget_package_to_tests
 
+      - name: Clean build
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet clean
+      
       - name: Create build
         run: ${{ runner.os!='Windows'&&'sudo '||''}}dotnet build "src/CpuFeaturesDotNet" -c ${{ matrix.build-type }} --force
 
