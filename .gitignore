@@ -400,7 +400,3 @@ Desktop.ini
 
 .idea/
 cmake-build*/
-src/CpuFeaturesDotNet/Native/Platforms/
-
-!src/CpuFeaturesDotnet/X86/
-!src/CpuFeaturesDotNet/Native/Arm/

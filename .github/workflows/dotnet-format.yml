@@ -23,11 +23,29 @@ jobs:
       - name: Setup .NET @ Latest
         uses: actions/setup-dotnet@v1.7.2
 
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Configure Project
+        run: sudo cmake -Bcmake-build-release -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release .
+
+      - name: Build Project
+        run: sudo cmake --build cmake-build-release --config=Release
+
+      - name: Create local runtime NuGet package
+        run: sudo cmake --build cmake-build-release --config=Release --target cpu_features_dotnet_runtime_package
+
+      - name: Create local NuGet package
+        run: sudo cmake --build cmake-build-release --config=Release --target cpu_features_dotnet_package
+
+      - name: Add NuGet package to tests
+        run: sudo cmake --build cmake-build-release --config=Release --target add_nuget_package_to_tests
+
       - name: Setup dotnet-format tool
-        run: dotnet tool install --global dotnet-format --version 4.1.131201
+        run: sudo dotnet tool install --global dotnet-format --version 4.1.131201
 
       - name: Check CpuFeaturesDotNet
-        run: dotnet format "src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj" --verify-no-changes --verbosity diagnostic
+        run: sudo dotnet format "src/CpuFeaturesDotNet/CpuFeaturesDotNet.csproj" --verify-no-changes --verbosity diagnostic
         
       - name: Check CpuFeaturesDotNet.UnitTesting
-        run: dotnet format "tests/CpuFeaturesDotNet.Testing.csproj" --verify-no-changes --verbosity diagnostic
+        run: sudo dotnet format "tests/CpuFeaturesDotNet.Testing.csproj" --verify-no-changes --verbosity diagnostic

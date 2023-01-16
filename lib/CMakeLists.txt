@@ -53,13 +53,6 @@ macro(add_cpu_features_headers_and_sources HDRS_LIST_NAME SRCS_LIST_NAME)
     endif ()
 endmacro()
 
-macro(copy_to_CpuFeaturesDotNet TARGET_NAME)
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_BINARY_DIR}/lib/${CPU_FEATURES_DOTNET_CONFIG_BIN_DIR}${TARGET_NAME}.${CPU_FEATURES_DOTNET_PROCESSOR_OUTPUT_NAME}${CPU_FEATURES_DOTNET_LIBRARY_EXTENSION} ${CPU_FEATURES_DOTNET_NATIVE_DIR}
-            )
-endmacro()
-
 #
 # library : cpu_features_dotnet
 #
@@ -69,7 +62,7 @@ set(CPU_FEATURES_DOTNET_SRCS)
 add_cpu_features_headers_and_sources(CPU_FEATURES_DOTNET_HDRS CPU_FEATURES_DOTNET_SRCS)
 add_library(${CPU_FEATURES_DOTNET} SHARED ${CPU_FEATURES_DOTNET_HDRS} ${CPU_FEATURES_DOTNET_SRCS})
 set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES PREFIX "")
-set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES OUTPUT_NAME "${CPU_FEATURES_DOTNET}.${CPU_FEATURES_DOTNET_PROCESSOR_OUTPUT_NAME}")
+set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES OUTPUT_NAME "${CPU_FEATURES_DOTNET}")
 set_target_properties(${CPU_FEATURES_DOTNET} PROPERTIES PUBLIC_HEADER "${CPU_FEATURES_DOTNET_HDRS}")
 setup_include_and_definitions(${CPU_FEATURES_DOTNET})
 target_link_libraries(${CPU_FEATURES_DOTNET} PUBLIC ${CMAKE_DL_LIBS})
@@ -79,5 +72,3 @@ target_include_directories(${CPU_FEATURES_DOTNET}
         PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${CPU_FEATURES_DOTNET}>
         )
 add_library(CpuFeature::${CPU_FEATURES_DOTNET} ALIAS ${CPU_FEATURES_DOTNET})
-
-copy_to_CpuFeaturesDotNet(${CPU_FEATURES_DOTNET})
