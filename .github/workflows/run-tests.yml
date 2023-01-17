@@ -75,7 +75,7 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@master
  
       - name: Configure Project
-        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake ${{ matrix.platform.cmake-flags }} -Bcmake-build-release -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} .
+        run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake . ${{ matrix.platform.cmake-flags }} -Bcmake-build-release -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
 
       - name: Build Project
         run: ${{ runner.os!='Windows'&&'sudo '||''}}cmake --build cmake-build-release --config=${{ matrix.build-type }}
