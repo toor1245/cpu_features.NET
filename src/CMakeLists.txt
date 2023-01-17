@@ -6,9 +6,7 @@ else()
     message(STATUS "Found dotnet Program: ${DOTNET_CLI}")
 endif()
 
-# Must be an absolute path
-option(CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/dotnet/packages")
-
+set(CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/dotnet/packages" CACHE STRING "Path where Nuget package will be generated (Must be absolute)")
 file(MAKE_DIRECTORY ${CPU_FEATURES_DOTNET_PACKAGE_OUTPUT_PATH})
 
 #
