@@ -9,8 +9,6 @@
 
 .NET version of [google/cpu_features](https://github.com/google/cpu_features) for getting cpu info at runtime.
 
-_At the momment, cpu_features.NET nuget deploy is still in progress, so for now, you can build locally: [Local-Nuget-package-building](https://github.com/toor1245/cpu_features.NET/wiki/Local-Nuget-package-building)_
-
 ## Table of Contents
 
 - [Design Rationale](#rationale)
