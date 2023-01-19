@@ -1,7 +1,7 @@
 # cpu_features.NET
 
-[![NuGet](https://img.shields.io/nuget/v/cpu_features.NET.svg)](https://www.nuget.org/packages/cpu_features.NET/) 
-[![Downloads](https://img.shields.io/nuget/dt/cpu_features.NET.svg)](https://www.nuget.org/packages/cpu_features.NET/)
+[![NuGet](https://img.shields.io/nuget/v/CpuFeaturesDotNet.svg)](https://www.nuget.org/packages/CpuFeaturesDotNet/) 
+[![Downloads](https://img.shields.io/nuget/dt/CpuFeaturesDotNet.svg)](https://www.nuget.org/packages/CpuFeaturesDotNet/)
 [![Stars](https://img.shields.io/github/stars/toor1245/cpu_features.NET?color=brightgreen)](https://github.com/toor1245/cpu_features.NET/stargazers)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/toor1245/cpu_features.NET/blob/main/LICENSE)
 
