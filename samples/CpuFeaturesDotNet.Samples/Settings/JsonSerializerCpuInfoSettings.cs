@@ -15,16 +15,15 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CpuFeaturesDotNet.Samples.Settings
-{
-    public static class JsonSerializerCpuInfoSettings
-    {
-        public static JsonSerializerSettings Settings { get; } = new JsonSerializerSettings();
+namespace CpuFeaturesDotNet.Samples.Settings;
 
-        static JsonSerializerCpuInfoSettings()
-        {
-            Settings.Converters.Add(new StringEnumConverter());
-            Settings.Formatting = Formatting.Indented;
-        }
+public static class JsonSerializerCpuInfoSettings
+{
+    public static JsonSerializerSettings Settings { get; } = new JsonSerializerSettings();
+
+    static JsonSerializerCpuInfoSettings()
+    {
+        Settings.Converters.Add(new StringEnumConverter());
+        Settings.Formatting = Formatting.Indented;
     }
 }

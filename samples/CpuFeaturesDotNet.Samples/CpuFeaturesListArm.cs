@@ -17,24 +17,23 @@ using CpuFeaturesDotNet.AArch32;
 using CpuFeaturesDotNet.Samples.Extensions;
 using Xunit.Abstractions;
 
-namespace CpuFeaturesDotNet.Samples
+namespace CpuFeaturesDotNet.Samples;
+
+public class CpuFeaturesListArm : Runner
 {
-    public class CpuFeaturesListArm : Runner
+    private readonly ITestOutputHelper _output;
+
+    public CpuFeaturesListArm(ITestOutputHelper output)
     {
-        private readonly ITestOutputHelper _output;
+        _output = output;
+    }
 
-        public CpuFeaturesListArm(ITestOutputHelper output)
-        {
-            _output = output;
-        }
-
-        protected override void Run()
-        {
-            if (RuntimeInformation.OSArchitecture != Architecture.Arm) return;
-            var armInfo = ArmInfo.GetArmInfo();
-            var armCpuId = ArmInfo.GetArmCpuId(armInfo);
-            _output.WriteLine(armInfo.ToJsonPretty());
-            _output.WriteLine(armCpuId.ToString());
-        }
+    protected override void Run()
+    {
+        if (RuntimeInformation.OSArchitecture != Architecture.Arm) return;
+        var armInfo = ArmInfo.GetArmInfo();
+        var armCpuId = ArmInfo.GetArmCpuId(armInfo);
+        _output.WriteLine(armInfo.ToJsonPretty());
+        _output.WriteLine(armCpuId.ToString());
     }
 }

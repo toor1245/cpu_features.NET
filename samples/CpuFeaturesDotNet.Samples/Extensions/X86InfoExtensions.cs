@@ -16,13 +16,12 @@ using CpuFeaturesDotNet.Samples.Settings;
 using CpuFeaturesDotNet.X86;
 using Newtonsoft.Json;
 
-namespace CpuFeaturesDotNet.Samples.Extensions
+namespace CpuFeaturesDotNet.Samples.Extensions;
+
+public static class X86InfoExtensions
 {
-    public static class X86InfoExtensions
+    public static string ToJsonPretty(this X86Info cpuInfoX86)
     {
-        public static string ToJsonPretty(this X86Info cpuInfoX86)
-        {
-            return JsonConvert.SerializeObject(cpuInfoX86, JsonSerializerCpuInfoSettings.Settings);
-        }
+        return JsonConvert.SerializeObject(cpuInfoX86, JsonSerializerCpuInfoSettings.Settings);
     }
 }
