@@ -16,13 +16,12 @@ using CpuFeaturesDotNet.AArch32;
 using CpuFeaturesDotNet.Samples.Settings;
 using Newtonsoft.Json;
 
-namespace CpuFeaturesDotNet.Samples.Extensions
+namespace CpuFeaturesDotNet.Samples.Extensions;
+
+public static class ArmInfoExtensions
 {
-    public static class ArmInfoExtensions
+    public static string ToJsonPretty(this ArmInfo cpuInfoX86)
     {
-        public static string ToJsonPretty(this ArmInfo cpuInfoX86)
-        {
-            return JsonConvert.SerializeObject(cpuInfoX86, JsonSerializerCpuInfoSettings.Settings);
-        }
+        return JsonConvert.SerializeObject(cpuInfoX86, JsonSerializerCpuInfoSettings.Settings);
     }
 }

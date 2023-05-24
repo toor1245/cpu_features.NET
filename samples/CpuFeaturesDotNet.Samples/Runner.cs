@@ -14,16 +14,15 @@
 
 using Xunit;
 
-namespace CpuFeaturesDotNet.Samples
-{
-    public class Runner
-    {
-        [Fact]
-        public void StartRunner()
-        {
-            Run();
-        }
+namespace CpuFeaturesDotNet.Samples;
 
-        protected virtual void Run() { }
+public class Runner
+{
+    [Fact]
+    public void StartRunner()
+    {
+        Run();
     }
+
+    protected virtual void Run() { }
 }
