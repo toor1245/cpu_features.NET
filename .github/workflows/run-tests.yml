@@ -57,7 +57,7 @@ jobs:
           } 
         - { 
             name: 'Mac OS amd64',
-            os: macos-13
+            os: macos-latest
           }
     steps:
       - name: Checkout repository
